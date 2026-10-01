@@ -35,7 +35,6 @@ QR_ON/
 
 ```mermaid
 flowchart TD
-  visitor[방문자] --> browser[웹 브라우저에서 index.html 실행]
 
   subgraph page[브라우저 안의 페이지]
     html[HTML 화면 구조] --> slots[메뉴 영역과 안내 영역]
