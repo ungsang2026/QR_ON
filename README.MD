@@ -29,6 +29,40 @@ QR_ON/
 
 현재 화면 디자인(CSS), 안내 내용(JavaScript), 페이지 구조(HTML)가 모두 `index.html`에 들어 있습니다. 별도의 라이브러리나 빌드 도구는 사용하지 않습니다.
 
+## 페이지 아키텍처
+
+이 페이지는 브라우저에서 바로 실행되는 간단한 구조입니다. 별도의 서버 프로그램이나 데이터베이스 없이 `index.html` 안의 안내 데이터를 화면에 표시합니다.
+
+```mermaid
+flowchart TD
+  visitor[방문자] --> browser[웹 브라우저에서 index.html 실행]
+
+  subgraph page[브라우저 안의 페이지]
+    html[HTML 화면 구조] --> slots[메뉴 영역과 안내 영역]
+    css[CSS 디자인과 모바일 화면 대응] --> slots
+    data[menus 배열 안내 데이터] --> render[render 함수가 화면 생성]
+    slots --> render
+    search[검색어 입력] --> events[JavaScript 이벤트 처리]
+    choose[메뉴 선택] --> events
+    events --> state[검색어와 선택 메뉴 갱신]
+    state --> render
+    render --> display[검색 결과와 선택 메뉴 표시]
+    expand[안내 제목 클릭] --> detail[상세 내용 펼치기 또는 접기]
+  end
+
+  browser --> page
+  browser -. 인터넷 연결로 이미지 불러오기 .-> images[양산시 관광 웹사이트 캐릭터 이미지]
+```
+
+### 화면이 동작하는 순서
+
+1. 브라우저가 HTML 구조와 CSS 디자인을 읽어 화면을 준비합니다.
+2. JavaScript의 `menus` 배열에 적힌 안내 데이터를 `render()` 함수가 메뉴와 내용 영역에 표시합니다.
+3. 검색어를 입력하거나 메뉴를 선택하면 화면에 필요한 상태를 바꾸고 다시 그립니다.
+4. 안내 제목을 누르면 해당 상세 설명만 펼치거나 접습니다.
+
+검색과 메뉴 선택은 JavaScript가 관리하고, 상세 설명 펼치기는 화면에서 바로 열고 닫습니다. 캐릭터 이미지만 인터넷을 통해 외부 웹사이트에서 가져옵니다.
+
 ## 안내 내용 수정하기
 
 `index.html` 아래쪽에서 `const menus = [`를 찾으면 메뉴와 안내 데이터를 확인할 수 있습니다. 메뉴는 `title`(메뉴 이름), `description`(메뉴 설명), `items`(상세 안내 목록)으로 이루어져 있습니다. 각 상세 안내는 `title`과 `detail`로 구성됩니다.
