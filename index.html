@@ -45,8 +45,7 @@
 
     .section-title { font-size: 1rem; font-weight: 800; color: var(--primary); margin: 24px 0 12px 0; display: flex; align-items: center; gap: 8px; }
 
-    /* 대분류 4개 카드로 확장 */
-    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .cat-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 14px; padding: 16px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
     .cat-card i { font-size: 1.6rem; margin-bottom: 8px; display: block; color: var(--sub-text); }
     .cat-card strong { display: block; font-size: 0.85rem; color: var(--text); }
@@ -102,7 +101,7 @@
   <header>
     <div class="logo-tag"><i class="fa-solid fa-qrcode"></i> 원스톱 민원안내 센터</div>
     <h1>QR_ON! 인허가 원스톱 안내</h1>
-    <p>신규·변경·특수민원(푸드트럭/한시적영업)·정부24 바로연결</p>
+    <p>영업 인허가 절차와 조리사·이용사·미용사 면허발급 안내</p>
   </header>
 
   <div class="main-container">
@@ -116,46 +115,46 @@
       <div id="searchDropdown" class="search-dropdown"></div>
     </div>
 
-    <!-- 대분류 선택 (4개 분야) -->
+    <!-- 인허가 유형 선택 -->
     <div class="section-title">
-      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 분야를 선택하세요
+      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 안내 분야를 선택하세요
     </div>
     
     <div class="category-grid">
-      <div class="cat-card" onclick="selectCategory('food', this)">
-        <i class="fa-solid fa-utensils"></i>
+      <div class="cat-card main-category" onclick="selectMainCategory('business', this)">
+        <i class="fa-solid fa-store"></i>
         <div>
-          <strong>식품위생 업종</strong>
-          <span>시행령 제21조 영업 종류</span>
+          <strong>영업 인허가 안내</strong>
+          <span>허가 · 등록 · 신고 및 업종별 안내</span>
         </div>
       </div>
-      <div class="cat-card" onclick="selectCategory('health', this)">
-        <i class="fa-solid fa-capsules"></i>
+      <div class="cat-card main-category" onclick="selectMainCategory('license', this)">
+        <i class="fa-solid fa-id-card"></i>
         <div>
-          <strong>건강기능식품</strong>
-          <span>판매업 안내</span>
+          <strong>면허발급</strong>
+          <span>조리사 · 이용사 · 미용사 발급·재발급</span>
         </div>
       </div>
-      <div class="cat-card" onclick="selectCategory('public', this)">
-        <i class="fa-solid fa-pump-soap"></i>
-        <div>
-          <strong>공중위생 업종</strong>
-          <span>법 제2조 6개 영업</span>
-        </div>
+    </div>
+
+    <div id="applicationTypeArea" class="category-grid" style="display:none; grid-template-columns: repeat(3, 1fr); margin-top: 12px;">
+      <div class="cat-card" onclick="selectApplicationType('permit', this)">
+        <i class="fa-solid fa-stamp"></i>
+        <div><strong>허가</strong><span>허가 대상 영업</span></div>
       </div>
-      <!-- 특수민원 -->
-      <div class="cat-card special-card" onclick="selectCategory('special', this)">
-        <i class="fa-solid fa-truck-monster" style="color: var(--special);"></i>
-        <div>
-          <strong style="color: var(--special);">특수민원</strong>
-          <span>푸드트럭 · 한시적영업</span>
-        </div>
+      <div class="cat-card" onclick="selectApplicationType('registration', this)">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <div><strong>등록</strong><span>등록 대상 영업</span></div>
+      </div>
+      <div class="cat-card" onclick="selectApplicationType('report', this)">
+        <i class="fa-solid fa-file-circle-check"></i>
+        <div><strong>신고</strong><span>신고 대상 영업</span></div>
       </div>
     </div>
 
     <aside class="legal-note">
       <strong>법령 안내</strong><br>
-      식품위생 분야는 식품위생법 시행령 제21조의 영업 종류와 세부 유형을, 공중위생 분야는 공중위생관리법 제2조의 영업 종류를 기준으로 분류했습니다.
+      영업 인허가 안내에서는 허가·등록·신고 유형을 먼저 선택한 뒤 하위 업종을 고르세요. 면허발급 안내에서는 조리사·이용사·미용사 면허의 신규발급과 재발급 서류를 확인할 수 있습니다.
       아래 내용은 영업 준비를 돕기 위한 법령 요약이며, 개별 인허가에 대한 확정적 유권해석이나 법률 자문은 아닙니다.
       업종·시설·지역별 조건과 법령 개정에 따라 제출서류 및 절차가 달라질 수 있으므로 계약·공사·영업 전에 관할 시·군·구에 확인하세요.
       법령 문구와 시행일은 국가법령정보센터 원문을 기준으로 확인하시기 바랍니다.
@@ -167,9 +166,11 @@
     </aside>
 
     <div id="subBizArea" class="sub-biz-area">
-      <label style="font-size: 0.85rem; font-weight: 700; color: var(--sub-text); display: block; margin-bottom: 8px;">상세 업종/민원 선택</label>
-      <select id="subBizSelect" class="sub-select" onchange="renderResult(this.value)"></select>
+      <label id="subBizLabel" for="subBizSelect" style="font-size: 0.85rem; font-weight: 700; color: var(--sub-text); display: block; margin-bottom: 8px;">하위 업종 선택</label>
+      <select id="subBizSelect" class="sub-select" onchange="renderSelection(this.value)"></select>
     </div>
+
+    <div id="licenseResult" class="result-container"></div>
 
     <!-- 원스톱 결과 출력 카드 -->
     <div id="resultContainer" class="result-container">
@@ -319,6 +320,7 @@
       return definitions.map(definition => ({
         id: definition.id,
         cat: category,
+        applicationType: definition.applicationType || 'report',
         lawKey: category,
         law: definition.law,
         name: definition.name,
@@ -348,12 +350,14 @@
     const foodCatalog = [
       {
         id: 'food_manufacturing', law: '식품위생법 시행령 제21조제1호', name: '식품제조·가공업',
+        applicationType: 'registration',
         keywords: ['식품제조', '식품가공', '공장', '식품제조가공'], icon: 'fa-industry',
         facility: ['제조·가공 공정에 맞는 작업장과 기계·기구를 갖추고 원료와 완제품의 교차오염을 방지', '원료·제품 보관, 세척·소독, 급수·배수 등은 식품위생법 시행규칙 별표 14 기준 확인'],
         rules: ['제조 품목과 공정에 적용되는 품목제조보고, 표시기준, 자가품질검사 등 의무를 확인하세요.', '원료 입고부터 제조·보관·출고까지 위생 및 추적관리가 가능하도록 기록을 관리하세요.']
       },
       {
         id: 'food_additive_manufacturing', law: '식품위생법 시행령 제21조제3호', name: '식품첨가물제조업',
+        applicationType: 'registration',
         keywords: ['식품첨가물', '첨가물 제조', '감미료', '향료'], icon: 'fa-flask',
         facility: ['제조하려는 식품첨가물의 유형과 공정에 적합한 작업장·설비 및 원료 보관공간 확보', '식품첨가물 제조업에 적용되는 시설기준과 품목별 규격을 별도로 확인'],
         rules: ['식품첨가물의 기준·규격, 표시 및 사용기준에 적합한 제품을 제조·관리하세요.', '원료와 제품의 오인·혼입을 막고 품질·위생 관련 기록을 관리하세요.']
@@ -402,6 +406,7 @@
       },
       {
         id: 'food_irradiation', law: '식품위생법 시행령 제21조제6호가목', name: '식품조사처리업',
+        applicationType: 'permit',
         keywords: ['식품조사처리', '식품 방사선 조사', '조사처리'], icon: 'fa-radiation',
         documents: ['방사선 조사시설·안전 관련 관계 법령상 허가·검사자료(해당 시)'],
         facility: ['식품조사처리 설비와 차폐·안전시설 등 해당 영업에 적용되는 시설기준 확인', '식품위생 관계 법령 외 방사선 안전 관련 법령의 허가·검사 요건도 사전 확인'],
@@ -415,24 +420,28 @@
       },
       {
         id: 'food_container_packaging', law: '식품위생법 시행령 제21조제7호가목', name: '용기·포장지제조업',
+        applicationType: 'registration',
         keywords: ['용기제조', '포장지제조', '식품포장재', '식품용기', '포장재'], icon: 'fa-box',
         facility: ['식품과 직접 접촉하는 용기·포장재의 제조공정·원료를 위생적으로 관리', '식품용 기구·용기·포장 기준에 맞는 시험·품질관리 방법 확인'],
         rules: ['식품용 기구·용기·포장의 기준·규격에 적합한 원료와 제품을 관리하세요.', '제품 재질·용도 표시 및 품질 확인 자료를 유지하고 부적합 제품 유통을 방지하세요.']
       },
       {
         id: 'food_pottery', law: '식품위생법 시행령 제21조제7호나목', name: '옹기류제조업',
+        applicationType: 'registration',
         keywords: ['옹기류', '옹기 제조', '도자기 식기', '식품용 도자기'], icon: 'fa-jar',
         facility: ['식품 보관·조리에 사용하는 옹기류 제조에 적합한 작업공간과 원료 관리시설 확보', '식품용 기구·용기 기준에 따른 유해물질 용출 등 안전성 관리 확인'],
         rules: ['식품용으로 제조·표시하는 제품은 해당 기구·용기 기준·규격 및 안전성 요건을 준수하세요.', '식품용이 아닌 제품과 구분하고 제품 용도·품질 정보를 정확히 관리하세요.']
       },
       {
         id: 'food_short_night', law: '식품위생법 시행령 제21조제8호다목', name: '단란주점영업',
+        applicationType: 'permit',
         keywords: ['단란주점', '단란주점영업', '유흥주점과 차이'], icon: 'fa-martini-glass',
         facility: ['영업장 구조·시설과 건축물 용도가 단란주점 허가 기준에 맞는지 계약 전에 관할 기관 확인', '소방·안전 및 영업장 면적·구획 등 개별 허가조건 확인'],
         rules: ['단란주점영업은 식품접객업 중 허가 대상이므로 영업 전 허가를 받아야 합니다.', '청소년 출입·고용, 주류 및 접객행위 관련 제한과 허가조건을 준수하세요.']
       },
       {
         id: 'food_entertainment', law: '식품위생법 시행령 제21조제8호라목', name: '유흥주점영업',
+        applicationType: 'permit',
         keywords: ['유흥주점', '유흥주점영업', '유흥업소'], icon: 'fa-champagne-glasses',
         facility: ['영업장 구조·시설과 건축물 용도가 유흥주점 허가 기준에 맞는지 관할 기관에 사전 확인', '소방·안전, 영업장 면적·구획 및 허가조건을 별도로 확인'],
         rules: ['유흥주점영업은 식품접객업 중 허가 대상이므로 영업 전 허가를 받아야 합니다.', '청소년 출입·고용, 접객행위 및 영업시간 등 관련 제한과 허가조건을 준수하세요.']
@@ -457,6 +466,7 @@
       },
       {
         id: 'food_shared_kitchen', law: '식품위생법 시행령 제21조제9호', name: '공유주방 운영업',
+        applicationType: 'registration',
         keywords: ['공유주방', '공유주방운영', '주방대여', '배달전문주방'], icon: 'fa-kitchen-set',
         facility: ['여러 영업자가 함께 사용할 수 있도록 작업공간·시설·설비를 구획하고 교차오염 방지 체계 마련', '공유주방 운영자와 입주 영업자가 각각 갖춰야 할 등록·신고·시설기준 구분 확인'],
         rules: ['공유주방 운영업의 등록 요건과 이용 영업자의 개별 영업신고 의무를 각각 확인하세요.', '공용시설의 청소·소독, 이용자·식품·기구 관리 및 사고·오염 대응 절차를 마련하세요.']
@@ -515,7 +525,7 @@
     const db = [
       // === [특수민원] 푸드트럭 소재지 추가 ===
       {
-        id: 'food_truck_add', cat: 'special', lawKey: 'food', law: '식품위생법 시행령 제21조 및 제26조, 시행규칙 제42조', name: '음식판매자동차(푸드트럭) 영업장소 추가 신고',
+        id: 'food_truck_add', cat: 'special', applicationType: 'report', lawKey: 'food', law: '식품위생법 시행령 제21조 및 제26조, 시행규칙 제42조', name: '음식판매자동차(푸드트럭) 영업장소 추가 신고',
         keywords: ['푸드트럭', '소재지추가', '장소추가', '음식판매자동차', '축제', '행사장'], icon: 'fa-truck-monster',
         docs: [
           '영업장소 추가 관련 변경신고서 및 기존 영업신고증',
@@ -538,7 +548,7 @@
 
       // === [특수민원] 즉석판매제조가공업 한시적 영업신고 ===
       {
-        id: 'food_temp_instant', cat: 'special', lawKey: 'food', law: '식품위생법 시행규칙 제42조 및 관련 별표', name: '즉석판매제조·가공업 한시적 영업 (축제·박람회)',
+        id: 'food_temp_instant', cat: 'special', applicationType: 'report', lawKey: 'food', law: '식품위생법 시행규칙 제42조 및 관련 별표', name: '즉석판매제조·가공업 한시적 영업 (축제·박람회)',
         keywords: ['한시적', '한시적영업', '즉석판매', '박람회', '지역축제', '행사'], icon: 'fa-tent',
         docs: [
           '관할 기관이 안내하는 영업신고서 및 영업 관련 증명서류',
@@ -561,7 +571,7 @@
 
       // === [일반 식품위생법] ===
       {
-        id: 'food_rest', cat: 'food', lawKey: 'food', law: '식품위생법 시행령 제21조제8호가목, 제37조', name: '휴게음식점 (카페, 분식, 떡카페 등)',
+        id: 'food_rest', cat: 'food', applicationType: 'report', lawKey: 'food', law: '식품위생법 시행령 제21조제8호가목, 제37조', name: '휴게음식점 (카페, 분식, 떡카페 등)',
         keywords: ['카페', '분식', '휴게음식점', '음료', '커피'], icon: 'fa-mug-hot',
         docs: ['영업신고서 및 영업소 소재지·시설 관련 서류', '영업자 위생교육 관련 서류(대상자)', '건강진단결과서(대상 종사자)', '사용권한·건축물 용도 등 지자체가 요구하는 확인자료'],
         govUrl: 'https://www.gov.kr',
@@ -570,7 +580,7 @@
         rules: ['식품·조리기구를 위생적으로 취급하고 소비기한 경과 원료를 사용하지 마세요.', '주류 판매 가능 여부는 휴게음식점의 영업 범위에 맞게 확인하고 영업 종류를 위반하지 마세요.', '종사자 건강진단 및 영업자 준수사항(식품위생법 제40조·제44조)을 지키세요.']
       },
       {
-        id: 'food_general', cat: 'food', lawKey: 'food', law: '식품위생법 시행령 제21조제8호나목, 제37조', name: '일반음식점 (한식, 주점, 뷔페 등)',
+        id: 'food_general', cat: 'food', applicationType: 'report', lawKey: 'food', law: '식품위생법 시행령 제21조제8호나목, 제37조', name: '일반음식점 (한식, 주점, 뷔페 등)',
         keywords: ['식당', '일반음식점', '주점', '술집', '한식'], icon: 'fa-utensils',
         docs: ['영업신고서 및 영업소 소재지·시설 관련 서류', '영업자 위생교육 관련 서류(대상자)', '건강진단결과서(대상 종사자)', '건축물 용도·소방·가스 등 해당 확인자료'],
         govUrl: 'https://www.gov.kr',
@@ -579,7 +589,7 @@
         rules: ['청소년에게 주류를 제공하지 말고, 주류 판매·접객 행위는 신고한 영업 범위 안에서 하세요.', '식품 원료·조리기구를 위생적으로 관리하고 소비기한 및 원산지 표시 등 적용 기준을 지키세요.', '종사자 건강진단 및 영업자 준수사항(식품위생법 제40조·제44조)을 지키세요.']
       },
       {
-        id: 'food_instant', cat: 'food', lawKey: 'food', law: '식품위생법 시행령 제21조제2호, 제37조', name: '즉석판매제조·가공업 (떡집, 반찬가게 등)',
+        id: 'food_instant', cat: 'food', applicationType: 'report', lawKey: 'food', law: '식품위생법 시행령 제21조제2호, 제37조', name: '즉석판매제조·가공업 (떡집, 반찬가게 등)',
         keywords: ['즉석판매', '떡집', '반찬가게', '방앗간'], icon: 'fa-store',
         docs: ['영업신고서 및 영업소 소재지·시설 관련 서류', '품목·제조방법 등 업종별 확인자료(해당 시)', '영업자 위생교육 관련 서류(대상자)', '건강진단결과서(대상 종사자)'],
         govUrl: 'https://www.gov.kr',
@@ -590,7 +600,7 @@
 
       // === [건강기능식품법] ===
       {
-        id: 'health_sale', cat: 'health', lawKey: 'health', law: '건강기능식품에 관한 법률 제6조', name: '건강기능식품 일반판매업 / 유통전문판매업',
+        id: 'health_sale', cat: 'health', applicationType: 'report', lawKey: 'health', law: '건강기능식품에 관한 법률 제6조', name: '건강기능식품 일반판매업 / 유통전문판매업',
         keywords: ['건강기능식품', '영양제', '비타민', '건기식'], icon: 'fa-capsules',
         docs: ['판매업 영업신고서 및 영업소 소재지 관련 서류', '영업자 교육 관련 서류(대상자)', '시설·보관 장소 확인자료(관할 기관이 요구하는 경우)'],
         govUrl: 'https://www.gov.kr',
@@ -598,22 +608,136 @@
         edu: '건강기능식품 영업자 교육 대상·시기·예외는 건강기능식품에 관한 법률 및 지정 교육기관의 최신 안내를 확인하세요.',
         rules: ['제품의 표시·광고는 허가·인정된 기능과 표시기준을 준수하고 질병의 예방·치료 효능이나 의약품으로 오인하게 하는 표현을 피하세요.', '소비기한·보관방법을 지키고, 신고한 영업 종류와 취급 범위를 준수하세요.', '영업자 준수사항과 교육 의무 적용 여부를 건강기능식품에 관한 법률에서 확인하세요.']
       },
+      {
+        id: 'health_manufacturing', cat: 'health', applicationType: 'permit', lawKey: 'health', law: '건강기능식품에 관한 법률 제5조',
+        name: '건강기능식품전문제조업 / 벤처제조업',
+        keywords: ['건강기능식품 제조', '건기식 제조', '전문제조업', '벤처제조업'], icon: 'fa-industry',
+        docs: ['건강기능식품 제조업 허가 신청서', '제조시설 및 품질관리 관련 자료', '품질관리인 자격·선임 관련 자료(대상자)', '관할 기관이 안내하는 시설·제품 관련 증빙'],
+        govUrl: 'https://www.gov.kr',
+        facility: ['건강기능식품 제조업은 영업소별 허가 대상이며, 전문제조업·벤처제조업 유형별 시설·설비 기준을 확인', '제조·품질관리 시설과 위생적인 원료·완제품 보관시설을 확보하고, 품질관리인 등 법정 인력 요건 확인'],
+        edu: '건강기능식품 제조업의 교육·품질관리인 요건은 건강기능식품에 관한 법률 및 허가 담당 기관의 최신 안내를 확인하세요.',
+        rules: ['허가받은 제조업 종류·시설·품목 범위와 건강기능식품 기준·규격을 준수하세요.', '제조·품질관리 기록, 표시·광고 및 회수 등 제조업자 준수사항을 관련 법령에 따라 이행하세요.'],
+        closureUrl: 'https://www.gov.kr',
+        closureLabel: '정부24에서 건강기능식품 제조업 폐업 민원 확인'
+      },
 
       ...createCatalogItems('food', foodCatalog),
       ...createCatalogItems('public', publicCatalog)
     ];
 
-    function selectCategory(cat, el) {
-      document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+    const licenseDb = [
+      {
+        id: 'license_cook', name: '조리사 면허', type: '식품위생법에 따른 조리사 면허',
+        keywords: ['조리사', '조리사면허', '조리면허', '한식조리', '양식조리', '중식조리', '일식조리'],
+        law: '식품위생법 제53조 및 같은 법 시행규칙',
+        sources: [
+          ['식품위생법', 'https://www.law.go.kr/법령/식품위생법'],
+          ['식품위생법 시행규칙', 'https://www.law.go.kr/법령/식품위생법시행규칙']
+        ],
+        issueDocs: [
+          '조리사 면허증 발급 신청서(관할 시·군·구 서식)',
+          '조리사 국가기술자격증 등 조리사 면허 자격을 증명하는 서류',
+          '식품위생법령상 결격사유 해당 여부를 확인하기 위한 건강진단서 등 관계 서류',
+          '최근 촬영한 사진 및 본인 확인 서류(사진 규격·매수는 관할 기관 확인)'
+        ],
+        reissueDocs: [
+          '조리사 면허증 재발급 신청서',
+          '최근 촬영한 사진 및 본인 확인 서류',
+          '훼손된 면허증(훼손 재발급인 경우); 분실한 경우 분실 경위 확인자료를 요구하는지 관할 기관 확인'
+        ],
+        notes: [
+          '면허 발급은 자격증 취득과 별도의 행정 절차입니다. 자격요건 및 결격사유를 확인한 뒤 주소지 관할 시·군·구에 신청하세요.',
+          '건강진단서의 검사 항목·유효기간, 사진 규격·매수, 수수료와 접수방법은 신청 시점의 시행규칙 서식 및 지자체 민원 안내를 확인하세요.'
+        ]
+      },
+      {
+        id: 'license_barber', name: '이용사 면허', type: '공중위생관리법에 따른 이용사 면허',
+        keywords: ['이용사', '이용사면허', '이발사면허', '바버 면허', '이발 면허'],
+        law: '공중위생관리법 제6조 및 같은 법 시행규칙',
+        sources: [
+          ['공중위생관리법', 'https://www.law.go.kr/법령/공중위생관리법'],
+          ['공중위생관리법 시행규칙', 'https://www.law.go.kr/법령/공중위생관리법시행규칙']
+        ],
+        issueDocs: [
+          '이용사 면허증 발급 신청서(관할 시·군·구 서식)',
+          '이용사 국가기술자격증 또는 법령에서 정한 학교·과정 이수 등 자격 증명서류',
+          '공중위생관리법령상 결격사유 확인에 필요한 건강진단서 등 관계 서류(대상자)',
+          '최근 촬영한 사진 및 본인 확인 서류(사진 규격·매수는 관할 기관 확인)'
+        ],
+        reissueDocs: [
+          '이용사 면허증 재발급 신청서',
+          '최근 촬영한 사진 및 본인 확인 서류',
+          '훼손된 면허증(훼손 재발급인 경우); 분실 재발급은 분실 경위 및 추가 증빙 요구 여부를 관할 기관에 확인'
+        ],
+        notes: [
+          '면허는 국가기술자격 취득과 별도로 발급 신청해야 합니다. 법정 자격 경로 및 결격사유는 공중위생관리법 제6조를 확인하세요.',
+          '신청기관, 건강진단서 제출 대상, 사진 규격·매수, 수수료와 접수방법은 최신 시행규칙 서식 및 관할 시·군·구 안내를 확인하세요.'
+        ]
+      },
+      {
+        id: 'license_beautician', name: '미용사 면허', type: '공중위생관리법에 따른 미용사 면허',
+        keywords: ['미용사', '미용사면허', '미용면허', '피부미용', '네일미용', '헤어미용', '화장분장'],
+        law: '공중위생관리법 제6조 및 같은 법 시행규칙',
+        sources: [
+          ['공중위생관리법', 'https://www.law.go.kr/법령/공중위생관리법'],
+          ['공중위생관리법 시행규칙', 'https://www.law.go.kr/법령/공중위생관리법시행규칙']
+        ],
+        issueDocs: [
+          '미용사 면허증 발급 신청서(관할 시·군·구 서식)',
+          '미용사 국가기술자격증 또는 법령에서 정한 학교·과정 이수 등 자격 증명서류',
+          '공중위생관리법령상 결격사유 확인에 필요한 건강진단서 등 관계 서류(대상자)',
+          '최근 촬영한 사진 및 본인 확인 서류(사진 규격·매수는 관할 기관 확인)'
+        ],
+        reissueDocs: [
+          '미용사 면허증 재발급 신청서',
+          '최근 촬영한 사진 및 본인 확인 서류',
+          '훼손된 면허증(훼손 재발급인 경우); 분실 재발급은 분실 경위 및 추가 증빙 요구 여부를 관할 기관에 확인'
+        ],
+        notes: [
+          '미용사 면허는 미용 분야 자격증과 별도의 면허입니다. 일반·피부·네일 등 자격 분야와 법령상 면허 업무 범위를 확인하세요.',
+          '신청기관, 건강진단서 제출 대상, 사진 규격·매수, 수수료와 접수방법은 최신 시행규칙 서식 및 관할 시·군·구 안내를 확인하세요.'
+        ]
+      }
+    ];
+
+    const applicationTypeLabels = {
+      permit: '허가',
+      registration: '등록',
+      report: '신고'
+    };
+
+    function selectMainCategory(category, el) {
+      document.querySelectorAll('.main-category').forEach(card => card.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('licenseResult').style.display = 'none';
+      document.getElementById('subBizArea').style.display = 'none';
+      document.getElementById('applicationTypeArea').style.display = category === 'business' ? 'grid' : 'none';
+      document.querySelectorAll('#applicationTypeArea .cat-card').forEach(card => card.classList.remove('active'));
+
+      if (category === 'license') {
+        populateSubcategorySelect(licenseDb, '면허 종류 선택');
+      } else {
+        document.getElementById('subBizSelect').innerHTML = '';
+      }
+    }
+
+    function populateSubcategorySelect(items, label) {
+      const select = document.getElementById('subBizSelect');
+      select.innerHTML = '<option value="">-- 선택하세요 --</option>' +
+        items.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
+      document.getElementById('subBizLabel').textContent = label;
+      document.getElementById('subBizArea').style.display = 'block';
+    }
+
+    function selectApplicationType(applicationType, el) {
+      document.querySelectorAll('#applicationTypeArea .cat-card').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
 
-      const filtered = db.filter(item => item.cat === cat);
-      const select = document.getElementById('subBizSelect');
-      select.innerHTML = '<option value="">-- 원하시는 상세 업종/민원을 선택하세요 --</option>' + 
-        filtered.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
-
-      document.getElementById('subBizArea').style.display = 'block';
+      const filtered = db.filter(item => item.applicationType === applicationType);
+      populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 하위 업종 선택`);
       document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('licenseResult').style.display = 'none';
     }
 
     function onSearchInput(val) {
@@ -621,7 +745,7 @@
       const query = val.trim().toLowerCase();
       if (!query) { dropdown.style.display = 'none'; return; }
 
-      const matches = db.filter(item => 
+      const matches = [...db, ...licenseDb].filter(item =>
         item.name.toLowerCase().includes(query) || 
         item.keywords.some(k => k.toLowerCase().includes(query))
       );
@@ -631,7 +755,7 @@
           <div class="search-item" onclick="selectFromSearch('${m.id}')">
             <div>
               <strong style="font-size:0.9rem; color:var(--primary);">${m.name}</strong>
-              <div style="font-size:0.75rem; color:var(--sub-text);">${m.law}</div>
+              <div style="font-size:0.75rem; color:var(--sub-text);">${m.type || applicationTypeLabels[m.applicationType]} · ${m.law}</div>
             </div>
           </div>
         `).join('');
@@ -645,15 +769,62 @@
     function selectFromSearch(id) {
       document.getElementById('searchDropdown').style.display = 'none';
       document.getElementById('searchInput').value = '';
-      renderResult(id);
+      renderSelection(id);
+    }
+
+    function renderSelection(id) {
+      if (licenseDb.some(item => item.id === id)) {
+        renderLicense(id);
+      } else {
+        renderResult(id);
+      }
+    }
+
+    function renderLicense(id) {
+      const item = licenseDb.find(license => license.id === id);
+      if (!item) return;
+
+      document.getElementById('resultContainer').style.display = 'none';
+      const container = document.getElementById('licenseResult');
+      container.innerHTML = `
+        <div class="result-header-card">
+          <div>
+            <h2>${item.name}</h2>
+            <span style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:6px;font-size:0.75rem;">${item.type}</span>
+          </div>
+          <div style="font-size:1.8rem;opacity:0.8;"><i class="fa-solid fa-id-card"></i></div>
+        </div>
+        <div class="result-content">
+          <p class="detail-caption">아래는 일반적인 준비서류 안내입니다. 자격 경로·결격사유·건강진단 요건에 따라 추가 서류가 달라질 수 있으므로 신청 전 관할 시·군·구에 확인하세요.</p>
+          <div class="change-box">
+            <h5 style="color:var(--accent);"><i class="fa-solid fa-file-circle-plus"></i> 신규 발급 신청서류</h5>
+            <ul>${item.issueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
+          </div>
+          <div class="change-box">
+            <h5 style="color:var(--secondary);"><i class="fa-solid fa-rotate"></i> 재발급 신청서류</h5>
+            <ul>${item.reissueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
+          </div>
+          <div class="change-box">
+            <h5><i class="fa-solid fa-circle-info"></i> 신청 전 확인사항</h5>
+            <ul>${item.notes.map(note => `<li>${note}</li>`).join('')}</ul>
+          </div>
+          <div class="legal-links">
+            ${item.sources.map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${label} 원문</a>`).join('')}
+            <a href="https://www.gov.kr" target="_blank" rel="noopener noreferrer">정부24에서 면허 발급 민원 검색</a>
+          </div>
+        </div>
+      `;
+      container.style.display = 'block';
+      container.scrollIntoView({ behavior: 'smooth' });
     }
 
     function renderResult(id) {
       const item = db.find(i => i.id === id);
       if (!item) return;
 
+      document.getElementById('licenseResult').style.display = 'none';
       document.getElementById('resBizName').innerText = item.name;
-      document.getElementById('resLawTag').innerText = item.law;
+      document.getElementById('resLawTag').innerText = `${applicationTypeLabels[item.applicationType]} · ${item.law}`;
       document.getElementById('resIcon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
 
       document.getElementById('resDocsList').innerHTML = item.docs.map(d => `<li>${d}</li>`).join('');
@@ -677,7 +848,7 @@
         <div class="change-box">
           <h5 style="color:var(--danger);">폐업</h5>
           <p>${item.closureNote || guide.closure}</p>
-          <a href="${guide.closureUrl}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
+          <a href="${item.closureUrl || guide.closureUrl}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> ${guide.closureLabel}
           </a>
         </div>
