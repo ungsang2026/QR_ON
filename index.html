@@ -3,170 +3,446 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>인허가 원스톱 안내 서비스</title>
+  <title>QR_ON! - 인허가 원스톱 통합 안내</title>
+  <!-- FontAwesome & Pretendard 폰트 불러오기 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-family-pretendard/1.3.8/static/pretendard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     :root {
-      --primary: #2563EB;
-      --bg: #F8FAFC;
+      --primary: #0F172A; /* 고급스러운 네이비 */
+      --accent: #2563EB;  /* 원스톱 블루 */
+      --secondary: #059669; /* 신뢰 초록 */
+      --bg: #F1F5F9;
+      --card-bg: #FFFFFF;
       --text: #0F172A;
+      --sub-text: #475569;
       --border: #E2E8F0;
     }
-    body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-    .container { max-width: 800px; margin: 0 auto; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+    * { box-sizing: border-box; font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 40px; }
+
+    /* 헤더 브랜딩 (QR_ON!) */
+    header { background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: white; padding: 24px 20px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+    .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(37, 99, 235, 0.3); border: 1px solid var(--accent); color: #60A5FA; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
+    header h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+    header p { font-size: 0.85rem; color: #94A3B8; margin-top: 6px; }
+
+    .main-container { max-width: 840px; margin: 0 auto; padding: 16px; }
+
+    /* 1. 통합 검색창 */
+    .search-card { background: var(--card-bg); padding: 20px; border-radius: 16px; margin-top: -15px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid var(--border); position: relative; }
+    .search-input-wrapper { position: relative; }
+    .search-input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.1rem; }
+    .search-input { width: 100%; padding: 14px 16px 14px 48px; border: 2px solid var(--border); border-radius: 12px; font-size: 0.95rem; font-weight: 600; outline: none; transition: 0.2s; }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
     
-    /* 검색창 스타일 */
-    .search-box { position: relative; margin-bottom: 24px; }
-    .search-input { width: 100%; padding: 16px 20px; font-size: 1.05rem; border: 2px solid var(--primary); border-radius: 12px; box-sizing: border-box; outline: none; }
-    .search-results-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 10; max-height: 200px; overflow-y: auto; display: none; }
-    .search-item { padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #F1F5F9; }
-    .search-item:hover { background: #EFF6FF; color: var(--primary); font-weight: bold; }
+    /* 검색 연관 드롭다운 */
+    .search-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 12px; margin-top: 6px; max-height: 250px; overflow-y: auto; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none; }
+    .search-item { padding: 12px 16px; border-bottom: 1px solid #F1F5F9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .search-item:hover { background: #EFF6FF; }
+    .search-item .badge { font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+    .badge-food { background: #FEF3C7; color: #D97706; }
+    .badge-health { background: #DCFCE7; color: #15803D; }
+    .badge-public { background: #E0E7FF; color: #4338CA; }
 
-    /* 카테고리 버튼 */
-    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-    .cat-btn { padding: 16px; border: 2px solid var(--border); border-radius: 12px; background: white; cursor: pointer; text-align: center; transition: 0.2s; }
-    .cat-btn:hover, .cat-btn.active { border-color: var(--primary); background: #EFF6FF; }
+    /* 2. 대분류 카테고리 (3대 법령 구분) */
+    .section-title { font-size: 1rem; font-weight: 800; color: var(--primary); margin: 24px 0 12px 0; display: flex; align-items: center; gap: 8px; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .cat-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 14px; padding: 16px 10px; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .cat-card i { font-size: 1.8rem; margin-bottom: 8px; display: block; color: var(--sub-text); }
+    .cat-card strong { display: block; font-size: 0.9rem; color: var(--text); }
+    .cat-card span { font-size: 0.72rem; color: var(--sub-text); margin-top: 2px; display: block; }
+    .cat-card.active { border-color: var(--accent); background: #EFF6FF; }
+    .cat-card.active i, .cat-card.active strong { color: var(--accent); }
 
-    /* 결과 카드 */
-    .result-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 20px; display: none; }
-    .result-header { background: var(--primary); color: white; padding: 16px; font-size: 1.1rem; font-weight: bold; }
-    .result-body { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .info-box { background: #F1F5F9; padding: 14px; border-radius: 10px; }
-    .info-box h4 { margin: 0 0 8px 0; color: #1E293B; font-size: 0.95rem; }
-    .info-box ul { margin: 0; padding-left: 18px; font-size: 0.88rem; color: #475569; line-height: 1.5; }
+    /* 3. 세부 업종 선택 드롭다운 */
+    .sub-biz-area { display: none; margin-top: 16px; background: white; padding: 16px; border-radius: 12px; border: 1px solid var(--border); }
+    .sub-biz-area label { font-size: 0.85rem; font-weight: 700; color: var(--sub-text); display: block; margin-bottom: 8px; }
+    .sub-select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 700; color: var(--primary); outline: none; }
+
+    /* 4. 원스톱 안내 카드 (결과) */
+    .result-container { display: none; margin-top: 24px; animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .result-header-card { background: var(--primary); color: white; padding: 20px; border-radius: 16px 16px 0 0; display: flex; justify-content: space-between; align-items: center; }
+    .result-header-card h2 { font-size: 1.2rem; font-weight: 800; }
+    .result-header-card .law-tag { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+
+    .result-content { background: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 16px 16px; padding: 20px; }
+
+    /* 4개 탭 구분 */
+    .info-tabs { display: flex; gap: 6px; border-bottom: 2px solid var(--border); margin-bottom: 20px; overflow-x: auto; }
+    .tab-btn { padding: 10px 14px; font-size: 0.88rem; font-weight: 700; color: var(--sub-text); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; margin-bottom: -2px; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .pane { display: none; line-height: 1.6; font-size: 0.9rem; }
+    .pane.active { display: block; }
+    .pane h4 { color: var(--primary); font-size: 0.95rem; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .pane ul { padding-left: 20px; color: var(--sub-text); }
+    .pane ul li { margin-bottom: 8px; }
+
+    /* 서식 다운로드 버튼 스타일 */
+    .form-download-btn { display: inline-flex; align-items: center; gap: 8px; background: #F0F9FF; border: 1px solid #BAE6FD; color: #0284C7; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 700; margin-top: 12px; }
+    .form-download-btn:hover { background: #E0F2FE; }
+
+    /* 모바일 대응 */
+    @media (max-width: 600px) {
+      .category-grid { grid-template-columns: 1fr; }
+      .cat-card { display: flex; align-items: center; gap: 12px; text-align: left; padding: 12px 16px; }
+      .cat-card i { font-size: 1.4rem; margin-bottom: 0; }
+    }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h2 style="text-align: center; margin-top: 0; color: #1E293B;">🏛️ 원스톱 인허가 안내 센터</h2>
-  
-  <!-- [방법 1] 키워드 빠른 검색창 -->
-  <div class="search-box">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 업종명을 검색해보세요 (예: 카페, 네일, 미용실, 영양제, 급식)" oninput="handleSearch(this.value)">
-    <div id="searchResults" class="search-results-dropdown"></div>
-  </div>
+  <!-- 상단 브랜딩 -->
+  <header>
+    <div class="logo-tag"><i class="fa-solid fa-qrcode"></i> 스마트 민원 네비게이션</div>
+    <h1>QR_ON! 인허가 원스톱 안내</h1>
+    <p>식품위생법 · 건강기능식품법 · 공중위생관리법을 한눈에 찾기</p>
+  </header>
 
-  <div style="text-align: center; color: #94A3B8; font-size: 0.85rem; margin-bottom: 20px;">─ 또는 카테고리로 찾기 ─</div>
+  <div class="main-container">
 
-  <!-- [방법 2] 원스톱 카테고리 클릭 안내 -->
-  <div class="cat-grid">
-    <button class="cat-btn" onclick="filterCategory('food', this)">
-      <div style="font-size: 1.8rem;">🍱</div>
-      <strong>식품 / 카페</strong>
-    </button>
-    <button class="cat-btn" onclick="filterCategory('health', this)">
-      <div style="font-size: 1.8rem;">💊</div>
-      <strong>건강기능식품</strong>
-    </button>
-    <button class="cat-btn" onclick="filterCategory('public', this)">
-      <div style="font-size: 1.8rem;">✂️</div>
-      <strong>미용 / 숙박 / 세탁</strong>
-    </button>
-  </div>
-
-  <!-- 세부 업종 선택 드롭다운 -->
-  <div id="subCategoryArea" style="display: none; margin-bottom: 20px;">
-    <select id="subSelect" onchange="renderResult(this.value)" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 1rem; font-weight: bold;">
-    </select>
-  </div>
-
-  <!-- [통합 결과 출력 카드] -->
-  <div id="resultCard" class="result-card">
-    <div id="resultTitle" class="result-header"></div>
-    <div class="result-body">
-      <div class="info-box">
-        <h4>📄 필요 구비서류</h4>
-        <ul id="resDocs"></ul>
+    <!-- 1. 키워드 통합 검색 -->
+    <div class="search-card">
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="업종이나 키워드를 검색하세요 (예: 카페, 떡집, 미용실, 세탁, 영양제)" oninput="onSearchInput(this.value)">
       </div>
-      <div class="info-box">
-        <h4>📐 필수 시설기준</h4>
-        <ul id="resFacility"></ul>
+      <div id="searchDropdown" class="search-dropdown"></div>
+    </div>
+
+    <!-- 2. 카테고리 선택 (3대 법령) -->
+    <div class="section-title">
+      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 사업 분야를 선택하세요
+    </div>
+    
+    <div class="category-grid">
+      <div class="cat-card" onclick="selectCategory('food', this)">
+        <i class="fa-solid fa-utensils"></i>
+        <div>
+          <strong>식품 / 음식점</strong>
+          <span>식품위생법 8대 영업</span>
+        </div>
       </div>
-      <div class="info-box">
-        <h4>🎓 위생교육 및 기관</h4>
-        <ul id="resEdu"></ul>
+      <div class="cat-card" onclick="selectCategory('health', this)">
+        <i class="fa-solid fa-capsules"></i>
+        <div>
+          <strong>건강기능식품</strong>
+          <span>제조업 · 판매업</span>
+        </div>
       </div>
-      <div class="info-box">
-        <h4>⚠️ 영업자 준수사항</h4>
-        <ul id="resRules"></ul>
+      <div class="cat-card" onclick="selectCategory('public', this)">
+        <i class="fa-solid fa-pump-soap"></i>
+        <div>
+          <strong>공중위생 업종</strong>
+          <span>미용 · 숙박 · 세탁 · 청소</span>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<script>
-// DB (식품위생법 + 건강기능식품법 + 공중위생관리법 통합)
-const bizDB = [
-  { id: 'cafe', cat: 'food', name: '휴게음식점 (카페, 분식, 패스트푸드)', keywords: ['카페', '커피', '분식', '휴게음식점', '음료'], law: '식품위생법 제36조~제44조', docs: ['영업신고서', '보건증', '위생교육 수료증', '임대차계약서'], facility: ['조리장 구분', '급수/수세식 화장실', '음주 행위 불가'], edu: ['한국휴게음식업중앙회 (사전 6시간)'], rules: ['손님 주류 판매 금지', '유통기한 경과자재 보관 금지'] },
-  { id: 'restaurant', cat: 'food', name: '일반음식점 (식당, 주점, 뷔페)', keywords: ['식당', '음식점', '주점', '술집', '고깃집'], law: '식품위생법 제36조~제44조', docs: ['영업신고서', '보건증', '위생교육 수료증'], facility: ['조리장 독립 구획', '환기 및 배수시설 필수'], edu: ['한국외식업중앙회 (사전 6시간)'], rules: ['청소년 주류 제공 금지 (영업정지)', '원산지 표시 의무'] },
-  { id: 'health_sale', cat: 'health', name: '건강기능식품 일반판매업', keywords: ['건강기능식품', '영양제', '비타민', '건기식'], law: '건강기능식품법 제6조', docs: ['영업신고서', '건기식 교육 수료증'], facility: ['위생적인 보관 장소 및 진열대'], edu: ['한국건강기능식품협회 (사전 2시간)'], rules: ['의약품 오인 과대광고 금지', '부작용 보고 의무'] },
-  { id: 'hair_beauty', cat: 'public', name: '미용업 (헤어, 네일, 피부, 속눈썹)', keywords: ['미용실', '헤어', '네일', '피부', '속눈썹', '바버샵'], law: '공중위생관리법 제3조', docs: ['공중위생영업 신고서', '미용사 면허증 원본'], facility: ['소독기, 자외선 살균기 필수 구비'], edu: ['대한미용사회 등 (매년 위생교육)'], rules: ['의료기기 사용 엄금', '면허자 직접 시술'] },
-  { id: 'hotel', cat: 'public', name: '숙박업 (호텔, 모텔, 펜션)', keywords: ['호텔', '모텔', '숙박', '펜션', '게스트하우스'], law: '공중위생관리법 제3조', docs: ['공중위생영업 신고서', '소방안전시설 완비증명서'], facility: ['소방/환기 설비', '수질검사 적합'], edu: ['대한숙박업중앙회'], rules: ['청소년 이성혼숙 방지', '숙박자 명부 관리'] }
-];
+    <!-- 3. 세부 업종 선택 영역 -->
+    <div id="subBizArea" class="sub-biz-area">
+      <label id="subBizLabel">상세 업종 선택</label>
+      <select id="subBizSelect" class="sub-select" onchange="renderResult(this.value)">
+        <!-- 자바스크립트로 동적 로드 -->
+      </select>
+    </div>
 
-// 키워드 실시간 검색
-function handleSearch(val) {
-  const dropdown = document.getElementById('searchResults');
-  const query = val.trim().toLowerCase();
-  
-  if (!query) {
-    dropdown.style.display = 'none';
-    return;
-  }
-
-  const matches = bizDB.filter(item => 
-    item.name.toLowerCase().includes(query) || 
-    item.keywords.some(k => k.toLowerCase().includes(query))
-  );
-
-  if (matches.length > 0) {
-    dropdown.innerHTML = matches.map(m => `
-      <div class="search-item" onclick="selectFromSearch('${m.id}')">
-        🔍 <strong>${m.name}</strong> <small style="color:#64748B;">(${m.law})</small>
+    <!-- 4. 원스톱 결과 표시 -->
+    <div id="resultContainer" class="result-container">
+      <div class="result-header-card">
+        <div>
+          <h2 id="resBizName">업종 명칭</h2>
+          <span id="resLawTag" class="law-tag">적용 법률</span>
+        </div>
+        <div style="font-size: 1.8rem; opacity: 0.8;" id="resIcon"><i class="fa-solid fa-store"></i></div>
       </div>
-    `).join('');
-    dropdown.style.display = 'block';
-  } else {
-    dropdown.innerHTML = `<div class="search-item" style="color:#94A3B8;">검색 결과가 없습니다.</div>`;
-    dropdown.style.display = 'block';
-  }
-}
 
-function selectFromSearch(id) {
-  document.getElementById('searchResults').style.display = 'none';
-  document.getElementById('searchInput').value = '';
-  renderResult(id);
-}
+      <div class="result-content">
+        <!-- 4대 안내 탭 -->
+        <div class="info-tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'tab-docs')"><i class="fa-solid fa-file-lines"></i> 구비서류 & 서식</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab-facility')"><i class="fa-solid fa-ruler-combined"></i> 시설기준</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab-edu')"><i class="fa-solid fa-graduation-cap"></i> 위생교육</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab-rules')"><i class="fa-solid fa-triangle-exclamation"></i> 영업자 준수사항</button>
+        </div>
 
-// 카테고리 클릭 필터
-function filterCategory(cat, btn) {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+        <!-- 탭 1: 구비서류 -->
+        <div id="tab-docs" class="pane active">
+          <h4><i class="fa-solid fa-check-circle" style="color: var(--accent);"></i> 인허가 신청 시 필요 서류</h4>
+          <ul id="resDocsList"></ul>
+          <a id="resFormLink" href="#" target="_blank" class="form-download-btn">
+            <i class="fa-solid fa-file-arrow-down"></i> 법제처/정부24 표준 신청서식 보기
+          </a>
+        </div>
 
-  const filtered = bizDB.filter(b => b.cat === cat);
-  const subSelect = document.getElementById('subSelect');
-  
-  subSelect.innerHTML = '<option value="">-- 세부 업종을 선택하세요 --</option>' + 
-    filtered.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
+        <!-- 탭 2: 시설기준 -->
+        <div id="tab-facility" class="pane">
+          <h4><i class="fa-solid fa-building" style="color: var(--accent);"></i> 업종별 필수 시설 조건</h4>
+          <ul id="resFacilityList"></ul>
+        </div>
 
-  document.getElementById('subCategoryArea').style.display = 'block';
-  document.getElementById('resultCard').style.display = 'none';
-}
+        <!-- 탭 3: 위생교육 -->
+        <div id="tab-edu" class="pane">
+          <h4><i class="fa-solid fa-user-graduate" style="color: var(--accent);"></i> 위생교육 기관 및 안내</h4>
+          <div id="resEduBox" style="background:#F8FAFC; padding:14px; border-radius:10px; border:1px solid var(--border);"></div>
+        </div>
 
-// 최종 원스톱 결과 출력
-function renderResult(id) {
-  const item = bizDB.find(b => b.id === id);
-  if (!item) return;
+        <!-- 탭 4: 준수사항 -->
+        <div id="tab-rules" class="pane">
+          <h4><i class="fa-solid fa-shield-halved" style="color: #DC2626;"></i> 영업자 필수 준수사항 & 위반 시 불이익</h4>
+          <ul id="resRulesList"></ul>
+        </div>
 
-  document.getElementById('resultTitle').innerText = item.name + ' (' + item.law + ')';
-  document.getElementById('resDocs').innerHTML = item.docs.map(d => `<li>${d}</li>`).join('');
-  document.getElementById('resFacility').innerHTML = item.facility.map(f => `<li>${f}</li>`).join('');
-  document.getElementById('resEdu').innerHTML = item.edu.map(e => `<li>${e}</li>`).join('');
-  document.getElementById('resRules').innerHTML = item.rules.map(r => `<li>${r}</li>`).join('');
+      </div>
+    </div>
 
-  document.getElementById('resultCard').style.display = 'block';
-}
-</script>
+  </div>
 
+  <script>
+    // 전체 법률 DB (식품위생법 8개 전체 + 건강기능식품법 + 공중위생관리법)
+    const db = [
+      // --- 식품위생법 (시행령 제21조 8대 영업 완전 반영) ---
+      {
+        id: 'food_rest', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제8호 가목)', name: '휴게음식점 (카페, 분식, 떡카페 등)',
+        keywords: ['카페', '커피', '분식', '휴게음식점', '음료', '패스트푸드'], icon: 'fa-mug-hot',
+        docs: ['영업신고서', '보건증 (건강진단결과서)', '위생교육 수료증', '임대차계약서', '건축물대장 (2종 근린생활시설)'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['조리장과 객석 독립 분리 또는 구획', '수세식 화장실 갖춤', '손님 음주 행위 절대 불가'],
+        edu: '한국휴게음식업중앙회 (신규 6시간 사전교육)',
+        rules: ['음주 행위 허용 금지', '유통기한/소비기한 경과 원료 보관·사용 금지']
+      },
+      {
+        id: 'food_general', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제8호 나목)', name: '일반음식점 (한식, 주점, 뷔페 등)',
+        keywords: ['식당', '일반음식점', '주점', '술집', '한식', '뷔페', '고깃집'], icon: 'fa-utensils',
+        docs: ['영업신고서', '보건증', '위생교육 수료증', '임대차계약서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['조리장 내 환기/배수 시설 필수', '정화조 갖춘 화장실', '수돗물 또는 적합 지하수 사용'],
+        edu: '한국외식업중앙회 (신규 6시간 사전교육)',
+        rules: ['청소년 대상 주류 제공 금지 (위반 시 영업정지)', '원산지 표시제 준수']
+      },
+      {
+        id: 'food_bakery', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제8호 바목)', name: '제과점업 (빵집, 베이커리)',
+        keywords: ['제과점', '빵집', '베이커리', '제빵'], icon: 'fa-bread-slice',
+        docs: ['영업신고서', '보건증', '위생교육 수료증'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['빵 조리 및 작업장 구비', '방충/방서 시설 필수'],
+        edu: '대한제과협회 (신규 6시간)',
+        rules: ['제과 제품의 위생적 진열 및 보관 온습도 준수']
+      },
+      {
+        id: 'food_night', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제8호 다·라목)', name: '단란주점 / 유흥주점업',
+        keywords: ['단란주점', '유흥주점', '노래클럽', '룸살롱'], icon: 'fa-wine-glass',
+        docs: ['영업허가신청서 (허가업종)', '보건증', '위생교육 수료증', '소방안전시설완비증명서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['음향/반주기기 설치', '유흥주점의 경우 유흥접객원 종사 가능 구획'],
+        edu: '한국유흥음식업중앙회',
+        rules: ['청소년 출입·고용 절대 금지', '성매매 알선 금지']
+      },
+      {
+        id: 'food_instant', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제2호)', name: '즉석판매제조·가공업 (떡집, 반찬가게 등)',
+        keywords: ['즉석판매', '떡집', '반찬가게', '건강원', '방앗간'], icon: 'fa-store',
+        docs: ['영업신고서', '보건증', '위생교육 수료증', '제조·가공방법설명서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['제조·가공실 구획', '자체 자가품질검사 또는 위탁검사 여건 마련'],
+        edu: '한국식품산업협회 (신규 8시간)',
+        rules: ['최종 소비자에게 직접 판매 원칙 (택배/배달 일부 제한 적용)', '소비기한 표시 준수']
+      },
+      {
+        id: 'food_factory', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제1호)', name: '식품제조·가공업 (식품공장)',
+        keywords: ['식품제조', '식품공장', '밀키트제조', '가공업'], icon: 'fa-industry',
+        docs: ['영업등록신청서 (등록업종)', '보건증', '위생교육 수료증', '품목제조보고서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['작업장, 원료보관실, 제품보관실 독립 구분', '자가품질검사실 구비 또는 위탁'],
+        edu: '한국식품산업협회 (신규 8시간)',
+        rules: ['품목제조보고 필수', '자가품질검사 주기적 실시 및 기록 보관']
+      },
+      {
+        id: 'food_cafeteria', cat: 'food', badge: 'badge-food', law: '식품위생법 제88조 및 영업제8호 마목', name: '집단급식소 / 위탁급식영업',
+        keywords: ['집단급식소', '급식', '학교급식', '구내식당', '위탁급식'], icon: 'fa-users',
+        docs: ['집단급식소 설치·운영 신고서', '영양사/조리사 면허증', '수질검사성적서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['1회 50인 이상 급식 설비', '보존식 보관 전용 냉동고 (-18℃ 이하)'],
+        edu: '한국식품산업협회',
+        rules: ['보존식(1인분 분량) 144시간 이상 보관 의무', '식중독 발생 즉시 보건소 신고']
+      },
+      {
+        id: 'food_sub', cat: 'food', badge: 'badge-food', law: '식품위생법 (영업의종류 제4·5·6·7호)', name: '식품소분·판매업 / 운반업 / 보존업',
+        keywords: ['식품소분업', '식품판매업', '마트', '식품운반업', '냉동창고'], icon: 'fa-truck-ramp-box',
+        docs: ['영업신고서 또는 등록서', '위생교육 수료증', '시설배치도'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['소분실 세척/소독 시설', '냉장/냉동 운반차량 온도기록계 설치'],
+        edu: '한국식품산업협회',
+        rules: ['소분 금지 품목 준수 (임의 분할 판매 금지)', '적정 보관온도 유지']
+      },
+
+      // --- 건강기능식품에 관한 법률 (제2장) ---
+      {
+        id: 'health_sale', cat: 'health', badge: 'badge-health', law: '건강기능식품법 제6조', name: '건강기능식품 일반판매업 / 유통전문판매업',
+        keywords: ['건강기능식품', '영양제', '비타민', '건기식', '유통판매업'], icon: 'fa-capsules',
+        docs: ['영업신고서', '건강기능식품 위생교육 수료증', '건축물대장 (용도 확인)'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['위생적인 보관 장소 및 진열대 (청결 유지)'],
+        edu: '한국건강기능식품협회 (사전교육 2시간)',
+        rules: ['의약품 오인 과대광고 절대 금지', '이상사례 발생 시 보고 의무']
+      },
+      {
+        id: 'health_mfg', cat: 'health', badge: 'badge-health', law: '건강기능식품법 제5조', name: '건강기능식품 제조업 (GMP 필수)',
+        keywords: ['건기식제조', '영양제제조', 'GMP공장', '건강기능식품제조업'], icon: 'fa-vial-circle-check',
+        docs: ['영업허가신청서', 'GMP 적용업소 지정 신청서', '품목제조신고서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['GMP 시설기준 적합 표준 작업장 및 품질관리 시험실'],
+        edu: '한국건강기능식품협회',
+        rules: ['GMP기준 준수', '자가품질검사 및 이력추적관리']
+      },
+
+      // --- 공중위생관리법 (제3조~제8조) ---
+      {
+        id: 'public_beauty', cat: 'public', badge: 'badge-public', law: '공중위생관리법 제3조', name: '미용업 (헤어, 네일, 피부, 속눈썹)',
+        keywords: ['미용실', '헤어', '네일', '피부', '속눈썹', '바버샵', '이용업'], icon: 'fa-scissors',
+        docs: ['공중위생영업 신고서', '미용사/이용사 면허증 원본', '영업시설 설비개요서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['소독기, 자외선 살균기 필수 구비', '작업대 및 수건 소독 설비'],
+        edu: '대한미용사회 / 대한네일미용사회 (매년 위생교육)',
+        rules: ['의료기기 사용 금지 (피부/네일 시술 시 주의)', '면허자 직접 시술']
+      },
+      {
+        id: 'public_hotel', cat: 'public', badge: 'badge-public', law: '공중위생관리법 제3조', name: '숙박업 (호텔, 모텔, 펜션, 게스트하우스)',
+        keywords: ['호텔', '모텔', '숙박', '펜션', '게스트하우스', '숙박업'], icon: 'fa-hotel',
+        docs: ['공중위생영업 신고서', '소방안전시설 완비증명서', '건축물용도 확인(숙박시설)'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['객실 수에 따른 소방/환기/조명 시설', '먹는물 수질 적합'],
+        edu: '대한숙박업중앙회 (매년 위생교육)',
+        rules: ['청소년 이성혼숙 방지 의무', '숙박자 명부 관리']
+      },
+      {
+        id: 'public_bath', cat: 'public', badge: 'badge-public', law: '공중위생관리법 제3조', name: '목욕장업 (사우나, 찜질방, 목욕탕)',
+        keywords: ['목욕탕', '사우나', '찜질방', '목욕장업'], icon: 'fa-hot-tub-person',
+        docs: ['공중위생영업 신고서', '수질검사성적서', '소방안전증명서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['욕조수 순환 정화장치', '발한실 안전 설비'],
+        edu: '대한목욕업중앙회',
+        rules: ['욕조 수질기준 준수 (주기적 수질검사)', '전염성 질환자 출입 제한']
+      },
+      {
+        id: 'public_laundry', cat: 'public', badge: 'badge-public', law: '공중위생관리법 제3조', name: '세탁업 (드라이클리닝, 세탁소)',
+        keywords: ['세탁소', '세탁업', '드라이클리닝', '운동화세탁'], icon: 'fa-jug-detergent',
+        docs: ['공중위생영업 신고서', '세탁기기 및 용제 배출 설비 내역서'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['용제 회수형 세탁기 또는 오염방지 설비 구비'],
+        edu: '한국세탁업중앙회',
+        rules: ['세탁용제 안전 관리', '인화성 물질 소화기 배치']
+      },
+      {
+        id: 'public_clean', cat: 'public', badge: 'badge-public', law: '공중위생관리법 제3조', name: '건물위생관리업 (청소·소독 대행)',
+        keywords: ['건물위생', '청소업', '소독업', '위생관리', '건물청소'], icon: 'fa-broom',
+        docs: ['공중위생영업 신고서', '장비 보유 증명서 (마루광택기, 흡입기 등)'],
+        formUrl: 'https://www.law.go.kr',
+        facility: ['고압세척기, 마루광택기 등 필수 장비 4종 보유 필수'],
+        edu: '한국건물위생관리협회',
+        rules: ['안전 장구 착용 및 화학 약품 적정 사용 준수']
+      }
+    ];
+
+    let currentCat = '';
+
+    // 1. 카테고리 클릭 선택
+    function selectCategory(cat, el) {
+      currentCat = cat;
+      document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+
+      const filtered = db.filter(item => item.cat === cat);
+      const select = document.getElementById('subBizSelect');
+      
+      select.innerHTML = '<option value="">-- 원하시는 상세 업종을 선택하세요 --</option>' + 
+        filtered.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+
+      document.getElementById('subBizArea').style.display = 'block';
+      document.getElementById('resultContainer').style.display = 'none';
+    }
+
+    // 2. 키워드 검색 처리
+    function onSearchInput(val) {
+      const dropdown = document.getElementById('searchDropdown');
+      const query = val.trim().toLowerCase();
+
+      if (!query) {
+        dropdown.style.display = 'none';
+        return;
+      }
+
+      const matches = db.filter(item => 
+        item.name.toLowerCase().includes(query) || 
+        item.keywords.some(k => k.toLowerCase().includes(query))
+      );
+
+      if (matches.length > 0) {
+        dropdown.innerHTML = matches.map(m => `
+          <div class="search-item" onclick="selectFromSearch('${m.id}')">
+            <div>
+              <strong style="font-size:0.9rem; color:var(--primary);">${m.name}</strong>
+              <div style="font-size:0.75rem; color:var(--sub-text);">${m.law}</div>
+            </div>
+            <span class="badge ${m.badge}">${m.cat === 'food' ? '식품' : m.cat === 'health' ? '건기식' : '공중위생'}</span>
+          </div>
+        `).join('');
+        dropdown.style.display = 'block';
+      } else {
+        dropdown.innerHTML = `<div class="search-item" style="color:var(--sub-text); font-size:0.85rem;">검색된 업종이 없습니다.</div>`;
+        dropdown.style.display = 'block';
+      }
+    }
+
+    function selectFromSearch(id) {
+      document.getElementById('searchDropdown').style.display = 'none';
+      document.getElementById('searchInput').value = '';
+      renderResult(id);
+    }
+
+    // 3. 최종 원스톱 결과 출력
+    function renderResult(id) {
+      const item = db.find(i => i.id === id);
+      if (!item) return;
+
+      document.getElementById('resBizName').innerText = item.name;
+      document.getElementById('resLawTag').innerText = item.law;
+      document.getElementById('resIcon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
+
+      // 구비서류
+      document.getElementById('resDocsList').innerHTML = item.docs.map(d => `<li>${d}</li>`).join('');
+      document.getElementById('resFormLink').href = item.formUrl;
+
+      // 시설기준
+      document.getElementById('resFacilityList').innerHTML = item.facility.map(f => `<li>${f}</li>`).join('');
+
+      // 위생교육
+      document.getElementById('resEduBox').innerHTML = `
+        <strong style="color:var(--accent);">${item.edu}</strong><br>
+        <span style="font-size:0.82rem; color:var(--sub-text);">신규 영업 전 또는 매년 정기교육 이수 필수</span>
+      `;
+
+      // 준수사항
+      document.getElementById('resRulesList').innerHTML = item.rules.map(r => `<li>${r}</li>`).join('');
+
+      document.getElementById('resultContainer').style.display = 'block';
+      
+      // 결과 카드로 스크롤 이동
+      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 탭 전환
+    function switchTab(btn, paneId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+      document.getElementById(paneId).classList.add('active');
+    }
+  </script>
 </body>
 </html>
