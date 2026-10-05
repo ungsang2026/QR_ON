@@ -58,6 +58,11 @@
     .cat-card.featured i, .cat-card.featured strong { color: var(--accent); }
     .step-label { margin: 0 0 7px; font-size: 1.08rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
     .step-help { color: #475569; font-size: 0.94rem; margin: 0 0 14px; line-height: 1.6; }
+    .flow-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 12px; padding: 12px 14px; border: 1px solid #D7E0EC; border-radius: 12px; background: #FFFFFF; }
+    .flow-summary { min-width: 0; font-size: 0.9rem; font-weight: 700; line-height: 1.5; color: #334155; }
+    .flow-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+    .flow-action { border: 1px solid #CBD5E1; border-radius: 8px; padding: 8px 11px; background: #FFFFFF; color: #1E3A8A; font-size: 0.86rem; font-weight: 700; cursor: pointer; }
+    .flow-action:hover { background: #EFF6FF; border-color: #93C5FD; }
     #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea { background: #FFFFFF; border: 1px solid #DCE5F0; border-radius: 18px; padding: 20px; box-shadow: 0 5px 18px rgba(15, 23, 42, 0.045); }
     #applicationTypeArea .category-grid { grid-template-columns: repeat(3, 1fr); }
     .report-sector-grid .cat-card, .report-food-groups .cat-card { min-height: 82px; }
@@ -97,6 +102,9 @@
 
     .gov24-btn { display: inline-flex; align-items: center; gap: 8px; background: #0066FF; color: white; padding: 12px 18px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; font-weight: 700; margin-top: 14px; box-shadow: 0 4px 10px rgba(0,102,255,0.2); }
     .gov24-btn:hover { background: #0052CC; }
+    .form-link-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 14px; border: 1px solid #1D4ED8; border-radius: 9px; background: #FFFFFF; color: #1D4ED8; text-decoration: none; font-size: 0.9rem; font-weight: 800; }
+    .form-link-btn:hover { background: #EFF6FF; }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
     .legal-note { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 14px 16px; margin-top: 22px; color: #1E3A8A; font-size: 0.92rem; line-height: 1.7; }
     .legal-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .legal-links a, .source-links a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
@@ -114,6 +122,9 @@
       #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea { padding: 15px; }
       .cat-card { min-height: 82px; padding: 13px; }
       .section-title { font-size: 1.15rem; }
+      .flow-navigation { align-items: flex-start; flex-direction: column; }
+      .flow-actions { width: 100%; }
+      .flow-action { flex: 1; min-height: 44px; }
     }
   </style>
 </head>
@@ -122,7 +133,7 @@
   <header>
     <div class="logo-tag"><i class="fa-solid fa-qrcode"></i> 원스톱 민원안내 센터</div>
     <h1>QR_ON! 내 손안의 든든한 영업파트너</h1>
-    <p>영업 인허가 절차와 면허 발급(조리사·이용사·미용사) 안내</p>
+    <p>영업 인허가 절차와 면허 발급(조리사·이·미용사) 안내</p>
   </header>
 
   <div class="main-container">
@@ -136,12 +147,20 @@
       <div id="searchDropdown" class="search-dropdown"></div>
     </div>
 
-    <!-- 안내 분야 선택 -->
-    <div class="section-title">
-      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 어떤 안내가 필요하신가요?
-    </div>
+      <div id="flowNavigation" class="flow-navigation" style="display:none;">
+        <div id="flowSummary" class="flow-summary"></div>
+        <div class="flow-actions">
+          <button id="flowBackButton" class="flow-action" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> 이전</button>
+          <button class="flow-action" type="button" onclick="restartFlow()"><i class="fa-solid fa-house"></i> 처음으로</button>
+        </div>
+      </div>
+
+      <!-- 안내 분야 선택 -->
+      <div id="mainSelectionHeading" class="section-title">
+        <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 어떤 안내가 필요하신가요?
+      </div>
     
-    <div class="category-grid">
+      <div id="mainCategoryArea" class="category-grid">
       <div class="cat-card main-category" onclick="selectMainCategory('business', this)">
         <i class="fa-solid fa-store"></i>
         <div>
@@ -245,13 +264,12 @@
           <button class="tab-btn" onclick="switchTab(this, 'tab-rules')"><i class="fa-solid fa-triangle-exclamation"></i> 준수사항</button>
         </div>
 
-        <!-- 탭 1: 서류 & 정부24 연결 -->
+        <!-- 탭 1: 서류 & 신청방법 -->
         <div id="tab-docs" class="pane active">
           <h4><i class="fa-solid fa-check-circle" style="color: var(--accent);"></i> 주요 확인 서류</h4>
           <ul id="resDocsList" style="padding-left: 20px; color: var(--sub-text);"></ul>
-          <a id="resGovLink" href="https://www.gov.kr" target="_blank" rel="noopener noreferrer" class="gov24-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> 정부24 민원 안내 확인
-          </a>
+          <div id="resFormLinks" class="form-actions"></div>
+          <div id="resGovServiceLinks"></div>
           <p class="detail-caption">온라인 신청 가능 여부와 최종 제출서류는 업종·관할 지자체별로 다를 수 있습니다. 신청 전 관할 시·군·구에 확인하세요.</p>
         </div>
 
@@ -600,7 +618,7 @@
           '자동차등록증 등 차량 관련 서류(관할 기관이 요구하는 경우)',
           '건강진단결과서 등 종사자 관련 서류(대상자에 한함)'
         ],
-        govUrl: 'https://www.gov.kr/main?a=AA020MainApp',
+        govUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000021&tp_seq=09',
         facility: [
           '식품위생법상 음식판매자동차 영업이 허용되는 장소인지, 장소 사용 승인을 받았는지 확인',
           '자동차 구조·시설은 관련 기준을 충족해야 하며, 조리용수·폐수·폐기물 처리 및 식품 보관·세척 공간 확보',
@@ -623,7 +641,7 @@
           '영업 종류에 따른 교육·건강진단 등 해당 서류',
           '기존 영업자의 한시적 영업 적용 가능 여부와 신고 절차를 관할 기관에 사전 확인'
         ],
-        govUrl: 'https://www.gov.kr/main?a=AA020MainApp',
+        govUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000021&tp_seq=10',
         facility: [
           '임시 영업장도 해당 업종의 식품위생법상 시설기준을 충족해야 하며, 행사장별 사용 조건 확인',
           '식품·원료 보관, 세척·조리, 급수·배수, 방충·방서와 폐기물 처리 계획 마련',
@@ -773,6 +791,19 @@
       report: '신고'
     };
 
+    function getClosureGovService(item, guide) {
+      const isClosureServiceAvailable = item.lawKey === 'public'
+        || (item.lawKey === 'food' && item.id !== 'food_truck_add' && item.id !== 'food_temp_instant' && item.id !== 'food_group_catering')
+        || (item.lawKey === 'health' && item.id === 'health_sale');
+      if (isClosureServiceAvailable) {
+        return { url: item.closureUrl || guide.closureUrl, label: guide.closureLabel };
+      }
+      return {
+        url: 'https://www.gov.kr',
+        label: '정부24에서 관련 폐업 민원 검색'
+      };
+    }
+
     const reportGroupIds = {
       food_service: ['food_general', 'food_rest', 'food_bakery', 'food_truck', 'food_truck_add'],
       instant_food: ['food_instant', 'food_temp_instant'],
@@ -785,22 +816,72 @@
       ]
     };
 
+    let wizardStep = 'main';
+    let wizardHistory = [];
+    let flowPath = [];
+
+    function setWizardStep(step) {
+      wizardStep = step;
+      const stepAreas = {
+        main: ['mainSelectionHeading', 'mainCategoryArea'],
+        applicationType: ['applicationTypeArea'],
+        reportSector: ['reportSectorArea'],
+        reportFoodGroup: ['reportFoodGroupArea'],
+        subtype: ['subBizArea']
+      };
+      ['mainSelectionHeading', 'mainCategoryArea', 'applicationTypeArea', 'reportSectorArea', 'reportFoodGroupArea', 'subBizArea']
+        .forEach(id => { document.getElementById(id).style.display = 'none'; });
+      (stepAreas[step] || []).forEach(id => {
+        document.getElementById(id).style.display = id === 'mainCategoryArea' || id === 'applicationTypeArea' ? 'grid' : 'block';
+      });
+      document.getElementById('flowNavigation').style.display = step === 'main' ? 'none' : 'flex';
+      document.getElementById('flowBackButton').style.display = wizardHistory.length ? 'inline-flex' : 'none';
+      document.getElementById('flowSummary').textContent = flowPath.join('  ›  ');
+    }
+
+    function advanceWizard(step, label) {
+      wizardHistory.push({ step: wizardStep, path: [...flowPath] });
+      if (label) flowPath.push(label);
+      setWizardStep(step);
+    }
+
+    function goBackStep() {
+      const previous = wizardHistory.pop();
+      if (!previous) return;
+      flowPath = previous.path;
+      setWizardStep(previous.step);
+    }
+
+    function restartFlow() {
+      wizardHistory = [];
+      flowPath = [];
+      document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('licenseResult').style.display = 'none';
+      document.getElementById('subBizSelect').innerHTML = '';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchDropdown').style.display = 'none';
+      document.querySelectorAll('.cat-card.active').forEach(card => card.classList.remove('active'));
+      setWizardStep('main');
+    }
+
     function selectMainCategory(category, el) {
       document.querySelectorAll('.main-category').forEach(card => card.classList.remove('active'));
       el.classList.add('active');
+      wizardHistory = [];
+      flowPath = [];
       document.getElementById('resultContainer').style.display = 'none';
       document.getElementById('licenseResult').style.display = 'none';
       document.getElementById('subBizArea').style.display = 'none';
-      document.getElementById('applicationTypeArea').style.display = category === 'business' ? 'grid' : 'none';
       document.getElementById('reportSectorArea').style.display = 'none';
       document.getElementById('reportFoodGroupArea').style.display = 'none';
       document.querySelectorAll('#applicationTypeArea .cat-card').forEach(card => card.classList.remove('active'));
 
       if (category === 'license') {
         populateSubcategorySelect(licenseDb, '면허 종류 선택');
+        advanceWizard('subtype', '면허발급');
       } else {
         document.getElementById('subBizSelect').innerHTML = '';
-        selectApplicationType('report', document.querySelector('#applicationTypeArea .cat-card[onclick*="report"]'));
+        advanceWizard('applicationType', '영업 인허가 안내');
       }
     }
 
@@ -821,11 +902,14 @@
       document.getElementById('licenseResult').style.display = 'none';
       document.getElementById('subBizArea').style.display = 'none';
       document.getElementById('reportFoodGroupArea').style.display = 'none';
-      document.getElementById('reportSectorArea').style.display = applicationType === 'report' ? 'block' : 'none';
+      document.getElementById('reportSectorArea').style.display = 'none';
 
-      if (applicationType !== 'report') {
+      if (applicationType === 'report') {
+        advanceWizard('reportSector', '신고');
+      } else {
         const filtered = db.filter(item => item.applicationType === applicationType);
         populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 하위 업종 선택`);
+        advanceWizard('subtype', applicationTypeLabels[applicationType]);
       }
     }
 
@@ -837,15 +921,16 @@
       document.getElementById('licenseResult').style.display = 'none';
 
       if (sector === 'food') {
-        document.getElementById('reportFoodGroupArea').style.display = 'block';
         document.querySelectorAll('.report-food-groups .cat-card').forEach(card => card.classList.remove('active'));
         document.getElementById('subBizSelect').innerHTML = '';
+        advanceWizard('reportFoodGroup', '식품·건강기능식품');
         return;
       }
 
       document.getElementById('reportFoodGroupArea').style.display = 'none';
       const publicItems = db.filter(item => item.applicationType === 'report' && item.lawKey === 'public');
       populateSubcategorySelect(publicItems, '공중위생 신고 대상 업종 선택');
+      advanceWizard('subtype', '공중위생');
     }
 
     function selectReportGroup(group, el) {
@@ -860,6 +945,7 @@
       populateSubcategorySelect(items, label);
       document.getElementById('resultContainer').style.display = 'none';
       document.getElementById('licenseResult').style.display = 'none';
+      advanceWizard('subtype', el.querySelector('strong').textContent);
     }
 
     function onSearchInput(val) {
@@ -891,10 +977,16 @@
     function selectFromSearch(id) {
       document.getElementById('searchDropdown').style.display = 'none';
       document.getElementById('searchInput').value = '';
+      wizardHistory = [];
+      flowPath = ['검색 결과'];
+      setWizardStep('main');
       renderSelection(id);
     }
 
     function renderSelection(id) {
+      const item = [...db, ...licenseDb].find(entry => entry.id === id);
+      if (!item) return;
+      advanceWizard('result', item.name);
       if (licenseDb.some(item => item.id === id)) {
         renderLicense(id);
       } else {
@@ -926,6 +1018,11 @@
             <h5 style="color:var(--secondary);"><i class="fa-solid fa-rotate"></i> 재발급 신청서류</h5>
             <ul>${item.reissueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
           </div>
+          <div class="form-actions">
+            <a class="form-link-btn" href="${item.sources[1][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인</a>
+            <a class="form-link-btn" href="${item.sources[1][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드</a>
+          </div>
+          <p class="detail-caption">국가법령정보센터의 최신 시행규칙에서 면허 발급·재발급 관련 별지 서식을 확인할 수 있습니다. 서식 페이지에서 파일 다운로드 여부를 확인하세요.</p>
           <div class="change-box">
             <h5><i class="fa-solid fa-circle-info"></i> 신청 전 확인사항</h5>
             <ul>${item.notes.map(note => `<li>${note}</li>`).join('')}</ul>
@@ -950,12 +1047,51 @@
       document.getElementById('resIcon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
 
       document.getElementById('resDocsList').innerHTML = item.docs.map(d => `<li>${d}</li>`).join('');
-      document.getElementById('resGovLink').href = item.govUrl;
       document.getElementById('resFacilityList').innerHTML = item.facility.map(f => `<li>${f}</li>`).join('');
       document.getElementById('resEduBox').textContent = item.edu;
       document.getElementById('resRulesList').innerHTML = item.rules.map(r => `<li>${r}</li>`).join('');
 
       const guide = legalGuides[item.lawKey];
+      const closureService = getClosureGovService(item, guide);
+      const foodBusinessForms = item.lawKey === 'food' && item.id !== 'food_group_catering'
+        ? {
+            change: {
+              label: '별지 제41호서식 · 식품 영업신고사항 변경신고서',
+              viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925563&bylClsCd=110202',
+              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925561&bylClsCd=110202'
+            },
+            succession: {
+              label: '별지 제49호서식 · 식품영업자 지위승계 신고서',
+              viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925639&bylClsCd=110202',
+              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925637&bylClsCd=110202'
+            },
+            closure: {
+              label: '별지 제42호서식 · 영업의 폐업신고서',
+              viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925593&bylClsCd=110202',
+              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925591&bylClsCd=110202'
+            }
+          }
+        : null;
+      const foodReportForm = item.lawKey === 'food'
+        && item.applicationType === 'report'
+        && item.id !== 'food_truck_add'
+        ? {
+            viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925533&bylClsCd=110202',
+            downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925531&bylClsCd=110202'
+          }
+        : null;
+      document.getElementById('resFormLinks').innerHTML = `
+        <a class="form-link-btn" href="${foodReportForm ? foodReportForm.viewUrl : guide.sources[2][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인${foodReportForm ? ' (PDF)' : ''}</a>
+        <a class="form-link-btn" href="${foodReportForm ? foodReportForm.downloadUrl : guide.sources[2][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드${foodReportForm ? ' (HWPX)' : ''}</a>
+      `;
+      const govService = ['food_truck_add', 'food_temp_instant'].includes(item.id)
+        ? { url: item.govUrl, label: item.id === 'food_truck_add' ? '푸드트럭 영업장소 추가 신고 신청' : '즉석판매제조·가공업 한시적 영업신고 신청' }
+        : null;
+      document.getElementById('resGovServiceLinks').innerHTML = govService ? `
+        <a href="${govService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> ${govService.label}
+        </a>
+      ` : '';
       document.getElementById('resChangeInfo').innerHTML = [
         ['소재지 변경·추가', guide.locationChanges, 'accent'],
         ['소재지 외 변경 (상호·개명·법인 대표자 등)', guide.nonLocationChanges, 'accent'],
@@ -964,15 +1100,32 @@
         <div class="change-box">
           <h5 style="color:var(--${color});">${title}</h5>
           <ul>${points.map(point => `<li>${point}</li>`).join('')}</ul>
-          ${title === '지위승계 (양도·양수)' ? `<div class="legal-links"><a href="${guide.sources[2][1]}" target="_blank" rel="noopener noreferrer">${guide.sources[2][0]}에서 지위승계 신고서 서식 확인</a></div>` : ''}
+          ${title === '지위승계 (양도·양수)' && foodBusinessForms ? `
+            <p class="detail-caption">${foodBusinessForms.succession.label}</p>
+            <div class="form-actions">
+              <a class="form-link-btn" href="${foodBusinessForms.succession.viewUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인 (PDF)</a>
+              <a class="form-link-btn" href="${foodBusinessForms.succession.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드 (HWPX)</a>
+            </div>` : ''}
+          ${title !== '지위승계 (양도·양수)' && foodBusinessForms ? `
+            <p class="detail-caption">${foodBusinessForms.change.label}</p>
+            <div class="form-actions">
+              <a class="form-link-btn" href="${foodBusinessForms.change.viewUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인 (PDF)</a>
+              <a class="form-link-btn" href="${foodBusinessForms.change.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드 (HWPX)</a>
+            </div>` : ''}
         </div>
       `).join('') + `
         <div class="change-box">
           <h5 style="color:var(--danger);">폐업</h5>
           <p>${item.closureNote || guide.closure}</p>
-          <a href="${item.closureUrl || guide.closureUrl}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${guide.closureLabel}
-          </a>
+          ${foodBusinessForms ? `
+            <p class="detail-caption">${foodBusinessForms.closure.label}</p>
+            <div class="form-actions">
+              <a class="form-link-btn" href="${foodBusinessForms.closure.viewUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인 (PDF)</a>
+              <a class="form-link-btn" href="${foodBusinessForms.closure.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드 (HWPX)</a>
+            </div>` : ''}
+          ${closureService ? `<a href="${closureService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${closureService.label}
+          </a>` : ''}
         </div>
       `;
       document.getElementById('resSources').innerHTML =
@@ -991,9 +1144,7 @@
       document.getElementById(paneId).classList.add('active');
     }
 
-    selectMainCategory('business', document.querySelector('.main-category'));
-    selectReportSector('food', document.querySelector('.report-sector-grid .cat-card'));
-    selectReportGroup('food_service', document.querySelector('.report-food-groups .cat-card'));
+    setWizardStep('main');
   </script>
 </body>
 </html>
