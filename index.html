@@ -52,6 +52,12 @@
     .cat-card span { font-size: 0.7rem; color: var(--sub-text); margin-top: 2px; display: block; }
     .cat-card.active { border-color: var(--accent); background: #EFF6FF; }
     .cat-card.active i, .cat-card.active strong { color: var(--accent); }
+    .cat-card.featured { border-color: var(--accent); background: #EFF6FF; }
+    .cat-card.featured i, .cat-card.featured strong { color: var(--accent); }
+    .step-label { margin: 16px 0 8px; font-size: 0.88rem; font-weight: 800; color: var(--primary); }
+    .step-help { color: var(--sub-text); font-size: 0.8rem; margin: -3px 0 10px; line-height: 1.5; }
+    .report-sector-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+    .report-food-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
     
     /* 특수민원 전용 카드의 활성화 스타일 */
     .cat-card.special-card.active { border-color: var(--special); background: #F5F3FF; }
@@ -92,6 +98,7 @@
 
     @media (max-width: 600px) {
       .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .report-sector-grid, .report-food-groups { grid-template-columns: 1fr; }
       .cat-card { text-align: center; padding: 12px 8px; }
     }
   </style>
@@ -115,17 +122,17 @@
       <div id="searchDropdown" class="search-dropdown"></div>
     </div>
 
-    <!-- 인허가 유형 선택 -->
+    <!-- 안내 분야 선택 -->
     <div class="section-title">
-      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 안내 분야를 선택하세요
+      <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 어떤 안내가 필요하신가요?
     </div>
     
     <div class="category-grid">
-      <div class="cat-card main-category" onclick="selectMainCategory('business', this)">
+      <div class="cat-card main-category featured" onclick="selectMainCategory('business', this)">
         <i class="fa-solid fa-store"></i>
         <div>
           <strong>영업 인허가 안내</strong>
-          <span>허가 · 등록 · 신고 및 업종별 안내</span>
+          <span>가게를 열거나 영업 신고를 하려면 여기</span>
         </div>
       </div>
       <div class="cat-card main-category" onclick="selectMainCategory('license', this)">
@@ -137,33 +144,66 @@
       </div>
     </div>
 
-    <div id="applicationTypeArea" class="category-grid" style="display:none; grid-template-columns: repeat(3, 1fr); margin-top: 12px;">
+    <div id="applicationTypeArea" style="display:none; margin-top: 14px;">
+      <div class="step-label">1단계 · 인허가 방식을 선택하세요</div>
+      <p class="step-help">일반 음식점·카페·미용실 등을 새로 열려는 경우 대부분 ‘신고’ 안내부터 확인합니다.</p>
+      <div class="category-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="cat-card featured" onclick="selectApplicationType('report', this)">
+        <i class="fa-solid fa-file-circle-check"></i>
+        <div><strong>신고 (먼저 확인)</strong><span>음식점 · 카페 · 미용실 등</span></div>
+      </div>
       <div class="cat-card" onclick="selectApplicationType('permit', this)">
         <i class="fa-solid fa-stamp"></i>
-        <div><strong>허가</strong><span>허가 대상 영업</span></div>
+        <div><strong>허가</strong><span>유흥주점 등 허가 대상</span></div>
       </div>
       <div class="cat-card" onclick="selectApplicationType('registration', this)">
         <i class="fa-solid fa-clipboard-check"></i>
-        <div><strong>등록</strong><span>등록 대상 영업</span></div>
+        <div><strong>등록</strong><span>공유주방 운영 등</span></div>
       </div>
-      <div class="cat-card" onclick="selectApplicationType('report', this)">
-        <i class="fa-solid fa-file-circle-check"></i>
-        <div><strong>신고</strong><span>신고 대상 영업</span></div>
       </div>
     </div>
 
-    <aside class="legal-note">
-      <strong>법령 안내</strong><br>
-      영업 인허가 안내에서는 허가·등록·신고 유형을 먼저 선택한 뒤 하위 업종을 고르세요. 면허발급 안내에서는 조리사·이용사·미용사 면허의 신규발급과 재발급 서류를 확인할 수 있습니다.
-      아래 내용은 영업 준비를 돕기 위한 법령 요약이며, 개별 인허가에 대한 확정적 유권해석이나 법률 자문은 아닙니다.
-      업종·시설·지역별 조건과 법령 개정에 따라 제출서류 및 절차가 달라질 수 있으므로 계약·공사·영업 전에 관할 시·군·구에 확인하세요.
-      법령 문구와 시행일은 국가법령정보센터 원문을 기준으로 확인하시기 바랍니다.
-      <div class="legal-links">
-        <a href="https://www.law.go.kr/법령/식품위생법" target="_blank" rel="noopener noreferrer">식품위생법</a>
-        <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률</a>
-        <a href="https://www.law.go.kr/법령/공중위생관리법" target="_blank" rel="noopener noreferrer">공중위생관리법</a>
+    <div id="reportSectorArea" style="display:none; margin-top: 14px;">
+      <div class="step-label">2단계 · 어떤 분야의 영업인가요?</div>
+      <p class="step-help">식품·건강기능식품 영업인지, 공중위생 영업인지 선택하세요.</p>
+      <div class="report-sector-grid">
+        <div class="cat-card" onclick="selectReportSector('food', this)">
+          <i class="fa-solid fa-utensils"></i>
+          <div><strong>식품·건강기능식품</strong><span>음식점 · 제조 · 식품판매 · 급식</span></div>
+        </div>
+        <div class="cat-card" onclick="selectReportSector('public', this)">
+          <i class="fa-solid fa-pump-soap"></i>
+          <div><strong>공중위생</strong><span>숙박 · 목욕 · 이용 · 미용 · 세탁 · 청소</span></div>
+        </div>
       </div>
-    </aside>
+    </div>
+
+    <div id="reportFoodGroupArea" style="display:none; margin-top: 14px;">
+      <div class="step-label">3단계 · 하려는 식품 영업을 고르세요</div>
+      <p class="step-help">가장 많이 찾는 음식점·카페부터 순서대로 정리했습니다. 잘 모르겠으면 영업 형태와 가장 가까운 항목을 선택하세요.</p>
+      <div class="report-food-groups">
+        <div class="cat-card" onclick="selectReportGroup('food_service', this)">
+          <i class="fa-solid fa-bowl-food"></i>
+          <div><strong>음식점·카페·제과점</strong><span>일반음식점 · 휴게음식점 · 제과점 · 푸드트럭</span></div>
+        </div>
+        <div class="cat-card" onclick="selectReportGroup('instant_food', this)">
+          <i class="fa-solid fa-store"></i>
+          <div><strong>즉석판매제조·가공</strong><span>반찬가게 · 떡집 등</span></div>
+        </div>
+        <div class="cat-card" onclick="selectReportGroup('health_sale', this)">
+          <i class="fa-solid fa-capsules"></i>
+          <div><strong>건강기능식품 판매</strong><span>영양제 · 건강기능식품 판매</span></div>
+        </div>
+        <div class="cat-card" onclick="selectReportGroup('group_catering', this)">
+          <i class="fa-solid fa-users"></i>
+          <div><strong>집단급식소</strong><span>구내식당 · 학교·병원 급식 운영</span></div>
+        </div>
+        <div class="cat-card" onclick="selectReportGroup('other_food', this)">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <div><strong>그 외 식품 영업</strong><span>운반 · 소분 · 자동판매기 · 식품판매 등</span></div>
+        </div>
+      </div>
+    </div>
 
     <div id="subBizArea" class="sub-biz-area">
       <label id="subBizLabel" for="subBizSelect" style="font-size: 0.85rem; font-weight: 700; color: var(--sub-text); display: block; margin-bottom: 8px;">하위 업종 선택</label>
@@ -230,6 +270,19 @@
 
       </div>
     </div>
+
+    <aside class="legal-note">
+      <strong>법령 안내</strong><br>
+      안내를 찾는 순서: <strong>영업 인허가 안내 → 신고 → 식품·건강기능식품/공중위생 → 하위 업종</strong>입니다. 조리사·이용사·미용사 자격 관련 면허를 신청하려면 <strong>면허발급</strong>을 선택하세요.
+      아래 내용은 영업 준비를 돕기 위한 법령 요약이며, 개별 인허가에 대한 확정적 유권해석이나 법률 자문은 아닙니다.
+      업종·시설·지역별 조건과 법령 개정에 따라 제출서류 및 절차가 달라질 수 있으므로 계약·공사·영업 전에 관할 시·군·구에 확인하세요.
+      법령 문구와 시행일은 국가법령정보센터 원문을 기준으로 확인하시기 바랍니다.
+      <div class="legal-links">
+        <a href="https://www.law.go.kr/법령/식품위생법" target="_blank" rel="noopener noreferrer">식품위생법</a>
+        <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률</a>
+        <a href="https://www.law.go.kr/법령/공중위생관리법" target="_blank" rel="noopener noreferrer">공중위생관리법</a>
+      </div>
+    </aside>
 
   </div>
 
@@ -706,6 +759,18 @@
       report: '신고'
     };
 
+    const reportGroupIds = {
+      food_service: ['food_general', 'food_rest', 'food_bakery', 'food_truck', 'food_truck_add'],
+      instant_food: ['food_instant', 'food_temp_instant'],
+      health_sale: ['health_sale'],
+      group_catering: ['food_group_catering'],
+      other_food: [
+        'food_transport', 'food_subdivision', 'food_ice_sales', 'food_vending',
+        'food_distribution', 'food_group_catering_sales', 'food_other_sales',
+        'food_cold_storage', 'food_catering'
+      ]
+    };
+
     function selectMainCategory(category, el) {
       document.querySelectorAll('.main-category').forEach(card => card.classList.remove('active'));
       el.classList.add('active');
@@ -713,12 +778,15 @@
       document.getElementById('licenseResult').style.display = 'none';
       document.getElementById('subBizArea').style.display = 'none';
       document.getElementById('applicationTypeArea').style.display = category === 'business' ? 'grid' : 'none';
+      document.getElementById('reportSectorArea').style.display = 'none';
+      document.getElementById('reportFoodGroupArea').style.display = 'none';
       document.querySelectorAll('#applicationTypeArea .cat-card').forEach(card => card.classList.remove('active'));
 
       if (category === 'license') {
         populateSubcategorySelect(licenseDb, '면허 종류 선택');
       } else {
         document.getElementById('subBizSelect').innerHTML = '';
+        selectApplicationType('report', document.querySelector('#applicationTypeArea .cat-card[onclick*="report"]'));
       }
     }
 
@@ -734,8 +802,47 @@
       document.querySelectorAll('#applicationTypeArea .cat-card').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
 
-      const filtered = db.filter(item => item.applicationType === applicationType);
-      populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 하위 업종 선택`);
+      document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('licenseResult').style.display = 'none';
+      document.getElementById('subBizArea').style.display = 'none';
+      document.getElementById('reportFoodGroupArea').style.display = 'none';
+      document.getElementById('reportSectorArea').style.display = applicationType === 'report' ? 'block' : 'none';
+
+      if (applicationType !== 'report') {
+        const filtered = db.filter(item => item.applicationType === applicationType);
+        populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 하위 업종 선택`);
+      }
+    }
+
+    function selectReportSector(sector, el) {
+      document.querySelectorAll('.report-sector-grid .cat-card').forEach(card => card.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('subBizArea').style.display = 'none';
+      document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('licenseResult').style.display = 'none';
+
+      if (sector === 'food') {
+        document.getElementById('reportFoodGroupArea').style.display = 'block';
+        document.querySelectorAll('.report-food-groups .cat-card').forEach(card => card.classList.remove('active'));
+        document.getElementById('subBizSelect').innerHTML = '';
+        return;
+      }
+
+      document.getElementById('reportFoodGroupArea').style.display = 'none';
+      const publicItems = db.filter(item => item.applicationType === 'report' && item.lawKey === 'public');
+      populateSubcategorySelect(publicItems, '공중위생 신고 대상 업종 선택');
+    }
+
+    function selectReportGroup(group, el) {
+      document.querySelectorAll('.report-food-groups .cat-card').forEach(card => card.classList.remove('active'));
+      el.classList.add('active');
+      const items = reportGroupIds[group].map(id => db.find(item => item.id === id)).filter(Boolean);
+      const label = group === 'food_service' ? '음식점·카페·제과점 세부 업종 선택'
+        : group === 'instant_food' ? '즉석판매제조·가공 세부 유형 선택'
+        : group === 'health_sale' ? '건강기능식품 판매업 종류 선택'
+        : group === 'group_catering' ? '집단급식소 관련 신고 종류 선택'
+        : '그 외 식품 신고 대상 업종 선택';
+      populateSubcategorySelect(items, label);
       document.getElementById('resultContainer').style.display = 'none';
       document.getElementById('licenseResult').style.display = 'none';
     }
@@ -868,6 +975,10 @@
       document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
       document.getElementById(paneId).classList.add('active');
     }
+
+    selectMainCategory('business', document.querySelector('.main-category'));
+    selectReportSector('food', document.querySelector('.report-sector-grid .cat-card'));
+    selectReportGroup('food_service', document.querySelector('.report-food-groups .cat-card'));
   </script>
 </body>
 </html>
