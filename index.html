@@ -28,7 +28,6 @@
     .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(37, 99, 235, 0.3); border: 1px solid var(--accent); color: #60A5FA; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
     header h1 { font-size: clamp(1.6rem, 3.6vw, 1.95rem); font-weight: 800; letter-spacing: -0.04em; }
     header p { font-size: 1rem; color: #DBEAFE; margin-top: 8px; }
-
     .main-container { max-width: 980px; margin: 0 auto; padding: 20px; }
 
     /* 검색창 */
@@ -37,6 +36,13 @@
     .search-input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.1rem; }
     .search-input { width: 100%; padding: 16px 16px 16px 48px; border: 2px solid #CBD5E1; border-radius: 12px; font-size: 1rem; font-weight: 600; outline: none; }
     .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .mascot-tip { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 10px 14px; border: 1px solid #DBEAFE; border-radius: 14px; background: linear-gradient(100deg, #F8FBFF, #EFF6FF); color: #334155; }
+    .mascot-tip img { flex: 0 0 auto; width: 76px; height: auto; }
+    .mascot-tip p { font-size: 0.9rem; line-height: 1.6; }
+    .main-mascot-tip { justify-content: space-between; padding-left: 18px; }
+    .main-mascot-tip img { order: 1; width: 92px; }
+    .character-credit { max-width: 980px; margin: 18px auto 0; padding: 0 20px 22px; color: #64748B; text-align: center; font-size: 0.68rem; line-height: 1.6; }
+    .character-credit a { color: #475569; text-underline-offset: 2px; }
     
     .search-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 12px; margin-top: 6px; max-height: 250px; overflow-y: auto; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none; }
     .search-item { padding: 12px 16px; border-bottom: 1px solid #F1F5F9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -47,6 +53,8 @@
     .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .cat-card { min-height: 92px; background: var(--card-bg); border: 2px solid #D7E0EC; border-radius: 16px; padding: 16px; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s; box-shadow: 0 2px 7px rgba(15, 23, 42, 0.035); }
     .cat-card > div { min-width: 0; }
+    .cat-card.mascot-card { position: relative; padding-right: 68px; }
+    .cat-card .mascot-card-image { position: absolute; right: 10px; bottom: 3px; width: 54px; height: 58px; object-fit: contain; pointer-events: none; }
     .cat-card:hover { border-color: #8DB3F2; box-shadow: 0 6px 16px rgba(37, 99, 235, 0.09); transform: translateY(-1px); }
     .cat-card:focus-visible { outline: 3px solid #93C5FD; outline-offset: 3px; }
     .cat-card i { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 14px; margin: 0; background: #EEF4FF; color: #1D4ED8; font-size: 1.25rem; }
@@ -124,6 +132,12 @@
     @media (max-width: 680px) {
       header { padding: 22px 16px 24px; }
       .main-container { padding: 16px 14px; }
+      .mascot-tip { align-items: flex-start; padding: 9px 11px; }
+      .mascot-tip img { width: 48px; }
+      .main-mascot-tip { align-items: center; padding-left: 12px; }
+      .main-mascot-tip img { width: 72px; }
+      .cat-card .mascot-card-image { right: 8px; width: 48px; height: 54px; }
+      .character-credit { padding: 0 14px 18px; }
       .category-grid, #applicationTypeArea .category-grid { grid-template-columns: 1fr; }
       .report-sector-grid, .report-food-groups { grid-template-columns: 1fr; }
       #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea { padding: 15px; }
@@ -152,6 +166,10 @@
         <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요 (예: 푸드트럭, 한시적, 카페, 축제, 소재지추가)" oninput="onSearchInput(this.value)">
       </div>
       <div id="searchDropdown" class="search-dropdown"></div>
+      <div class="mascot-tip main-mascot-tip">
+        <p>필요한 민원이나 업종명을 검색하거나, 아래 안내 메뉴를 골라보세요.</p>
+        <img src="img/yangsan-friends/char1_1.png" alt="" aria-hidden="true">
+      </div>
     </div>
 
       <div id="flowNavigation" class="flow-navigation" style="display:none;">
@@ -168,26 +186,29 @@
       </div>
     
       <div id="mainCategoryArea" class="category-grid">
-      <div class="cat-card main-category" onclick="selectMainCategory('business', this)">
+      <div class="cat-card main-category mascot-card" onclick="selectMainCategory('business', this)">
         <i class="fa-solid fa-store"></i>
         <div>
           <strong>영업 인허가 안내</strong>
-          <span>가게를 열거나 영업 신고를 하려면 여기</span>
+          <span>가게를 열거나 영업 신고를 하시는 분</span>
         </div>
+        <img class="mascot-card-image" src="img/yangsan-friends/char1_1.png" alt="" aria-hidden="true">
       </div>
-      <div class="cat-card main-category" onclick="selectMainCategory('license', this)">
+      <div class="cat-card main-category mascot-card" onclick="selectMainCategory('license', this)">
         <i class="fa-solid fa-id-card"></i>
         <div>
           <strong>면허발급</strong>
           <span>조리사 · 이용사 · 미용사 발급·재발급</span>
         </div>
+        <img class="mascot-card-image" src="img/yangsan-friends/char2_1.png" alt="" aria-hidden="true">
       </div>
-      <div class="cat-card main-category" onclick="selectMainCategory('education', this)">
+      <div class="cat-card main-category mascot-card" onclick="selectMainCategory('education', this)">
         <i class="fa-solid fa-graduation-cap"></i>
         <div>
           <strong>업종별 위생교육 안내</strong>
           <span>식품·건강기능식품 · 공중위생 교육기관 바로가기</span>
         </div>
+        <img class="mascot-card-image" src="img/yangsan-friends/char3_1.png" alt="" aria-hidden="true">
       </div>
     </div>
 
@@ -309,6 +330,21 @@
               <li><strong>법인 명의 신청:</strong> 법인등기부등본, 법인인감증명서(사용인감 사용 시 사용인감계) 및 법인인감</li>
               <li><strong>법인 대리 신청:</strong> 법인인감 날인 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대체할 수 없음</li>
             </ul>
+            <div class="form-actions">
+              <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?flSeq=144043023" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-file-pdf"></i> 민원처리법 시행규칙 별지 제3호서식 위임장 (PDF)
+              </a>
+            </div>
+            <div class="change-box">
+              <h5><i class="fa-solid fa-pen-to-square"></i> 영업 인허가 민원 위임장 작성 예시</h5>
+              <ul class="info-list">
+                <li><strong>민원명:</strong> 식품위생법 제37조에 따른 [업종명] 영업 [신고·허가·등록·변경신고] (영업소: [상호·주소])</li>
+                <li><strong>위임사항:</strong> 위 민원의 신청서와 구비서류 제출 및 접수, 접수증 수령</li>
+                <li><strong>위임인·대리인:</strong> 서식의 해당란에 각자의 성명, 주소, 연락처 등 인적사항을 기재</li>
+                <li><strong>위임인 서명·날인:</strong> 신고서에는 신고인이 직접 자필서명하고, 서명한 신분증 사본을 첨부. 위임장에 인감도장을 날인하면 인감증명서를 함께 제출</li>
+              </ul>
+              <p class="detail-caption">영업신고증 등 처리 결과물까지 대리 수령하려면 위임 범위에 그 내용을 명시하세요. 민원명과 위임 범위는 실제 신청 내용에 맞게 구체적으로 작성하고, 관할 기관의 추가 요구사항을 확인하세요.</p>
+            </div>
             <p class="detail-caption">법인 대리 신청에서 법인인감 대신 사용인감을 사용하는 경우 사용인감계와 법인인감증명서를 준비하세요. 제출 방식이나 추가 확인자료는 방문 전 관할 기관에 확인하세요.</p>
           </div>
           <div id="resConditionalDocs" class="change-box">
@@ -367,6 +403,12 @@
     </aside>
 
   </div>
+
+  <footer class="character-credit">
+    캐릭터 출처: 양산시 관광캐릭터 ‘양산프렌즈’ · 비영리·원본 그대로 사용
+    (<a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101030000" target="_blank" rel="noopener noreferrer">캐릭터 소개</a>
+    · <a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101060000" target="_blank" rel="noopener noreferrer">이용조건</a>)
+  </footer>
 
   <script>
     const legalGuides = {
