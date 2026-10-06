@@ -285,6 +285,7 @@
         <div>
           <h2 id="resBizName">업종 명칭</h2>
           <span id="resLawTag" style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem;">적용 법률</span>
+          <p id="resBizDefinition" style="margin-top:8px; color:#DBEAFE; font-size:0.9rem; max-width:720px;">업종 정의</p>
         </div>
         <div style="font-size: 1.8rem; opacity: 0.8;" id="resIcon"><i class="fa-solid fa-store"></i></div>
       </div>
@@ -300,7 +301,22 @@
 
         <!-- 탭 1: 서류 & 신청방법 -->
         <div id="tab-docs" class="pane active">
-          <h4><i class="fa-solid fa-check-circle" style="color: var(--accent);"></i> 주요 확인 서류</h4>
+          <div class="change-box">
+            <h4><i class="fa-solid fa-address-card" style="color: var(--accent);"></i> 신청인 공통 확인서류</h4>
+            <ul class="info-list">
+              <li><strong>개인 명의 신청:</strong> 신청인 신분증</li>
+              <li><strong>대리인 방문 신청:</strong> 모든 신고서에 신고인 자필서명, 자필서명한 신고인 신분증 사본, 위임장 및 대리인 신분증 필요. 신고인이 인감도장을 날인하는 경우 인감증명서 제출</li>
+              <li><strong>법인 명의 신청:</strong> 법인등기부등본, 법인인감증명서(사용인감 사용 시 사용인감계) 및 법인인감</li>
+              <li><strong>법인 대리 신청:</strong> 법인인감 날인 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대체할 수 없음</li>
+            </ul>
+            <p class="detail-caption">법인 대리 신청에서 법인인감 대신 사용인감을 사용하는 경우 사용인감계와 법인인감증명서를 준비하세요. 제출 방식이나 추가 확인자료는 방문 전 관할 기관에 확인하세요.</p>
+          </div>
+          <div id="resConditionalDocs" class="change-box">
+            <h4><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당 시 추가 제출서류</h4>
+            <ul id="resConditionalDocsList" class="info-list"></ul>
+            <p class="detail-caption">아래 서류는 모든 영업소에 해당하지 않습니다. 시설·영업 형태와 법정 적용 대상인지 확인한 뒤 준비하세요. 보험 가입 여부와 소방·검사 요건은 관할 기관에서 최종 확인하세요.</p>
+          </div>
+          <h4><i class="fa-solid fa-check-circle" style="color: var(--accent);"></i> 업종별 주요 확인 서류</h4>
           <ul id="resDocsList" style="padding-left: 20px; color: var(--sub-text);"></ul>
           <div id="resFormLinks" class="form-actions"></div>
           <div id="resGovServiceLinks"></div>
@@ -361,16 +377,10 @@
           ['식품위생법 시행규칙', 'https://www.law.go.kr/법령/식품위생법시행규칙']
         ],
         citations: '식품위생법 제36조·제37조·제39조·제40조·제41조·제44조·제97조, 식품위생법 시행령 제21조, 같은 법 시행규칙 별표 14·17·26',
-        locationChanges: [
+        changeDocuments: [
           '영업허가·신고·등록사항 변경신고서',
           '기존 영업허가증·신고증·등록증',
-          '변경된 영업소의 소재지 증빙서류(임대차계약서 등)',
-          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
-        ],
-        nonLocationChanges: [
-          '영업허가·신고·등록사항 변경신고서',
-          '기존 영업허가증·신고증·등록증',
-          '변경 내용을 증명하는 서류(상호·대표자·법인정보 등 변경 항목별)',
+          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)',
           '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         succession: [
@@ -395,16 +405,10 @@
           ['건강기능식품에 관한 법률 시행규칙', 'https://www.law.go.kr/법령/건강기능식품에관한법률시행규칙']
         ],
         citations: '건강기능식품에 관한 법률 제4조·제5조·제6조·제8조·제9조 및 같은 법 시행규칙',
-        locationChanges: [
+        changeDocuments: [
           '영업허가·신고사항 변경신고서',
           '기존 영업허가증·신고증',
-          '변경된 영업소의 소재지 증빙서류(임대차계약서 등)',
-          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
-        ],
-        nonLocationChanges: [
-          '영업허가·신고사항 변경신고서',
-          '기존 영업허가증·신고증',
-          '변경 내용을 증명하는 서류(상호·대표자·법인정보 등 변경 항목별)',
+          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)',
           '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         succession: [
@@ -429,16 +433,10 @@
           ['공중위생관리법 시행규칙', 'https://www.law.go.kr/법령/공중위생관리법시행규칙']
         ],
         citations: '공중위생관리법 제2조·제3조·제3조의2·제4조·제6조·제17조, 같은 법 시행령 제4조 및 시행규칙 별표 1·4',
-        locationChanges: [
+        changeDocuments: [
           '영업신고사항 변경신고서',
           '기존 영업신고증',
-          '변경된 영업소의 소재지 증빙서류(임대차계약서 등)',
-          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
-        ],
-        nonLocationChanges: [
-          '영업신고사항 변경신고서',
-          '기존 영업신고증',
-          '변경 내용을 증명하는 서류(상호·대표자·법인정보 등 변경 항목별)',
+          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)',
           '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         succession: [
@@ -458,6 +456,42 @@
       }
     };
 
+    const businessDefinitions = {
+      food_manufacturing: '판매할 식품을 공장 등에서 만들거나 원재료를 가공해 제품으로 생산하는 업종입니다.',
+      food_additive_manufacturing: '식품의 제조·가공에 쓰이는 식품첨가물을 제조하는 업종입니다.',
+      food_transport: '판매나 영업을 위해 식품을 차량 등으로 운반하는 업종입니다.',
+      food_subdivision: '완제품 식품을 정해진 범위에서 나누어 다시 포장·판매하는 업종입니다.',
+      food_ice_sales: '먹는 얼음을 만들어 판매하거나 판매 목적으로 보관·유통하는 업종입니다.',
+      food_vending: '식품을 자동판매기에 넣어 소비자가 기계를 통해 구매하도록 판매하는 업종입니다.',
+      food_distribution: '다른 제조업체에 식품 생산을 맡기고, 자기 상표로 제품을 유통·판매하는 업종입니다.',
+      food_group_catering_sales: '학교·병원 등 집단급식소에 식품을 납품·판매하는 업종입니다.',
+      food_other_sales: '식품을 매장에 갖추어 일반 소비자에게 판매하는 업종 중 법령에서 별도로 정한 판매업입니다.',
+      food_irradiation: '식품을 보존하거나 처리하기 위해 허가된 방사선 조사시설에서 식품에 방사선을 조사하는 업종입니다.',
+      food_cold_storage: '식품을 냉장 또는 냉동 시설에 보관해 보존·유통하는 업종입니다.',
+      food_container_packaging: '식품과 직접 닿는 용기나 포장지를 제조하는 업종입니다.',
+      food_pottery: '식품을 담거나 보관하는 데 쓰는 옹기류를 제조하는 업종입니다.',
+      food_short_night: '주로 주류를 판매하고, 손님이 노래를 부를 수 있는 시설을 갖춘 식품접객업입니다.',
+      food_entertainment: '주류를 판매하며 유흥종사자나 유흥시설을 두고 손님이 노래·춤 등 유흥을 즐기도록 하는 식품접객업입니다.',
+      food_catering: '계약을 맺고 사업장·시설의 급식소를 운영하며 이용자에게 식사를 제공하는 업종입니다.',
+      food_bakery: '주로 빵·떡·과자 등을 만들어 판매하는 식품접객업입니다.',
+      food_truck: '자동차를 조리·판매에 맞게 갖추고 음식을 조리해 판매하는 영업입니다.',
+      food_shared_kitchen: '여러 영업자가 함께 사용할 수 있는 식품 제조·조리 시설과 장소를 마련해 빌려주는 업종입니다.',
+      food_group_catering: '학교·병원·사업장 등 법령에서 정한 시설에서 여러 사람에게 계속 식사를 제공하기 위해 설치·운영하는 급식시설입니다.',
+      public_lodging: '손님이 잠을 자거나 머물 수 있도록 객실과 관련 시설을 갖추어 숙박 서비스를 제공하는 업종입니다.',
+      public_bath: '손님이 목욕할 수 있도록 욕탕·샤워·발한 시설 등을 갖추어 서비스를 제공하는 업종입니다.',
+      public_barber: '손님의 머리·수염을 깎거나 다듬는 등 이용 서비스를 제공하는 업종입니다.',
+      public_beauty: '머리 손질, 피부·손톱·발톱 관리, 화장·분장 등 신고한 종류에 맞는 미용 서비스를 제공하는 업종입니다.',
+      public_laundry: '손님이 맡긴 의류·침구 등 세탁물을 세탁·건조·다림질하는 업종입니다.',
+      public_building_hygiene: '건축물이나 시설물의 청결·위생을 유지하도록 청소 등 위생관리 업무를 대행하는 업종입니다.',
+      food_truck_add: '이미 신고한 음식판매자동차 영업자가 허용된 다른 장소에서도 영업할 수 있도록 장소를 추가 신고하는 절차입니다.',
+      food_temp_instant: '축제·박람회 등 정해진 행사 장소와 기간에 즉석에서 식품을 제조·가공해 판매하는 한시적 영업입니다.',
+      food_rest: '음식을 조리해 판매하되, 일반적으로 술을 주된 목적으로 판매하거나 손님에게 노래·춤 등 유흥을 제공하지 않는 음식점입니다.',
+      food_general: '음식을 조리해 판매하고 식사와 함께 주류도 판매할 수 있는 음식점입니다.',
+      food_instant: '식품을 영업장에서 직접 만들어 가공하고, 주로 최종 소비자에게 바로 판매하는 업종입니다.',
+      health_sale: '건강기능식품을 소비자에게 판매하거나, 다른 업체에 제조를 맡긴 제품을 자기 상표로 유통·판매하는 업종입니다.',
+      health_manufacturing: '건강기능식품을 제조하는 허가 업종으로, 전문제조·벤처제조 등 유형에 따라 제조 방식과 시설 요건이 다릅니다.'
+    };
+
     function createCatalogItems(category, definitions) {
       const isFood = category === 'food';
       return definitions.map(definition => ({
@@ -467,6 +501,7 @@
         lawKey: category,
         law: definition.law,
         name: definition.name,
+        description: businessDefinitions[definition.id],
         keywords: definition.keywords,
         icon: definition.icon,
         docs: definition.docs || [
@@ -1330,6 +1365,21 @@
       }
     }
 
+    function openEducationProviders(sector) {
+      const educationCard = [...document.querySelectorAll('#mainCategoryArea .main-category')]
+        .find(card => card.textContent.includes('업종별 위생교육 안내'));
+      if (!educationCard) throw new Error('위생교육 안내 화면을 찾을 수 없습니다.');
+
+      wizardHistory = [];
+      flowPath = [];
+      selectMainCategory('education', educationCard);
+
+      const sectorCard = [...document.querySelectorAll('#educationSectorArea .cat-card')]
+        .find(card => card.getAttribute('onclick').includes(`selectEducationSector('${sector}'`));
+      if (!sectorCard) throw new Error(`${sector} 위생교육 분야를 찾을 수 없습니다.`);
+      selectEducationSector(sector, sectorCard);
+    }
+
     function selectEducationSector(sector, el) {
       document.querySelectorAll('#educationSectorArea .cat-card').forEach(card => card.classList.remove('active'));
       el.classList.add('active');
@@ -1524,10 +1574,40 @@
       document.getElementById('resBizName').innerText = item.name;
       document.getElementById('resLawTag').innerText = `${applicationTypeLabels[item.applicationType]} · ${item.law}`;
       document.getElementById('resIcon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
+      const businessDefinition = item.description || businessDefinitions[item.id];
+      if (!businessDefinition) throw new Error(`업종 정의가 등록되지 않았습니다: ${item.id}`);
+      document.getElementById('resBizDefinition').textContent = businessDefinition;
 
+      const educationBox = document.getElementById('resEduBox');
+      if (item.lawKey === 'food') {
+        educationBox.innerHTML = `
+          <p>식품위생법 제41조에 따라 식품 영업자는 위생교육을 받아야 합니다. 신규 영업자는 원칙적으로 영업 시작 전 교육을 이수하고, 기존 영업자는 매년 정기교육을 이수해야 합니다.</p>
+          <p>교육시간과 교육 대상은 영업 종류별 법령에 따라 달라질 수 있으므로 관할 기관과 지정 교육기관의 안내를 확인하세요.</p>
+          <div class="legal-links">
+            <a href="https://www.law.go.kr/법령/식품위생법/제41조" target="_blank" rel="noopener noreferrer">식품위생법 제41조 원문</a>
+          </div>
+          <div class="form-actions">
+            <button class="form-link-btn" type="button" onclick="openEducationProviders('food')">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> 식품 위생교육기관 바로가기
+            </button>
+          </div>
+        `;
+      } else {
+        educationBox.textContent = item.edu;
+      }
+
+      const conditionalDocs = [
+        'LPG 사용시설이 있는 경우: 액화석유가스 사용시설 완성검사증명서',
+        ...(item.lawKey === 'food'
+          ? ['식품의 조리·제조 등에 지하수를 사용하는 경우: 지하수 수질검사성적서']
+          : []),
+        '재난배상책임보험 의무가입 대상 시설인 경우: 보험 가입 증명자료',
+        '다중이용업소에 해당하는 경우: 안전시설등 완비증명서, 화재배상책임보험 가입 증명자료, 소방안전교육 이수자료 등 해당 서류(업종·층·구조 등 대상 여부를 관할 소방서에 확인)',
+        '어린이놀이시설을 설치·운영하는 경우: 설치검사 합격증 및 검사 시기가 도래한 정기시설검사 합격증'
+      ];
+      document.getElementById('resConditionalDocsList').innerHTML = conditionalDocs.map(document => `<li>${document}</li>`).join('');
       document.getElementById('resDocsList').innerHTML = item.docs.map(d => `<li>${d}</li>`).join('');
       document.getElementById('resFacilityList').innerHTML = item.facility.map(f => `<li>${f}</li>`).join('');
-      document.getElementById('resEduBox').textContent = item.edu;
       document.getElementById('resRulesList').innerHTML = item.rules.map(r => `<li>${r}</li>`).join('');
       document.getElementById('resRuleScope').style.display = item.lawKey === 'food' ? 'block' : 'none';
 
@@ -1601,10 +1681,9 @@
         feeInfo.innerHTML = '';
       }
       const foodChangeFees = {
-        location: item.id === 'food_truck_add'
-          ? '소재지 변경 처리 시 전자민원 23,800원 / 방문·우편 26,500원; 한시적 타 장소 영업 시 8,300원 / 9,300원'
-          : '전자민원 23,800원 / 방문·우편 26,500원',
-        otherChange: '전자민원 8,300원 / 방문·우편 9,300원',
+        change: item.id === 'food_truck_add'
+          ? '소재지 변경 처리 시 전자민원 23,800원 / 방문·우편 26,500원; 그 외 변경 또는 한시적 타 장소 영업 시 전자민원 8,300원 / 방문·우편 9,300원'
+          : '소재지 변경: 전자민원 23,800원 / 방문·우편 26,500원; 그 외 변경: 전자민원 8,300원 / 방문·우편 9,300원',
         succession: '전자민원 8,300원 / 방문·우편 9,300원',
         closure: '별표 26 별도 수수료 항목 없음'
       };
@@ -1612,8 +1691,7 @@
         ? foodChangeFees[fee]
         : '수수료는 관할 기관 확인';
       document.getElementById('resChangeInfo').innerHTML = [
-        ['소재지 변경·추가', guide.locationChanges, 'accent', 'location'],
-        ['소재지 외 변경 (상호·개명·법인 대표자 등)', guide.nonLocationChanges, 'accent', 'otherChange'],
+        ['변경', guide.changeDocuments, 'accent', 'change'],
         ['지위승계 (양도·양수)', guide.succession, 'secondary', 'succession']
       ].map(([title, points, color, fee]) => `
         <div class="change-box">
