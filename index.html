@@ -98,6 +98,7 @@
     
     .change-box { background: #F8FAFC; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
     .change-box h5 { font-size: 0.9rem; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .change-fee { color: var(--sub-text); font-size: 0.8rem; font-weight: 600; }
     .change-box ul { padding-left: 18px; color: var(--sub-text); font-size: 0.85rem; }
 
     .gov24-btn { display: inline-flex; align-items: center; gap: 8px; background: #0066FF; color: white; padding: 12px 18px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; font-weight: 700; margin-top: 14px; box-shadow: 0 4px 10px rgba(0,102,255,0.2); }
@@ -224,7 +225,7 @@
       </div>
       <div class="cat-card" onclick="selectApplicationType('registration', this)">
         <i class="fa-solid fa-clipboard-check"></i>
-        <div><strong>등록 대상</strong><span>공유주방 운영 등</span></div>
+        <div><strong>등록 대상</strong><span>식품제조·가공업 등</span></div>
       </div>
       </div>
     </div>
@@ -309,10 +310,8 @@
 
         <!-- 탭 2: 변경·승계·폐업 -->
         <div id="tab-change" class="pane">
-          <h4><i class="fa-solid fa-arrows-repeat" style="color: var(--accent);"></i> 영업 변동 행정 절차</h4>
-          <p class="detail-caption">변경신고 항목과 첨부서류는 업종별 서식과 신고사항에 따라 다릅니다. 온라인 신청 가능 여부와 신고 기한을 관할 기관 또는 정부24 안내에서 확인하세요.</p>
+          <h4><i class="fa-solid fa-arrows-repeat" style="color: var(--accent);"></i> 변경·승계·폐업 구비서류</h4>
           <div id="resChangeInfo"></div>
-          <div id="resSources" class="source-links"></div>
         </div>
 
         <!-- 탭 3: 시설기준/장소조건 -->
@@ -363,22 +362,29 @@
         ],
         citations: '식품위생법 제36조·제37조·제39조·제40조·제41조·제44조·제97조, 식품위생법 시행령 제21조, 같은 법 시행규칙 별표 14·17·26',
         locationChanges: [
-          '식품위생법 시행령 제21조는 식품제조·가공업, 즉석판매제조·가공업, 식품첨가물제조업, 식품운반업, 식품소분·판매업, 식품보존업, 용기·포장류제조업, 식품접객업, 공유주방 운영업을 영업 종류로 정합니다. 각 종류의 세부 유형과 허가·등록·신고 구분을 확인하세요.',
-          '영업 시작 전 해당 업종의 시설기준을 갖추고 법에서 정한 허가·등록·신고 절차를 마쳐야 합니다. 식품조사처리업, 단란주점영업, 유흥주점영업 등은 다른 식품영업과 절차가 다를 수 있습니다.',
-          '영업소를 이전하거나 기존 영업신고에 영업장소를 추가하는 경우 소재지 변경·추가로 구분해 신고 대상 여부와 절차를 확인하세요. 푸드트럭 등 장소 제한이 있는 영업은 장소 사용승인 및 장소별 추가 신고 요건도 확인해야 합니다.',
-          '소재지 변경과 소재지 추가는 처리방식·서류가 다를 수 있습니다. 시행규칙상 해당 영업의 신고서에서 소재지 항목과 첨부서류를 확인하고, 이전·추가 전에 관할 시·군·구에 문의하세요.'
+          '영업허가·신고·등록사항 변경신고서',
+          '기존 영업허가증·신고증·등록증',
+          '변경된 영업소의 소재지 증빙서류(임대차계약서 등)',
+          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         nonLocationChanges: [
-          '소재지 외 변경은 상호(영업소 명칭), 영업자 성명·개명, 법인 대표자 등 신고사항 변경으로 나누어 해당 업종의 변경신고 대상인지 확인하세요.',
-          '개인사업자 대표자 변경이 단순 개명인지 영업자 자체의 교체인지, 법인 대표자 변경인지에 따라 변경신고와 지위승계의 구분이 달라질 수 있습니다. 사업자등록 정정과 인허가 변경은 별도 절차일 수 있으므로 관할 기관에도 확인하세요.',
-          '변경신고서, 기존 신고증·허가증, 변경 사실을 증명하는 서류(예: 법인등기사항증명, 성명 변경 확인자료)는 변경 항목과 전산 확인 가능 여부에 따라 달라집니다.'
+          '영업허가·신고·등록사항 변경신고서',
+          '기존 영업허가증·신고증·등록증',
+          '변경 내용을 증명하는 서류(상호·대표자·법인정보 등 변경 항목별)',
+          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         succession: [
-          '영업을 양도·양수하는 경우 식품위생법 제39조에 따른 영업자 지위승계 신고를 하세요. 양수인이 승계신고서를 제출하며, 양도·양수 사실을 증명하는 서류(양도·양수 계약서 등)와 기존 영업 관련 증서가 필요할 수 있습니다.',
-          '양도인·양수인의 신분 확인, 위임, 공동상속 등 추가 서류는 승계 원인과 관할 기관의 전산 확인 가능 여부에 따라 달라집니다. 법인 대표자 변경 등은 지위승계가 아닌 변경신고일 수 있으니 먼저 구분하세요.',
-          '서식명: 식품영업자 지위승계 신고서. 현행 서식과 구비서류는 식품위생법 시행규칙 및 관할 지자체 민원 안내에서 확인하세요.'
+          '영업자 지위승계 신고서',
+          '승계 사유를 증명하는 서류(양도·양수 계약서, 상속 관련 서류 등)',
+          '기존 영업허가증·신고증·등록증',
+          '승계인 신분 확인 서류 및 대리 신청 시 위임장',
+          '업종별 교육·건강진단 관련 서류(해당하는 경우)'
         ],
-        closure: '식품 관련 영업 폐업은 정부24에서 온라인 신청할 수 있습니다. 본인 인증 후 서비스 화면의 신청자격·첨부서류·처리기관 안내를 확인해 신청하세요. 온라인 신청이 제한되거나 추가 확인이 필요한 경우에는 서비스 화면의 관할 기관 안내를 따르세요.',
+        closureDocuments: [
+          '영업 폐업신고서',
+          '기존 영업허가증·신고증·등록증(발급받은 경우)',
+          '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+        ],
         closureUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000263&tp_seq=01',
         closureLabel: '식품관련영업 폐업신고 온라인 신청'
       },
@@ -390,20 +396,29 @@
         ],
         citations: '건강기능식품에 관한 법률 제4조·제5조·제6조·제8조·제9조 및 같은 법 시행규칙',
         locationChanges: [
-          '건강기능식품 제조업은 허가 대상이고, 건강기능식품 판매업은 영업 종류에 따라 신고 대상입니다. 제조업·판매업의 구분과 시설기준을 확인한 후 영업을 시작하세요.',
-          '영업소 이전 또는 영업소 추가는 소재지 변경·추가로 구분하여 허가·신고사항 변경 대상인지 확인하세요. 변경 전에 관할 기관에 신고 여부, 신청 시점과 첨부서류를 문의하세요.'
+          '영업허가·신고사항 변경신고서',
+          '기존 영업허가증·신고증',
+          '변경된 영업소의 소재지 증빙서류(임대차계약서 등)',
+          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         nonLocationChanges: [
-          '상호·영업자 성명(개명)·법인 대표자 등 소재지 외 신고사항 변경은 해당 판매업 또는 제조업의 변경신고 대상인지 확인하세요.',
-          '개인 영업자 교체는 지위승계일 수 있지만 개명이나 법인의 대표자 변경은 신고사항 변경일 수 있습니다. 사업자등록 정정과 인허가 변경은 별도로 확인하세요.',
-          '변경신고서와 기존 신고증·허가증, 변경 사실 증빙 등은 업종 및 변경 항목에 따라 달라집니다.'
+          '영업허가·신고사항 변경신고서',
+          '기존 영업허가증·신고증',
+          '변경 내용을 증명하는 서류(상호·대표자·법인정보 등 변경 항목별)',
+          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         succession: [
-          '건강기능식품 영업을 양도·양수하는 경우 건강기능식품 관계 법령에 따른 영업자 지위승계 신고 대상인지 확인하세요.',
-          '서식명: 건강기능식품 영업자 지위승계 신고서. 양도·양수 계약서 등 승계 원인 증명, 기존 영업 관련 증서와 추가 서류는 현행 시행규칙 및 관할 기관에서 확인하세요.',
-          '법인 대표자 변경·개명과 영업자 자체의 교체는 절차가 다를 수 있으므로 계약을 완료하기 전에 관할 기관에 신고 유형과 처리 시점을 확인하세요.'
+          '영업자 지위승계 신고서',
+          '승계 사유를 증명하는 서류(양도·양수 계약서, 상속 관련 서류 등)',
+          '기존 영업허가증·신고증',
+          '승계인 신분 확인 서류 및 대리 신청 시 위임장',
+          '업종별 교육·건강진단 관련 서류(해당하는 경우)'
         ],
-        closure: '건강기능식품판매업 폐업은 정부24 온라인 민원으로 신청할 수 있습니다. 서비스에서 본인 인증, 신청자격 및 첨부서류를 확인하세요. 온라인 신청이 제한되는 경우에는 서비스 화면의 관할 기관 안내를 따르세요.',
+        closureDocuments: [
+          '영업 폐업신고서',
+          '기존 영업허가증·신고증(발급받은 경우)',
+          '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+        ],
         closureUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14710000046&tp_seq=01',
         closureLabel: '건강기능식품판매업 폐업신고 온라인 신청'
       },
@@ -415,21 +430,29 @@
         ],
         citations: '공중위생관리법 제2조·제3조·제3조의2·제4조·제6조·제17조, 같은 법 시행령 제4조 및 시행규칙 별표 1·4',
         locationChanges: [
-          '공중위생관리법 제2조의 영업 종류는 숙박업, 목욕장업, 이용업, 미용업, 세탁업, 건물위생관리업입니다. 세부 유형이 있는 경우 시행령·시행규칙의 분류와 기준을 함께 확인하세요.',
-          '영업소를 이전하거나 추가하는 경우 소재지 변경·추가 신고 대상인지, 새 장소에서도 해당 영업의 시설기준을 충족하는지 확인하고 관할 시·군·구에 문의하세요.',
-          '공중위생관리법 제3조에 따른 신고사항 변경 절차와 서식·제출기한은 영업 종류와 변경 사유에 따라 확인해야 합니다.'
+          '영업신고사항 변경신고서',
+          '기존 영업신고증',
+          '변경된 영업소의 소재지 증빙서류(임대차계약서 등)',
+          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         nonLocationChanges: [
-          '상호(영업소 명칭), 영업자 성명(개명), 법인 대표자 등 소재지 외 변경사항이 신고 대상인지 확인하세요.',
-          '개인 영업자 변경에 따른 지위승계와 개명·법인 대표자 변경은 절차가 다를 수 있습니다. 사업자등록 정정만으로 공중위생영업 신고사항 변경이 끝나는 것은 아니므로 관할 기관에 확인하세요.',
-          '변경신고서, 기존 신고증 및 변경 사실 증빙은 신고사항과 전산 확인 가능 여부에 따라 달라집니다.'
+          '영업신고사항 변경신고서',
+          '기존 영업신고증',
+          '변경 내용을 증명하는 서류(상호·대표자·법인정보 등 변경 항목별)',
+          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
         ],
         succession: [
-          '공중위생영업을 양도·양수하는 경우 공중위생관리법 제3조의2에 따른 영업자 지위승계 신고를 하세요.',
-          '서식명: 공중위생영업자 지위승계 신고서. 양도·양수 계약서 등 승계 사유 증명, 기존 영업신고증 및 추가 서류는 현행 시행규칙과 관할 위생부서에서 확인하세요.',
-          '법인 대표자 변경이나 개명은 영업자 지위승계가 아닌 신고사항 변경일 수 있으니 신고 유형을 사전에 확인하세요.'
+          '영업자 지위승계 신고서',
+          '승계 사유를 증명하는 서류(양도·양수 계약서, 상속 관련 서류 등)',
+          '기존 영업신고증',
+          '승계인 신분 확인 서류 및 대리 신청 시 위임장',
+          '업종별 교육·건강진단 관련 서류(해당하는 경우)'
         ],
-        closure: '공중위생영업 폐업은 정부24 온라인 민원으로 신청할 수 있습니다. 서비스에서 본인 인증, 신청자격과 첨부서류를 확인하세요. 온라인 신청이 제한되는 경우에는 서비스 화면의 관할 기관 안내를 따르세요.',
+        closureDocuments: [
+          '영업 폐업신고서',
+          '기존 영업신고증(발급받은 경우)',
+          '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+        ],
         closureUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000389&tp_seq=01',
         closureLabel: '공중위생영업 폐업신고 온라인 신청'
       }
@@ -463,7 +486,6 @@
             ? '종사자 건강진단, 식품의 위생적 취급, 표시·소비기한 등 해당 업종에 적용되는 식품위생법상 의무를 확인하세요.'
             : '공중위생관리법 제4조와 시행규칙 별표 4의 위생관리기준을 준수하고, 영업소·기구·설비를 청결하게 관리하세요.'
         ],
-        closureNote: definition.closureNote
       }));
     }
 
@@ -597,7 +619,7 @@
         docs: ['집단급식소 설치·운영 신고서', '급식시설의 소재지·규모·설비 등 신고사항 확인자료', '위생관리책임자 및 급식 인력 관련 자료(대상자)', '관할 지자체가 요청하는 시설 도면·급수·검사 등 확인자료'],
         facility: ['식품위생법 제88조의 집단급식소 설치·운영 신고 대상인지 확인하고, 운영 전 관할 시장·군수·구청장에게 신고', '조리장·식품 보관·세척·급배수 및 종사자 위생시설을 갖추고 식수·식재료의 위생적 관리체계 마련', '집단급식소 설치·운영 신고는 제21조의 식품영업 신고와 별도 제도이며, 위탁급식업·식품판매업 등 병행 영업의 인허가 필요 여부도 확인'],
         rules: ['식품위생법 제88조와 시행규칙의 집단급식소 설치·운영 기준 및 준수사항을 지키세요.', '조리 종사자 건강진단·위생교육, 식재료 검수·보관, 조리·배식과 시설 청결을 관리하세요.', '보존식 보관, 식중독 발생 시 보고·조치 등 집단급식소에 별도로 적용되는 의무를 확인하세요.'],
-        closureNote: '집단급식소는 식품위생법 제21조의 식품영업과 별도 신고 제도입니다. 아래 식품관련영업 폐업 민원이 집단급식소 운영 종료에도 적용되는지 확인한 뒤 신청하세요. 서비스 대상이 아니면 관할 시·군·구에 운영 종료 신고 절차를 문의하세요.'
+
       }
     ];
 
@@ -1555,36 +1577,48 @@
         const initialFee = item.id === 'food_temp_instant'
           ? `<li>제42조제3항에 따른 신고 영업소 외 한시적 영업: 전자민원 <strong>8,300원</strong>, 방문·우편 <strong>9,300원</strong></li>`
           : item.id === 'food_truck_add'
-            ? `<li>장소 추가는 신규신고가 아니라 소재지 변경 또는 제42조제3항의 한시적 타 장소 영업으로 접수될 수 있으므로 아래 변경 수수료 구분을 확인하세요.</li>`
+            ? ''
             : `<li>신규 허가·등록·신고: 전자민원 <strong>25,200원</strong>, 방문·우편 <strong>28,000원</strong></li>`;
-        const specialFee = item.id === 'food_truck_add'
-          ? `<li>푸드트럭 장소 추가가 제42조제3항의 1개월 범위 한시 영업에 해당하면 전자민원 8,300원 / 방문·우편 9,300원, 소재지 변경으로 처리되면 전자민원 23,800원 / 방문·우편 26,500원 기준이 적용될 수 있어 민원유형을 관할 기관에 확인하세요.</li>`
-          : item.id === 'food_group_catering'
-            ? `<li>집단급식소 설치·운영 신고는 신규 신고 수수료 기준을 적용하며, 시행규칙 제94조제2항에 해당하는 신고는 수수료 면제 규정이 있습니다.</li>`
-            : '';
-        feeInfo.style.display = 'block';
-        feeInfo.innerHTML = `
-          <h4><i class="fa-solid fa-coins"></i> 식품위생법 시행규칙 별표 26 수수료 참고</h4>
-          <ul>
-            ${initialFee}
-            ${specialFee}
-            <li>소재지 변경: 전자민원 <strong>23,800원</strong>, 방문·우편 <strong>26,500원</strong> / 그 밖의 변경: 전자민원 <strong>8,300원</strong>, 방문·우편 <strong>9,300원</strong>. 법령에 정한 일부 변경은 면제됩니다.</li>
-            <li>영업자 지위승계 신고: 전자민원 <strong>8,300원</strong>, 방문·우편 <strong>9,300원</strong>. 상속인이 영업자 지위승계 신고와 폐업신고를 함께 하는 경우 면제 규정이 있습니다.</li>
-            <li>허가증·신고증·등록증 재발급: 전자민원 <strong>2,000원</strong>, 방문·우편 <strong>5,300원</strong>. 폐업신고는 별표 26에 별도 수수료 항목이 없습니다.</li>
-          </ul>
-          <p class="detail-caption">금액은 2026년 9월 1일 시행 별표 26 기준입니다. 실제 신청 유형, 전자민원 이용 여부 및 면제 사유에 따라 달라질 수 있으므로 접수 전 정부24·관할 기관의 최종 금액을 확인하세요. 건축·소방·검사·교육 등 별도 비용은 포함하지 않습니다.</p>
-        `;
+        const specialFee = item.id === 'food_group_catering'
+          ? `<li>집단급식소 설치·운영 신고는 시행규칙 제94조제2항에 해당하면 수수료 면제 규정이 있습니다.</li>`
+          : '';
+        if (initialFee || specialFee) {
+          feeInfo.style.display = 'block';
+          feeInfo.innerHTML = `
+            <h4><i class="fa-solid fa-coins"></i> 신규 신청 수수료 참고</h4>
+            <ul>
+              ${initialFee}
+              ${specialFee}
+            </ul>
+            <p class="detail-caption">금액은 2026년 9월 1일 시행 식품위생법 시행규칙 별표 26 기준입니다. 실제 신청 유형, 전자민원 이용 여부 및 면제 사유에 따라 달라질 수 있으므로 접수 전 정부24·관할 기관의 최종 금액을 확인하세요.</p>
+          `;
+        } else {
+          feeInfo.style.display = 'none';
+          feeInfo.innerHTML = '';
+        }
       } else {
         feeInfo.style.display = 'none';
         feeInfo.innerHTML = '';
       }
+      const foodChangeFees = {
+        location: item.id === 'food_truck_add'
+          ? '소재지 변경 처리 시 전자민원 23,800원 / 방문·우편 26,500원; 한시적 타 장소 영업 시 8,300원 / 9,300원'
+          : '전자민원 23,800원 / 방문·우편 26,500원',
+        otherChange: '전자민원 8,300원 / 방문·우편 9,300원',
+        succession: '전자민원 8,300원 / 방문·우편 9,300원',
+        closure: '별표 26 별도 수수료 항목 없음'
+      };
+      const feeLabel = (fee) => item.lawKey === 'food'
+        ? foodChangeFees[fee]
+        : '수수료는 관할 기관 확인';
       document.getElementById('resChangeInfo').innerHTML = [
-        ['소재지 변경·추가', guide.locationChanges, 'accent'],
-        ['소재지 외 변경 (상호·개명·법인 대표자 등)', guide.nonLocationChanges, 'accent'],
-        ['지위승계 (양도·양수)', guide.succession, 'secondary']
-      ].map(([title, points, color]) => `
+        ['소재지 변경·추가', guide.locationChanges, 'accent', 'location'],
+        ['소재지 외 변경 (상호·개명·법인 대표자 등)', guide.nonLocationChanges, 'accent', 'otherChange'],
+        ['지위승계 (양도·양수)', guide.succession, 'secondary', 'succession']
+      ].map(([title, points, color, fee]) => `
         <div class="change-box">
-          <h5 style="color:var(--${color});">${title}</h5>
+          <h5 style="color:var(--${color});">${title} <span class="change-fee">(${feeLabel(fee)})</span></h5>
+          <strong>구비서류</strong>
           <ul>${points.map(point => `<li>${point}</li>`).join('')}</ul>
           ${title === '지위승계 (양도·양수)' && foodBusinessForms ? `
             <p class="detail-caption">${foodBusinessForms.succession.label}</p>
@@ -1601,8 +1635,9 @@
         </div>
       `).join('') + `
         <div class="change-box">
-          <h5 style="color:var(--danger);">폐업</h5>
-          <p>${item.closureNote || guide.closure}</p>
+          <h5 style="color:var(--danger);">폐업 <span class="change-fee">(${feeLabel('closure')})</span></h5>
+          <strong>구비서류</strong>
+          <ul>${guide.closureDocuments.map(document => `<li>${document}</li>`).join('')}</ul>
           ${foodBusinessForms ? `
             <p class="detail-caption">${foodBusinessForms.closure.label}</p>
             <div class="form-actions">
@@ -1611,19 +1646,9 @@
             </div>` : ''}
           ${closureService ? `<a href="${closureService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> ${closureService.label}
-          </a>` : ''}
+          </a>          ` : ''}
         </div>
       `;
-      const sourceLinks = guide.sources
-        .map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${label} 원문</a>`)
-        .join('');
-      const foodAppendixLinks = item.lawKey === 'food' ? `<div class="legal-links">
-          <a href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168924919&bylClsCd=110201" target="_blank" rel="noopener noreferrer">식품위생법 시행규칙 별표 14 시설기준 (PDF)</a>
-          <a href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168924991&bylClsCd=110201" target="_blank" rel="noopener noreferrer">식품위생법 시행규칙 별표 17 준수사항 (PDF)</a>
-          <a href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925177&bylClsCd=110201" target="_blank" rel="noopener noreferrer">식품위생법 시행규칙 별표 26 수수료 (PDF)</a>
-        </div>` : '';
-      document.getElementById('resSources').innerHTML =
-        `<strong>주요 근거:</strong> ${guide.citations}<div class="legal-links">${sourceLinks}</div>${foodAppendixLinks}`;
       document.getElementById('resultContainer').style.display = 'block';
       document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
     }
