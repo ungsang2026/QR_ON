@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR_ON! - 내 손 안의 든든한 영업 파트너</title>
+  <title>QR_ON!
+    - 내 손 안의 든든한 영업 파트너</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -25,9 +26,14 @@
     body { background: #F3F6FB; color: var(--text); padding-bottom: 48px; font-size: 16px; line-height: 1.55; }
 
     header { background: linear-gradient(135deg, #102248 0%, #17458A 100%); color: white; padding: 24px 20px 28px; text-align: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; box-shadow: 0 8px 24px rgba(15, 42, 84, 0.18); }
+    .brand-lockup { max-width: 760px; margin: 0 auto; }
+    .brand-heading-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .brand-mascot-group { display: flex; align-items: center; gap: 2px; }
+    .brand-mascot-group img { display: block; width: 44px; height: auto; }
     .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(37, 99, 235, 0.3); border: 1px solid var(--accent); color: #60A5FA; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
-    header h1 { font-size: clamp(1.6rem, 3.6vw, 1.95rem); font-weight: 800; letter-spacing: -0.04em; }
-    header p { font-size: 1rem; color: #DBEAFE; margin-top: 8px; }
+    header h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: -0.045em; line-height: 1.1; }
+    .brand-subtitle { font-size: 1.02rem; color: #DBEAFE; margin-top: 8px; font-weight: 600; letter-spacing: -0.02em; }
+    .header-description { font-size: 0.86rem; color: #BFDBFE; margin-top: 8px; }
     .main-container { max-width: 980px; margin: 0 auto; padding: 20px; }
 
     /* 검색창 */
@@ -36,6 +42,7 @@
     .search-input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.1rem; }
     .search-input { width: 100%; padding: 16px 16px 16px 48px; border: 2px solid #CBD5E1; border-radius: 12px; font-size: 1rem; font-weight: 600; outline: none; }
     .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .search-examples { margin: 6px 0 0 48px; color: #64748B; font-size: 0.82rem; line-height: 1.4; }
     .mascot-tip { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 10px 14px; border: 1px solid #DBEAFE; border-radius: 14px; background: linear-gradient(100deg, #F8FBFF, #EFF6FF); color: #334155; }
     .mascot-tip img { flex: 0 0 auto; width: 76px; height: auto; }
     .mascot-tip p { font-size: 0.9rem; line-height: 1.6; }
@@ -103,6 +110,17 @@
     .pane { display: none; line-height: 1.6; font-size: 0.9rem; }
     .pane.active { display: block; }
     .pane h4 { color: var(--primary); font-size: 0.95rem; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .task-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin: 16px 0; }
+    .task-select-btn { min-height: 46px; padding: 9px 12px; border: 1px solid #CBD5E1; border-radius: 10px; background: #FFFFFF; color: #334155; font-size: 0.88rem; font-weight: 800; cursor: pointer; }
+    .task-select-btn:hover { border-color: #93B4EC; background: #F8FBFF; }
+    .task-select-btn.active { border-color: var(--accent); background: #EFF6FF; color: #1D4ED8; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1); }
+    .task-panel { display: none; }
+    .task-panel.active { display: block; animation: fadeIn 0.18s ease-in-out; }
+    .shared-docs { margin: 0 0 14px; padding: 0; overflow: hidden; }
+    .shared-docs summary { padding: 13px 15px; cursor: pointer; color: #1E3A8A; font-weight: 800; list-style-position: inside; }
+    .shared-docs[open] summary { border-bottom: 1px solid var(--border); }
+    .shared-docs-content { padding: 14px; }
+    .task-content-heading { margin-top: 16px; }
     
     .change-box { background: #F8FAFC; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
     .change-box h5 { font-size: 0.9rem; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
@@ -123,6 +141,9 @@
     .legal-note { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 14px 16px; margin-top: 22px; color: #1E3A8A; font-size: 0.92rem; line-height: 1.7; }
     .legal-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .legal-links a, .source-links a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+    .legal-source-group + .legal-source-group { margin-top: 12px; }
+    .legal-source-group > strong { color: var(--primary); }
+    .legal-source-group .legal-links { margin-top: 4px; }
     .source-links { margin-top: 12px; font-size: 0.82rem; color: var(--sub-text); }
     .source-links a { margin-right: 12px; }
     .detail-caption { color: var(--sub-text); font-size: 0.82rem; margin: -2px 0 12px; }
@@ -131,6 +152,12 @@
 
     @media (max-width: 680px) {
       header { padding: 22px 16px 24px; }
+      .brand-heading-row { gap: 6px; }
+      .brand-mascot-group { gap: 0; }
+      .brand-mascot-group img { width: 29px; }
+      header h1 { font-size: clamp(2rem, 9vw, 2.45rem); }
+      .brand-subtitle { font-size: 0.9rem; }
+      .header-description { font-size: 0.78rem; }
       .main-container { padding: 16px 14px; }
       .mascot-tip { align-items: flex-start; padding: 9px 11px; }
       .mascot-tip img { width: 48px; }
@@ -152,9 +179,22 @@
 <body>
 
   <header>
-    <div class="logo-tag"><i class="fa-solid fa-qrcode"></i> 원스톱 민원안내 센터</div>
-    <h1>QR_ON! 내 손안의 든든한 영업파트너</h1>
-    <p>영업 인허가 · 면허 발급 · 업종별 위생교육 안내</p>
+    <div class="brand-lockup">
+      <div class="logo-tag"><i class="fa-solid fa-qrcode"></i> 양산시 위생 인허가 안내</div>
+      <div class="brand-heading-row">
+        <div class="brand-mascot-group" aria-label="양산프렌즈 캐릭터">
+          <img src="img/yangsan-friends/char3_1.png" alt="금이">
+          <img src="img/yangsan-friends/char1_1.png" alt="뿌용이">
+        </div>
+        <h1>QR_ON!</h1>
+        <div class="brand-mascot-group" aria-label="양산프렌즈 캐릭터">
+          <img src="img/yangsan-friends/char2_1.png" alt="호잇">
+          <img src="img/yangsan-friends/char4_1.png" alt="매롱">
+        </div>
+      </div>
+      <p class="brand-subtitle">내 손안의 든든한 영업 파트너</p>
+      <p class="header-description">영업 인허가 · 면허 발급 · 업종별 위생교육 안내</p>
+    </div>
   </header>
 
   <div class="main-container">
@@ -163,12 +203,12 @@
     <div class="search-card">
       <div class="search-input-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요 (예: 푸드트럭, 한시적, 카페, 축제, 소재지추가)" oninput="onSearchInput(this.value)">
+        <input type="text" id="searchInput" class="search-input" placeholder="안내가 필요한 업종을 입력하세요" oninput="onSearchInput(this.value)">
       </div>
+      <p class="search-examples">예: 음식점, 카페, 반찬가게, 미용실</p>
       <div id="searchDropdown" class="search-dropdown"></div>
       <div class="mascot-tip main-mascot-tip">
         <p>필요한 민원이나 업종명을 검색하거나, 아래 안내 메뉴를 골라보세요.</p>
-        <img src="img/yangsan-friends/char1_1.png" alt="" aria-hidden="true">
       </div>
     </div>
 
@@ -190,7 +230,7 @@
         <i class="fa-solid fa-store"></i>
         <div>
           <strong>영업 인허가 안내</strong>
-          <span>가게를 열거나 영업 신고를 하시는 분</span>
+          <span>허가·등록·신고부터 지위승계·변경·폐업까지</span>
         </div>
         <img class="mascot-card-image" src="img/yangsan-friends/char1_1.png" alt="" aria-hidden="true">
       </div>
@@ -233,7 +273,7 @@
 
     <div id="applicationTypeArea" style="display:none; margin-top: 14px;">
       <div class="step-label">1단계 · 인허가 방식을 선택하세요</div>
-      <p class="step-help">예시-식당·카페·미용실을 준비 중이면 ‘신고대상’입니다.</p>
+      <p class="step-help">예: 식당·카페·미용실을 준비 중이면 ‘신고대상’입니다.</p>
       <div class="category-grid">
       <div class="cat-card" onclick="selectApplicationType('report', this)">
         <i class="fa-solid fa-file-circle-check"></i>
@@ -242,7 +282,7 @@
       <div class="cat-card" onclick="selectApplicationType('permit', this)">
         <i class="fa-solid fa-stamp"></i>
         <div><strong>허가 대상
-        </strong><span>유흥주점 등 허가 대상</span></div>
+        </strong><span>유흥·단란주점 등 허가 대상</span></div>
       </div>
       <div class="cat-card" onclick="selectApplicationType('registration', this)">
         <i class="fa-solid fa-clipboard-check"></i>
@@ -313,17 +353,17 @@
 
       <div class="result-content">
         <div class="info-tabs">
-          <button class="tab-btn active" onclick="switchTab(this, 'tab-docs')"><i class="fa-solid fa-file-lines"></i> 신청 서류 & 신청방법</button>
-          <button class="tab-btn" onclick="switchTab(this, 'tab-change')"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent);"></i> 변경·승계·폐업</button>
+            <button class="tab-btn active" onclick="switchTab(this, 'tab-docs')"><i class="fa-solid fa-file-lines"></i> 민원 업무 안내</button>
           <button class="tab-btn" onclick="switchTab(this, 'tab-facility')"><i class="fa-solid fa-ruler-combined"></i> 시설기준/장소조건</button>
           <button class="tab-btn" onclick="switchTab(this, 'tab-edu')"><i class="fa-solid fa-graduation-cap"></i> 위생교육</button>
           <button class="tab-btn" onclick="switchTab(this, 'tab-rules')"><i class="fa-solid fa-triangle-exclamation"></i> 준수사항</button>
         </div>
 
-        <!-- 탭 1: 서류 & 신청방법 -->
+        <!-- 민원업무별 신청·변경 안내 -->
         <div id="tab-docs" class="pane active">
-          <div class="change-box">
-            <h4><i class="fa-solid fa-address-card" style="color: var(--accent);"></i> 신청인 공통 확인서류</h4>
+          <details class="change-box shared-docs">
+            <summary><i class="fa-solid fa-address-card" style="color: var(--accent);"></i> 신청인 공통 확인서류</summary>
+            <div class="shared-docs-content">
             <ul class="info-list">
               <li><strong>개인 명의 신청:</strong> 신청인 신분증</li>
               <li><strong>대리인 방문 신청:</strong> 모든 신고서에 신고인 자필서명, 자필서명한 신고인 신분증 사본, 위임장 및 대리인 신분증 필요. 신고인이 인감도장을 날인하는 경우 인감증명서 제출</li>
@@ -331,8 +371,11 @@
               <li><strong>법인 대리 신청:</strong> 법인인감 날인 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대체할 수 없음</li>
             </ul>
             <div class="form-actions">
-              <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?flSeq=144043023" target="_blank" rel="noopener noreferrer">
-                <i class="fa-solid fa-file-pdf"></i> 민원처리법 시행규칙 별지 제3호서식 위임장 (PDF)
+              <a class="form-link-btn" href="https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=265249&bylSeq=16632391&efYd=20240906" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-eye"></i> 민원처리법 시행규칙 별지 제3호서식 위임장 PDF 바로보기
+              </a>
+              <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=144030689&bylClsCd=110202" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-download"></i> 민원처리법 시행규칙 별지 제3호서식 위임장 한글파일 다운로드
               </a>
             </div>
             <div class="change-box">
@@ -346,40 +389,54 @@
               <p class="detail-caption">영업신고증 등 처리 결과물까지 대리 수령하려면 위임 범위에 그 내용을 명시하세요. 민원명과 위임 범위는 실제 신청 내용에 맞게 구체적으로 작성하고, 관할 기관의 추가 요구사항을 확인하세요.</p>
             </div>
             <p class="detail-caption">법인 대리 신청에서 법인인감 대신 사용인감을 사용하는 경우 사용인감계와 법인인감증명서를 준비하세요. 제출 방식이나 추가 확인자료는 방문 전 관할 기관에 확인하세요.</p>
-          </div>
-          <div id="resConditionalDocs" class="change-box">
-            <h4><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당 시 추가 제출서류</h4>
-            <ul id="resConditionalDocsList" class="info-list"></ul>
-            <p class="detail-caption">아래 서류는 모든 영업소에 해당하지 않습니다. 시설·영업 형태와 법정 적용 대상인지 확인한 뒤 준비하세요. 보험 가입 여부와 소방·검사 요건은 관할 기관에서 최종 확인하세요.</p>
-          </div>
-          <h4><i class="fa-solid fa-check-circle" style="color: var(--accent);"></i> 업종별 주요 확인 서류</h4>
+            </div>
+          </details>
+          <p class="detail-caption">필요한 업무를 선택하면 해당 구비서류와 서식 안내를 확인할 수 있습니다.</p>
+          <div id="resTaskSelector" class="task-selector" role="group" aria-label="민원 업무 선택"></div>
+          <section id="task-application" class="task-panel active" aria-label="신규 신청">
+          <details id="resConditionalDocs" class="change-box shared-docs">
+            <summary><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당 시 추가 제출서류</summary>
+            <div class="shared-docs-content">
+              <ul id="resConditionalDocsList" class="info-list"></ul>
+              <p class="detail-caption">모든 영업소에 해당하는 것은 아닙니다. 시설·영업 형태에 따른 대상 여부를 확인하고, 보험·소방·검사 요건은 관할 기관에 문의하세요.</p>
+            </div>
+          </details>
+          <h4 class="task-content-heading"><i class="fa-solid fa-check-circle" style="color: var(--accent);"></i> 업종별 주요 확인 서류</h4>
           <ul id="resDocsList" style="padding-left: 20px; color: var(--sub-text);"></ul>
           <div id="resFormLinks" class="form-actions"></div>
           <div id="resGovServiceLinks"></div>
           <div id="resFeeInfo" class="change-box" style="display:none;"></div>
           <p class="detail-caption">온라인 신청 가능 여부와 최종 제출서류는 업종·관할 지자체별로 다를 수 있습니다. 신청 전 관할 시·군·구에 확인하세요.</p>
+          </section>
+          <section id="task-change" class="task-panel" aria-label="변경">
+            <h4><i class="fa-solid fa-arrows-rotate" style="color: var(--accent);"></i> 변경 구비서류</h4>
+            <div id="resChangePanel"></div>
+          </section>
+          <section id="task-succession" class="task-panel" aria-label="지위승계">
+            <h4><i class="fa-solid fa-people-arrows-left-right" style="color: var(--secondary);"></i> 지위승계 구비서류</h4>
+            <div id="resSuccessionPanel"></div>
+          </section>
+          <section id="task-closure" class="task-panel" aria-label="폐업">
+            <h4><i class="fa-solid fa-circle-xmark" style="color: var(--danger);"></i> 폐업 구비서류</h4>
+            <div id="resClosurePanel"></div>
+          </section>
+          <section id="task-reissue" class="task-panel" aria-label="증명서 재발급"></section>
         </div>
 
-        <!-- 탭 2: 변경·승계·폐업 -->
-        <div id="tab-change" class="pane">
-          <h4><i class="fa-solid fa-arrows-repeat" style="color: var(--accent);"></i> 변경·승계·폐업 구비서류</h4>
-          <div id="resChangeInfo"></div>
-        </div>
-
-        <!-- 탭 3: 시설기준/장소조건 -->
+        <!-- 시설기준/장소조건 -->
         <div id="tab-facility" class="pane">
           <h4><i class="fa-solid fa-building" style="color: var(--accent);"></i> 시설기준 및 지정 장소 요건</h4>
           <ul id="resFacilityList" class="info-list"></ul>
           <p class="detail-caption">시설기준은 업종별 법령 및 시행규칙 별표에 따릅니다. 건축물 용도, 소방·가스·환경 관련 요건도 계약 전에 관할 기관에서 확인하세요.</p>
         </div>
 
-        <!-- 탭 4: 위생교육 -->
+        <!-- 위생교육 -->
         <div id="tab-edu" class="pane">
           <h4><i class="fa-solid fa-user-graduate" style="color: var(--accent);"></i> 위생교육 안내</h4>
           <div id="resEduBox" style="background:#F8FAFC; padding:14px; border-radius:10px; border:1px solid var(--border);"></div>
         </div>
 
-        <!-- 탭 5: 준수사항 -->
+        <!-- 준수사항 -->
         <div id="tab-rules" class="pane">
           <h4><i class="fa-solid fa-shield-halved" style="color: var(--danger);"></i> 영업자 준수사항 & 불이익 경고</h4>
           <ul id="resRulesList" class="info-list"></ul>
@@ -390,22 +447,37 @@
     </div>
 
     <aside class="legal-note">
-      <strong>법령 안내</strong><br>
-      안내를 찾는 순서: <strong>영업 인허가 안내 → 신고 → 식품·건강기능식품/공중위생 → 하위 업종</strong>입니다. 조리사·이용사·미용사 자격 관련 면허를 신청하려면 <strong>면허발급</strong>, 영업자 법정교육 기관을 찾으려면 <strong>업종별 위생교육 안내</strong>를 선택하세요.
-      아래 내용은 영업 준비를 돕기 위한 법령 요약이며, 개별 인허가에 대한 확정적 유권해석이나 법률 자문은 아닙니다.
-      업종·시설·지역별 조건과 법령 개정에 따라 제출서류 및 절차가 달라질 수 있으므로 계약·공사·영업 전에 관할 시·군·구에 확인하세요.
-      법령 문구와 시행일은 국가법령정보센터 원문을 기준으로 확인하시기 바랍니다.
-      <div class="legal-links">
-        <a href="https://www.law.go.kr/법령/식품위생법" target="_blank" rel="noopener noreferrer">식품위생법</a>
-        <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률</a>
-        <a href="https://www.law.go.kr/법령/공중위생관리법" target="_blank" rel="noopener noreferrer">공중위생관리법</a>
+      <strong>관련 법령 원문</strong>
+      <div class="legal-source-group">
+        <strong>식품·식품접객업</strong>
+        <div class="legal-links">
+          <a href="https://www.law.go.kr/법령/식품위생법" target="_blank" rel="noopener noreferrer">식품위생법</a>
+          <a href="https://www.law.go.kr/법령/식품위생법시행령" target="_blank" rel="noopener noreferrer">식품위생법 시행령</a>
+          <a href="https://www.law.go.kr/법령/식품위생법시행규칙" target="_blank" rel="noopener noreferrer">식품위생법 시행규칙</a>
+        </div>
+      </div>
+      <div class="legal-source-group">
+        <strong>건강기능식품</strong>
+        <div class="legal-links">
+          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률</a>
+          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행령" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률 시행령</a>
+          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행규칙" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률 시행규칙</a>
+        </div>
+      </div>
+      <div class="legal-source-group">
+        <strong>공중위생업</strong>
+        <div class="legal-links">
+          <a href="https://www.law.go.kr/법령/공중위생관리법" target="_blank" rel="noopener noreferrer">공중위생관리법</a>
+          <a href="https://www.law.go.kr/법령/공중위생관리법시행령" target="_blank" rel="noopener noreferrer">공중위생관리법 시행령</a>
+          <a href="https://www.law.go.kr/법령/공중위생관리법시행규칙" target="_blank" rel="noopener noreferrer">공중위생관리법 시행규칙</a>
+        </div>
       </div>
     </aside>
 
   </div>
 
   <footer class="character-credit">
-    캐릭터 출처: 양산시 관광캐릭터 ‘양산프렌즈’ · 비영리·원본 그대로 사용
+    캐릭터 출처: 양산시 관광캐릭터 ‘양산프렌즈’ · 비영리 목적·변형 없이 사용
     (<a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101030000" target="_blank" rel="noopener noreferrer">캐릭터 소개</a>
     · <a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101060000" target="_blank" rel="noopener noreferrer">이용조건</a>)
   </footer>
@@ -1151,11 +1223,21 @@
           '공중위생관리법령상 결격사유 확인에 필요한 건강진단서 등 관계 서류(대상자)',
           '최근 촬영한 사진 및 본인 확인 서류(사진 규격·매수는 관할 기관 확인)'
         ],
+        issueForm: {
+          label: '별지 제7호서식 · 면허신청서',
+          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293989&efYd=20260714',
+          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093887&bylClsCd=110202'
+        },
         reissueDocs: [
           '이용사 면허증 재발급 신청서',
           '최근 촬영한 사진 및 본인 확인 서류',
           '훼손된 면허증(훼손 재발급인 경우); 분실 재발급은 분실 경위 및 추가 증빙 요구 여부를 관할 기관에 확인'
         ],
+        reissueForm: {
+          label: '별지 제10호서식 · 면허증 재발급 신청서',
+          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293995&efYd=20260714',
+          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093907&bylClsCd=110202'
+        },
         notes: [
           '면허는 국가기술자격 취득과 별도로 발급 신청해야 합니다. 법정 자격 경로 및 결격사유는 공중위생관리법 제6조를 확인하세요.',
           '신청기관, 건강진단서 제출 대상, 사진 규격·매수, 수수료와 접수방법은 최신 시행규칙 서식 및 관할 시·군·구 안내를 확인하세요.'
@@ -1175,11 +1257,21 @@
           '공중위생관리법령상 결격사유 확인에 필요한 건강진단서 등 관계 서류(대상자)',
           '최근 촬영한 사진 및 본인 확인 서류(사진 규격·매수는 관할 기관 확인)'
         ],
+        issueForm: {
+          label: '별지 제7호서식 · 면허신청서',
+          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293989&efYd=20260714',
+          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093887&bylClsCd=110202'
+        },
         reissueDocs: [
           '미용사 면허증 재발급 신청서',
           '최근 촬영한 사진 및 본인 확인 서류',
           '훼손된 면허증(훼손 재발급인 경우); 분실 재발급은 분실 경위 및 추가 증빙 요구 여부를 관할 기관에 확인'
         ],
+        reissueForm: {
+          label: '별지 제10호서식 · 면허증 재발급 신청서',
+          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293995&efYd=20260714',
+          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093907&bylClsCd=110202'
+        },
         notes: [
           '미용사 면허는 미용 분야 자격증과 별도의 면허입니다. 일반·피부·네일 등 자격 분야와 법령상 면허 업무 범위를 확인하세요.',
           '신청기관, 건강진단서 제출 대상, 사진 규격·매수, 수수료와 접수방법은 최신 시행규칙 서식 및 관할 시·군·구 안내를 확인하세요.'
@@ -1565,6 +1657,17 @@
       }
     }
 
+    function renderFormActions(form) {
+      if (!form) return '';
+      if (!form.url || !form.downloadUrl) {
+        throw new Error(`서식 보기/다운로드 링크가 등록되지 않았습니다: ${form.label || '이름 없는 서식'}`);
+      }
+      return `<div class="form-actions">
+        <a class="form-link-btn" href="${form.url}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> ${form.label} PDF 바로보기</a>
+        <a class="form-link-btn" href="${form.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> ${form.label} 한글파일 다운로드</a>
+      </div>`;
+    }
+
     function renderLicense(id) {
       const item = licenseDb.find(license => license.id === id);
       if (!item) return;
@@ -1584,16 +1687,13 @@
           <div class="change-box">
             <h5 style="color:var(--accent);"><i class="fa-solid fa-file-circle-plus"></i> 신규 발급 신청서류</h5>
             <ul>${item.issueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
+            ${renderFormActions(item.issueForm)}
           </div>
           <div class="change-box">
             <h5 style="color:var(--secondary);"><i class="fa-solid fa-rotate"></i> 재발급 신청서류</h5>
             <ul>${item.reissueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
+            ${renderFormActions(item.reissueForm)}
           </div>
-          <div class="form-actions">
-            <a class="form-link-btn" href="${item.sources[1][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인</a>
-            <a class="form-link-btn" href="${item.sources[1][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드</a>
-          </div>
-          <p class="detail-caption">국가법령정보센터의 최신 시행규칙에서 면허 발급·재발급 관련 별지 서식을 확인할 수 있습니다. 서식 페이지에서 파일 다운로드 여부를 확인하세요.</p>
           <div class="change-box">
             <h5><i class="fa-solid fa-circle-info"></i> 신청 전 확인사항</h5>
             <ul>${item.notes.map(note => `<li>${note}</li>`).join('')}</ul>
@@ -1655,37 +1755,134 @@
 
       const guide = legalGuides[item.lawKey];
       const closureService = getClosureGovService(item, guide);
+      const foodForm = (formNumber, formId, label, hwpSeq) => ({
+        label: `별지 제${formNumber.includes('의') ? formNumber.replace('의', '호의') : `${formNumber}호`}서식 · ${label}`,
+        url: `https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=289161&bylSeq=${formId}&efYd=20260901`,
+        downloadUrl: `https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=${hwpSeq}&bylClsCd=110202`
+      });
+      const foodIssueForm = item.lawKey === 'food'
+        ? item.id === 'food_group_catering'
+          ? foodForm('68', '18443345', '집단급식소 설치·운영신고서', '168925835')
+          : item.applicationType === 'registration'
+            ? foodForm('41의2', '18443265', '식품 영업등록신청서', '168925569')
+            : item.applicationType === 'permit'
+              ? foodForm('30', '18443241', '식품 영업허가 신청서', '168925475')
+              : null
+        : null;
+      const foodReissueForm = item.lawKey === 'food'
+        ? foodForm('35', '18443251', '(영업허가증·영업신고증·영업등록증·집단급식소 설치·운영신고증) 재발급신청서', '168925517')
+        : null;
       const foodBusinessForms = item.lawKey === 'food' && item.id !== 'food_group_catering'
         ? {
-            change: {
-              label: '별지 제41호서식 · 식품 영업신고사항 변경신고서',
-              viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925563&bylClsCd=110202',
-              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925561&bylClsCd=110202'
-            },
-            succession: {
-              label: '별지 제49호서식 · 식품영업자 지위승계 신고서',
-              viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925639&bylClsCd=110202',
-              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925637&bylClsCd=110202'
-            },
-            closure: {
-              label: '별지 제42호서식 · 영업의 폐업신고서',
-              viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925593&bylClsCd=110202',
-              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925591&bylClsCd=110202'
-            }
+            change: item.applicationType === 'registration'
+              ? foodForm('41의4', '18443269', '식품 영업등록사항 변경(등록신청서, 신고서)', '168925583')
+              : item.applicationType === 'permit'
+                ? foodForm('36', '18443253', '식품 영업허가사항 변경(허가신청서, 신고서)', '168925523')
+                : foodForm('41', '18443263', '식품 영업신고사항 변경신고서', '168925561'),
+            succession: foodForm('49', '18443285', '식품영업자 지위승계 신고서', '168925637'),
+            closure: foodForm('42', '18443271', '영업의 폐업신고서', '168925591')
+          }
+        : null;
+      const foodGroupCateringForms = item.id === 'food_group_catering'
+        ? {
+            change: foodForm('71', '18443351', '집단급식소 설치·운영신고사항 변경신고서', '168925863'),
+            succession: foodForm('73', '18443355', '집단급식소 설치·운영자 지위승계 신고서', '168925877'),
+            closure: foodForm('72', '18443353', '집단급식소 설치·운영 종료신고서', '168925871')
+          }
+        : null;
+      const foodGroupCateringDocuments = item.id === 'food_group_catering'
+        ? {
+            change: [
+              '집단급식소 설치·운영신고사항 변경신고서',
+              '기존 집단급식소 설치·운영신고증',
+              '변경사항을 확인할 수 있는 증빙서류',
+              '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+            ],
+            succession: [
+              '집단급식소 설치·운영자 지위승계 신고서',
+              '지위승계 사유를 증명하는 서류',
+              '기존 집단급식소 설치·운영신고증',
+              '승계인 신분 확인 서류 및 대리 신청 시 위임장'
+            ],
+            closure: [
+              '집단급식소 설치·운영 종료신고서',
+              '기존 집단급식소 설치·운영신고증(발급받은 경우)',
+              '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+            ]
           }
         : null;
       const foodReportForm = item.lawKey === 'food'
         && item.applicationType === 'report'
         && item.id !== 'food_truck_add'
+        && item.id !== 'food_group_catering'
         ? {
-            viewUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=168925533&bylClsCd=110202',
+            label: '별지 제37호서식 · 식품 영업 신고서',
+            url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=289161&bylSeq=18443255&efYd=20260901',
             downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925531&bylClsCd=110202'
           }
         : null;
-      document.getElementById('resFormLinks').innerHTML = `
-        <a class="form-link-btn" href="${foodReportForm ? foodReportForm.viewUrl : guide.sources[2][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인${foodReportForm ? ' (PDF)' : ''}</a>
-        <a class="form-link-btn" href="${foodReportForm ? foodReportForm.downloadUrl : guide.sources[2][1]}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드${foodReportForm ? ' (HWPX)' : ''}</a>
-      `;
+      const publicReportForm = item.lawKey === 'public'
+        ? {
+            label: '별지 제1호서식 · 영업신고서',
+            url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293975&efYd=20260714',
+            downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093837&bylClsCd=110202'
+          }
+        : null;
+      const publicBusinessForms = item.lawKey === 'public'
+        ? {
+            change: {
+              label: '별지 제5호서식 · 영업신고사항 변경신고서',
+              url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293983&efYd=20260714',
+              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093865&bylClsCd=110202'
+            },
+            closure: {
+              label: '별지 제5의2호서식 · 영업 폐업신고서',
+              url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293985&efYd=20260714',
+              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093873&bylClsCd=110202'
+            },
+            succession: {
+              label: '별지 제6호서식 · 영업자지위승계신고서',
+              url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293987&efYd=20260714',
+              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093879&bylClsCd=110202'
+            }
+          }
+        : null;
+      const healthForm = (formNumber, formId, label, hwpSeq) => ({
+        label: `별지 제${formNumber}호서식 · ${label}`,
+        url: `https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=286669&bylSeq=${formId}&efYd=20260602`,
+        downloadUrl: `https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=${hwpSeq}&bylClsCd=110202`
+      });
+      const healthIssueForm = item.lawKey === 'health'
+        ? item.applicationType === 'permit'
+          ? healthForm('1', '18181625', '건강기능식품 영업허가 신청서', '164785021')
+          : healthForm('6', '18181635', '건강기능식품 영업신고서', '164785063')
+        : null;
+      const healthReissueForm = item.lawKey === 'health'
+        ? item.applicationType === 'permit'
+          ? healthForm('4', '18181631', '건강기능식품 영업허가증 재발급신청서', '164785049')
+          : healthForm('12', '18181647', '건강기능식품 영업신고증 재발급신청서', '164785107')
+        : null;
+      const healthBusinessForms = item.lawKey === 'health'
+        ? {
+            change: item.applicationType === 'permit'
+              ? healthForm('5', '18181633', '건강기능식품 영업허가사항 변경(허가신청서, 신고서)', '164785055')
+              : healthForm('13', '18181649', '건강기능식품 영업신고사항 변경신고서', '164785113'),
+            succession: healthForm('28', '18181689', '건강기능식품 영업자 지위승계 신고서', '164785243'),
+            closure: healthForm('14', '18181651', '건강기능식품영업 폐업신고서', '164785121')
+          }
+        : null;
+      const changeForms = foodGroupCateringForms || foodBusinessForms || healthBusinessForms || publicBusinessForms;
+      const applicationForm = foodIssueForm || healthIssueForm;
+      const reissueForm = foodReissueForm || healthReissueForm;
+      document.getElementById('resFormLinks').innerHTML = publicReportForm
+        ? renderFormActions(publicReportForm)
+        : applicationForm
+          ? renderFormActions(applicationForm)
+          : foodReportForm
+            ? renderFormActions(foodReportForm)
+            : reissueForm
+              ? renderFormActions(reissueForm)
+              : '';
       const govService = ['food_truck_add', 'food_temp_instant'].includes(item.id)
         ? { url: item.govUrl, label: item.id === 'food_truck_add' ? '푸드트럭 영업장소 추가 신고 신청' : '즉석판매제조·가공업 한시적 영업신고 신청' }
         : null;
@@ -1730,47 +1927,79 @@
         closure: '별표 26 별도 수수료 항목 없음'
       };
       const feeLabel = (fee) => item.lawKey === 'food'
-        ? foodChangeFees[fee]
+        ? item.id === 'food_group_catering'
+          ? '수수료는 관할 기관 확인'
+          : foodChangeFees[fee]
         : '수수료는 관할 기관 확인';
-      document.getElementById('resChangeInfo').innerHTML = [
-        ['변경', guide.changeDocuments, 'accent', 'change'],
-        ['지위승계 (양도·양수)', guide.succession, 'secondary', 'succession']
-      ].map(([title, points, color, fee]) => `
+      const changePanel = (points, form, fee, color) => `
         <div class="change-box">
-          <h5 style="color:var(--${color});">${title} <span class="change-fee">(${feeLabel(fee)})</span></h5>
-          <strong>구비서류</strong>
+          <h5 style="color:var(--${color});"><i class="fa-solid fa-list-check"></i> 준비할 서류 <span class="change-fee">(${feeLabel(fee)})</span></h5>
           <ul>${points.map(point => `<li>${point}</li>`).join('')}</ul>
-          ${title === '지위승계 (양도·양수)' && foodBusinessForms ? `
-            <p class="detail-caption">${foodBusinessForms.succession.label}</p>
-            <div class="form-actions">
-              <a class="form-link-btn" href="${foodBusinessForms.succession.viewUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인 (PDF)</a>
-              <a class="form-link-btn" href="${foodBusinessForms.succession.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드 (HWPX)</a>
-            </div>` : ''}
-          ${title !== '지위승계 (양도·양수)' && foodBusinessForms ? `
-            <p class="detail-caption">${foodBusinessForms.change.label}</p>
-            <div class="form-actions">
-              <a class="form-link-btn" href="${foodBusinessForms.change.viewUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인 (PDF)</a>
-              <a class="form-link-btn" href="${foodBusinessForms.change.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드 (HWPX)</a>
-            </div>` : ''}
-        </div>
-      `).join('') + `
-        <div class="change-box">
-          <h5 style="color:var(--danger);">폐업 <span class="change-fee">(${feeLabel('closure')})</span></h5>
-          <strong>구비서류</strong>
-          <ul>${guide.closureDocuments.map(document => `<li>${document}</li>`).join('')}</ul>
-          ${foodBusinessForms ? `
-            <p class="detail-caption">${foodBusinessForms.closure.label}</p>
-            <div class="form-actions">
-              <a class="form-link-btn" href="${foodBusinessForms.closure.viewUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> 서식 바로 확인 (PDF)</a>
-              <a class="form-link-btn" href="${foodBusinessForms.closure.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 서식 다운로드 (HWPX)</a>
-            </div>` : ''}
-          ${closureService ? `<a href="${closureService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${closureService.label}
-          </a>          ` : ''}
+          ${form ? `<p class="detail-caption">${form.label}</p>${renderFormActions(form)}` : ''}
         </div>
       `;
+      document.getElementById('resChangePanel').innerHTML = changePanel(
+        foodGroupCateringDocuments ? foodGroupCateringDocuments.change : guide.changeDocuments,
+        changeForms ? changeForms.change : null,
+        'change',
+        'accent'
+      );
+      document.getElementById('resSuccessionPanel').innerHTML = changePanel(
+        foodGroupCateringDocuments ? foodGroupCateringDocuments.succession : guide.succession,
+        changeForms ? changeForms.succession : null,
+        'succession',
+        'secondary'
+      );
+      document.getElementById('resClosurePanel').innerHTML = `
+        <div class="change-box">
+          <h5 style="color:var(--danger);"><i class="fa-solid fa-list-check"></i> 준비할 서류 <span class="change-fee">(${feeLabel('closure')})</span></h5>
+          <ul>${(foodGroupCateringDocuments ? foodGroupCateringDocuments.closure : guide.closureDocuments).map(document => `<li>${document}</li>`).join('')}</ul>
+          ${changeForms ? `<p class="detail-caption">${changeForms.closure.label}</p>${renderFormActions(changeForms.closure)}` : ''}
+          ${closureService ? `<a href="${closureService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${closureService.label}
+          </a>` : ''}
+        </div>
+      `;
+      const taskButtons = [
+        { id: 'application', label: item.applicationType === 'permit' ? '신규 허가' : item.applicationType === 'registration' ? '신규 등록' : '신규 신고' },
+        { id: 'change', label: '변경' },
+        { id: 'succession', label: '지위승계' },
+        { id: 'closure', label: '폐업' },
+        ...(reissueForm ? [{ id: 'reissue', label: '증명서 재발급' }] : [])
+      ];
+      document.getElementById('resTaskSelector').innerHTML = taskButtons.map((task, index) => `
+        <button class="task-select-btn${index === 0 ? ' active' : ''}" type="button"
+          aria-pressed="${index === 0}" onclick="selectBusinessTask('${task.id}', this)">${task.label}</button>
+      `).join('');
+      const reissuePanel = document.getElementById('task-reissue');
+      if (reissuePanel && reissueForm) {
+        reissuePanel.innerHTML = `
+          <h4><i class="fa-solid fa-rotate" style="color: var(--secondary);"></i> 증명서 재발급 신청</h4>
+          <div class="change-box">
+            <h5><i class="fa-solid fa-list-check"></i> 확인할 내용</h5>
+            <ul><li>${reissueForm.label} 서식을 작성해 신청하세요.</li><li>훼손·분실 등 재발급 사유별 제출자료와 수수료는 관할 기관에 확인하세요.</li></ul>
+            ${renderFormActions(reissueForm)}
+          </div>
+        `;
+      } else if (reissuePanel) {
+        reissuePanel.innerHTML = '';
+      }
+      selectBusinessTask('application', document.querySelector('#resTaskSelector .task-select-btn'));
       document.getElementById('resultContainer').style.display = 'block';
       document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function selectBusinessTask(taskId, button) {
+      document.querySelectorAll('#resTaskSelector .task-select-btn').forEach(taskButton => {
+        const isSelected = taskButton === button;
+        taskButton.classList.toggle('active', isSelected);
+        taskButton.setAttribute('aria-pressed', String(isSelected));
+      });
+      document.querySelectorAll('#tab-docs .task-panel').forEach(panel => {
+        const isSelected = panel.id === `task-${taskId}`;
+        panel.classList.toggle('active', isSelected);
+        panel.setAttribute('aria-hidden', String(!isSelected));
+      });
     }
 
     function switchTab(btn, paneId) {
