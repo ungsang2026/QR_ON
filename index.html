@@ -449,7 +449,7 @@
           <p class="detail-caption">잘 모르겠다면 가장 가까운 항목을 눌러보세요. 준비 서류가 바로 표시됩니다.</p>
           <div id="resTaskSelector" class="task-selector" role="group" aria-label="민원 업무 선택"></div>
           <section id="task-application" class="task-panel active" aria-label="신규 신청">
-          <h4 class="task-content-heading"><i class="fa-solid fa-clipboard-check" style="color: var(--secondary);"></i> 신규 신청 때 챙길 서류</h4>
+          <h4 class="task-content-heading"><i class="fa-solid fa-clipboard-check" style="color: var(--secondary);"></i> 신규 영업 신청 구비서류</h4>
           <ol id="resDocsList" class="prep-checklist"></ol>
           <p id="resDocsSourceNote" class="detail-caption"></p>
           <div id="resFormLinks"></div>
@@ -458,15 +458,15 @@
           <p class="detail-caption">온라인 신청 가능 여부와 최종 제출서류는 업종·관할 지자체별로 다를 수 있습니다. 신청 전 관할 시·군·구에 확인하세요.</p>
           </section>
           <section id="task-change" class="task-panel" aria-label="변경">
-            <h4><i class="fa-solid fa-arrows-rotate" style="color: var(--accent);"></i> 변경 구비서류</h4>
+            <h4 class="task-content-heading"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent);"></i> 변경 구비서류</h4>
             <div id="resChangePanel"></div>
           </section>
           <section id="task-succession" class="task-panel" aria-label="지위승계">
-            <h4><i class="fa-solid fa-people-arrows-left-right" style="color: var(--secondary);"></i> 지위승계 구비서류</h4>
+            <h4 class="task-content-heading"><i class="fa-solid fa-people-arrows-left-right" style="color: var(--secondary);"></i> 지위승계 구비서류</h4>
             <div id="resSuccessionPanel"></div>
           </section>
           <section id="task-closure" class="task-panel" aria-label="폐업(온라인 신청)">
-            <h4><i class="fa-solid fa-circle-xmark" style="color: var(--danger);"></i> 폐업 구비서류</h4>
+            <h4 class="task-content-heading"><i class="fa-solid fa-circle-xmark" style="color: var(--danger);"></i> 폐업 구비서류</h4>
             <div id="resClosurePanel"></div>
           </section>
           <section id="task-reissue" class="task-panel" aria-label="증명서 재발급"></section>
@@ -544,20 +544,18 @@
         changeDocuments: [
           '영업허가·신고·등록사항 변경신고서',
           '기존 영업허가증·신고증·등록증',
-          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)',
-          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
+          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)'
         ],
         succession: [
           '영업자 지위승계 신고서',
           '승계 사유를 증명하는 서류(양도·양수 계약서, 상속 관련 서류 등)',
           '기존 영업허가증·신고증·등록증',
-          '승계인 신분 확인 서류 및 대리 신청 시 위임장',
-          '업종별 교육·건강진단 관련 서류(해당하는 경우)'
+          '위생교육이수증(교육 대상자)',
+          '건강진단결과서(보건증, 건강진단 대상자)'
         ],
         closureDocuments: [
           '영업 폐업신고서',
-          '기존 영업허가증·신고증·등록증(발급받은 경우)',
-          '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+          '기존 영업허가증·신고증·등록증(발급받은 경우)'
         ],
         closureUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000263&tp_seq=01',
         closureLabel: '식품관련영업 폐업신고 온라인 신청'
@@ -572,20 +570,18 @@
         changeDocuments: [
           '영업허가·신고사항 변경신고서',
           '기존 영업허가증·신고증',
-          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)',
-          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
+          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)'
         ],
         succession: [
           '영업자 지위승계 신고서',
           '승계 사유를 증명하는 서류(양도·양수 계약서, 상속 관련 서류 등)',
           '기존 영업허가증·신고증',
-          '승계인 신분 확인 서류 및 대리 신청 시 위임장',
-          '업종별 교육·건강진단 관련 서류(해당하는 경우)'
+          '위생교육이수증(교육 대상자)',
+          '건강진단결과서(보건증, 건강진단 대상자)'
         ],
         closureDocuments: [
           '영업 폐업신고서',
-          '기존 영업허가증·신고증(발급받은 경우)',
-          '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+          '기존 영업허가증·신고증(발급받은 경우)'
         ],
         closureUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14710000046&tp_seq=01',
         closureLabel: '건강기능식품판매업 폐업신고 온라인 신청'
@@ -600,20 +596,18 @@
         changeDocuments: [
           '영업신고사항 변경신고서',
           '기존 영업신고증',
-          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)',
-          '대리 신청 시 위임장 및 대리인 신분 확인 서류'
+          '변경을 증명하는 서류(소재지 변경 시 임대차계약서 등 소재지 증빙서류, 그 외 변경 시 상호·대표자·법인정보 등 변경 항목별 증빙서류)'
         ],
         succession: [
           '영업자 지위승계 신고서',
           '승계 사유를 증명하는 서류(양도·양수 계약서, 상속 관련 서류 등)',
           '기존 영업신고증',
-          '승계인 신분 확인 서류 및 대리 신청 시 위임장',
-          '업종별 교육·건강진단 관련 서류(해당하는 경우)'
+          '위생교육이수증(해당 업종의 교육 대상자)',
+          '건강진단결과서(보건증, 건강진단 대상자)'
         ],
         closureDocuments: [
           '영업 폐업신고서',
-          '기존 영업신고증(발급받은 경우)',
-          '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+          '기존 영업신고증(발급받은 경우)'
         ],
         closureUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000389&tp_seq=01',
         closureLabel: '공중위생영업 폐업신고 온라인 신청'
@@ -872,7 +866,7 @@
           '영업장소 추가 관련 변경신고서 및 기존 영업신고증',
           '추가하려는 장소의 사용·참여를 증명하는 서류(장소별 상이)',
           '자동차등록증 등 차량 관련 서류(관할 기관이 요구하는 경우)',
-          '건강진단결과서 등 종사자 관련 서류(대상자에 한함)'
+          '건강진단결과서(보건증, 건강진단 대상자)'
         ],
         govUrl: 'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000021&tp_seq=09',
         facility: [
@@ -923,7 +917,7 @@
       {
         id: 'food_general', cat: 'food', applicationType: 'report', lawKey: 'food', law: '식품위생법 시행령 제21조제8호나목, 제37조', name: '일반음식점',
         keywords: ['식당', '일반음식점'], icon: 'fa-utensils',
-        docs: ['식품 영업 신고서', '위생교육이수증', '건강진단결과서(대상 종사자)', '영업소 사용 권한 증빙서류(임대차계약서 등)'],
+        docs: ['식품 영업 신고서 1부', '위생교육이수증', '건강진단결과서(대상 종사자)', '영업소 사용 권한 증빙서류(임대차계약서 등)'],
         govUrl: 'https://www.gov.kr',
         facility: ['조리장·환기·세척·급배수 및 식품 보관시설을 업종별 기준에 맞게 설치', '화장실 등 부대시설의 적용 기준 확인', '세부 기준은 식품위생법 시행규칙 별표 14와 관할기관 확인사항 적용'],
         edu: '영업자 위생교육 대상, 사전·사후 이수 및 예외는 식품위생법 제41조와 지정 교육기관의 최신 안내를 확인하세요.',
@@ -1236,132 +1230,108 @@
 
     const applicationDocumentGuides = {
       food_manufacturing: {
-        documents: ['식품 영업등록신청서', '제조·가공하려는 식품의 종류'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업등록신청서 1부', '제조ㆍ가공하려는 식품 또는 식품첨가물의 종류'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '먹는물 수질검사기관이 발행한 수질검사(시험)성적서 1부(수돗물이 아닌 지하수 등을 먹는 물 또는 식품등의 제조과정 등에 사용하는 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 이용하는 경우)']
       },
       food_additive_manufacturing: {
-        documents: ['식품 영업등록신청서', '제조·가공하려는 식품첨가물의 종류'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업등록신청서 1부', '제조ㆍ가공하려는 식품 또는 식품첨가물의 종류'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '먹는물 수질검사기관이 발행한 수질검사(시험)성적서 1부(수돗물이 아닌 지하수 등을 먹는 물 또는 식품등의 제조과정 등에 사용하는 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 이용하는 경우)']
       },
       food_transport: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '차고·세차장 시설사용계약서(차고 또는 세차장을 임차하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '시설사용계약서 1부(식품운반업을 하려는 자가 차고 또는 세차장을 임대할 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 사용하는 경우)']
       },
       food_subdivision: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 사용하는 경우)']
       },
       food_ice_sales: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 사용하는 경우)']
       },
       food_vending: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '자동판매기의 종류 및 일련관리번호·설치장소 내역(2대 이상을 한꺼번에 신고하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '자동판매기의 종류 및 설치장소가 기재된 서류(자동판매기 2대 이상을 일괄 신고하는 경우)']
       },
       food_distribution: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 사용하는 경우)']
       },
       food_group_catering_sales: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 사용하는 경우)']
       },
       food_other_sales: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증 1부(「식품위생법」 제41조제2항에 따라 미리 교육을 받은 경우)', '공유주방 소재지, 면적 등이 기재된 공유주방 사용계약에 관한 서류(공유주방을 사용하는 경우)']
       },
       food_irradiation: {
-        documents: ['식품 영업허가 신청서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업허가 신청서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
       },
       food_cold_storage: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)'],
       },
       food_container_packaging: {
-        documents: ['식품 영업등록신청서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
-        officialChecks: ['건축물대장 또는 임시사용승인서 및 토지이용계획확인서', '다중이용업소 안전시설등 완비증명서(대상인 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업등록신청서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
       },
       food_pottery: {
-        documents: ['식품 영업등록신청서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
-        officialChecks: ['건축물대장 또는 임시사용승인서 및 토지이용계획확인서', '다중이용업소 안전시설등 완비증명서(대상인 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업등록신청서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
       },
       food_short_night: {
-        documents: ['식품 영업허가 신청서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '액화석유가스 완성검사증명서(검사 대상 시설인 경우)', '전기안전점검확인서 및 안전시설등 완비증명서(각 법령상 대상인 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업허가 신청서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)'],
       },
       food_entertainment: {
-        documents: ['식품 영업허가 신청서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '액화석유가스 완성검사증명서(검사 대상 시설인 경우)', '전기안전점검확인서 및 안전시설등 완비증명서(각 법령상 대상인 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업허가 신청서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)'],
       },
       food_catering: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '어린이놀이시설 설치·정기시설검사 합격증(영업장에 어린이놀이시설을 설치한 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)', '액화석유가스 완성검사증명서(검사 대상 시설인 경우)', '다중이용업소 안전시설등 완비증명서(대상인 경우)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '어린이놀이시설 설치검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '어린이놀이시설 정기시설검사합격증(영업장에 어린이놀이시설을 설치한 경우)'],
       },
       food_bakery: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '수상레저사업 등록증(수상구조물인 수상레저사업장에서 영업하는 경우)', '국유재산 사용허가서 또는 도시철도시설 사용계약 서류(해당 정거장·군사시설에서 영업하는 경우)', '연접한 외부 장소 사용권한 증명서류(외부 장소에서 음식류 등을 제공하는 경우)', '어린이놀이시설 설치·정기시설검사 합격증(영업장에 어린이놀이시설을 설치한 경우)', '마리나선박 대여업 등록증(마리나선박에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '자동차등록증(음식판매자동차를 사용하는 경우)', '사업자등록증(학교 경영자가 해당 학교에서 음식판매자동차 영업을 하는 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)', '액화석유가스 완성검사증명서 및 다중이용업소 안전시설등 완비증명서(각 법령상 대상인 경우)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·조리·세척 등에 사용하는 경우)', '유선사업 면허증 또는 신고필증(유선장인 경우)', '도선사업 면허증 또는 신고필증(도선장인 경우)', '수상레저사업 등록증(수상구조물인 수상레저사업장에서 영업하는 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)', '연접한 외부 장소의 사용권한을 증명하는 서류(연접한 외부 장소에서 음식류 등을 제공하는 경우)', '어린이놀이시설 설치검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '어린이놀이시설 정기시설검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '마리나선박 대여업 등록증(마리나선박에서 영업하는 경우)'],
       },
       food_truck: {
-        documents: ['식품 영업 신고서', '영업이 허용되는 장소임을 증명하는 서류(시행규칙 별표 15의2 해당 서류)'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)'],
-        officialChecks: ['자동차등록증(담당 공무원이 행정정보 공동이용으로 확인하며, 조회에 동의하지 않거나 확인할 수 없으면 직접 제출)', '건축물대장 또는 임시사용승인서 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부', '해당 영업이 가능한 장소임을 증명하는 서류 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)'],
       },
       food_shared_kitchen: {
-        documents: ['식품 영업등록신청서', '위생관리책임자 선임신고서', '책임보험 가입 증명서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '다중이용업소 안전시설등 완비증명서(대상인 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업등록신청서 1부', '위생관리책임자 선임신고서 1부', '책임보험 가입 증명서류'],
+        conditionalDocuments: ['위생교육이수증(등록 전에 교육을 이수한 경우)', '먹는물 수질검사기관이 발행한 수질검사(시험)성적서 1부(수돗물이 아닌 물을 식품 제조과정 등에 사용하는 경우)'],
       },
       food_group_catering: {
-        documents: ['집단급식소 설치·운영신고서'],
-        conditionalDocuments: ['교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 식수·조리·세척에 사용하는 경우)', '양도·양수계약서 사본 또는 설치·운영자임을 증명하는 서류(기존 집단급식소를 다시 운영하는 경우)'],
-        officialChecks: ['액화석유가스 완성검사증명서(검사 대상 시설인 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 급식소 식품 취급 종사자)']
+        documents: ['집단급식소 설치·운영신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '먹는물 수질검사기관이 발행한 수질검사(시험)성적서 1부(수돗물이 아닌 물을 식수·조리·세척에 사용하는 경우)', '양도·양수계약서 사본(기존 집단급식소를 다시 운영하는 경우)', '집단급식소 설치·운영자임을 증명하는 서류(기존 집단급식소를 다시 운영하는 경우)'],
       },
       food_general: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '국유재산 사용허가서 또는 도시철도시설 사용계약 서류(해당 정거장·군사시설에서 영업하는 경우)', '예비군식당 운영계약 서류(군사시설에서 일반음식점 영업을 하는 경우)', '연접한 외부 장소 사용권한 증명서류(외부 장소에서 음식류 등을 제공하는 경우)', '어린이놀이시설 설치·정기시설검사 합격증(영업장에 어린이놀이시설을 설치한 경우)', '마리나선박 대여업 등록증(마리나선박에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '액화석유가스 완성검사증명서(검사 대상 시설인 경우)', '자동차등록증(음식판매자동차를 사용하는 경우)', '사업자등록증(학교 경영자가 해당 학교에서 음식판매자동차 영업을 하는 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)', '다중이용업소 안전시설등 완비증명서(대상인 경우)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·조리·세척 등에 사용하는 경우)', '유선사업 면허증 또는 신고필증(유선장인 경우)', '도선사업 면허증 또는 신고필증(도선장인 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)', '예비군식당 운영계약 서류(군사시설에서 일반음식점 영업을 하는 경우)', '연접한 외부 장소의 사용권한을 증명하는 서류(연접한 외부 장소에서 음식류 등을 제공하는 경우)', '어린이놀이시설 설치검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '어린이놀이시설 정기시설검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '마리나선박 대여업 등록증(마리나선박에서 영업하는 경우)'],
       },
       food_rest: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 영업하는 경우)', '수상레저사업 등록증(수상구조물인 수상레저사업장에서 영업하는 경우)', '국유재산 사용허가서 또는 도시철도시설 사용계약 서류(해당 정거장·군사시설에서 영업하는 경우)', '연접한 외부 장소 사용권한 증명서류(외부 장소에서 음식류 등을 제공하는 경우)', '어린이놀이시설 설치·정기시설검사 합격증(영업장에 어린이놀이시설을 설치한 경우)', '마리나선박 대여업 등록증(마리나선박에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '액화석유가스 완성검사증명서(검사 대상 시설인 경우)', '자동차등록증(음식판매자동차를 사용하는 경우)', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)', '다중이용업소 안전시설등 완비증명서(대상인 경우)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·조리·세척 등에 사용하는 경우)', '유선사업 면허증 또는 신고필증(유선장인 경우)', '도선사업 면허증 또는 신고필증(도선장인 경우)', '수상레저사업 등록증(수상구조물인 수상레저사업장에서 영업하는 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)', '연접한 외부 장소의 사용권한을 증명하는 서류(연접한 외부 장소에서 음식류 등을 제공하는 경우)', '어린이놀이시설 설치검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '어린이놀이시설 정기시설검사합격증(영업장에 어린이놀이시설을 설치한 경우)', '마리나선박 대여업 등록증(마리나선박에서 영업하는 경우)'],
       },
       food_instant: {
-        documents: ['식품 영업 신고서', '제조·가공하려는 식품의 유형 및 제조방법 설명서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·조리·세척에 사용하는 경우)', '국유재산 사용허가서 또는 도시철도시설 사용계약 서류(해당 정거장·군사시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부', '제조ㆍ가공하려는 식품의 유형 및 제조방법 설명서'],
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·조리·세척 등에 사용하는 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 영업하는 경우)'],
       },
       food_truck_add: {
         documents: ['음식판매자동차 영업장소 추가 신고(정부24 온라인 신청)'],
         conditionalDocuments: ['추가 장소 사용·참여를 증명하는 서류(신청 과정에서 장소별 요구사항 확인)']
       },
       food_temp_instant: {
-        documents: ['식품 영업 신고서'],
-        conditionalDocuments: ['교육이수증(신청 전에 교육을 이수한 경우)', '제조·가공하려는 식품의 유형 및 제조방법 설명서(즉석판매제조·가공업 신고에 해당하는 경우)', '국유재산 사용허가서(국유철도 정거장시설·군사시설에서 신고하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 신고하는 경우)', '예비군식당 운영계약 서류(군사시설에서 일반음식점으로 신고하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '건강진단결과서(식품위생법 시행규칙 제49조에 따른 건강진단 대상자)']
+        documents: ['식품 영업 신고서 1부'],
+        conditionalDocuments: ['위생교육이수증(신청 전에 교육을 이수한 경우)', '제조·가공하려는 식품의 유형 및 제조방법 설명서(즉석판매제조·가공업 신고에 해당하는 경우)', '국유재산 사용허가서(국유철도 정거장시설·군사시설에서 신고하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 신고하는 경우)', '예비군식당 운영계약 서류(군사시설에서 일반음식점으로 신고하는 경우)'],
       },
       health_sale: {
         documents: ['건강기능식품 영업신고서'],
-        conditionalDocuments: ['교육 이수 증명(신고 전에 교육을 이수했고 담당 공무원이 확인할 수 없는 경우)', '보관시설 사용계약서(건강기능식품유통전문판매업자가 보관시설을 계약해 사용하는 경우)', '전문제조업소와의 위탁생산계약서(건강기능식품유통전문판매업의 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 일반판매업을 하는 경우)', '시설운영 계약서(군사기지·군사시설·군인복지시설에서 일반판매업을 하는 경우)', '국유재산 사용허가서(국유철도 정거장시설에서 일반판매업을 하는 경우)', '도시철도시설 사용계약 서류(도시철도 정거장시설에서 일반판매업을 하는 경우)']
+        conditionalDocuments: ['건강기능식품 영업자 교육이수증(신고 전에 교육을 이수한 경우)', '보관시설 사용계약서(건강기능식품유통전문판매업자가 보관시설을 계약해 사용하는 경우)', '전문제조업소와의 위탁생산계약서(건강기능식품유통전문판매업의 경우)', '유선·도선사업 면허증 또는 신고필증(수상구조물인 유선장·도선장에서 일반판매업을 하는 경우)', '시설운영 계약서(군사기지·군사시설·군인복지시설에서 일반판매업을 하는 경우)', '국유재산 사용허가서(국유철도 정거장시설에서 일반판매업을 하는 경우)', '도시철도시설 사용계약 서류(국유철도 정거장시설에서 일반판매업을 하는 경우)']
       },
       health_manufacturing: {
         documents: ['건강기능식품 영업허가 신청서'],
@@ -1369,50 +1339,49 @@
           '전문제조업: 제조 제품의 종류와 제조방법설명서, 제조시설 배치도 및 주요 기계·기구류 목록, 품질관리인 선임신고서, 제품표준서·제조관리기준서·제조위생관리기준서·품질관리기준서',
           '벤처제조업: 기능성 원료·성분 기술자료, 제조 제품의 종류와 제조방법설명서, 품질관리인 선임신고서, 전문제조업소와의 위탁생산계약서'
         ],
-        conditionalDocuments: ['교육필증(신청 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·세척에 사용하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '벤처기업확인서(벤처제조업에 해당하는 경우)', '건강기능식품에 관한 법률상 결격사유']
+        conditionalDocuments: ['건강기능식품 영업자 교육이수증(허가 전에 교육을 이수한 경우)', '수질검사성적서(수돗물이 아닌 물을 음용·제조·세척에 사용하는 경우)'],
       },
       public_lodging: {
         documents: ['공중위생영업 신고서', '영업시설 및 설비개요서'],
-        conditionalDocuments: ['교육수료증(신고 전에 교육을 이수한 경우)', '영업시설·설비 사용 권리 증명서류 및 배상책임 보험증서 또는 공증서류(건물 일부를 대상으로 숙박업을 하는 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '전기안전점검확인서 및 액화석유가스 완성검사증명서(각 법령상 대상인 경우)']
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '영업시설·설비 사용 권리 증명서류 및 배상책임 보험증서 또는 공증서류(건물 일부를 대상으로 숙박업을 하는 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
       },
       public_bath: {
         documents: ['공중위생영업 신고서', '영업시설 및 설비개요서'],
-        conditionalDocuments: ['교육수료증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '전기안전점검확인서 및 액화석유가스 완성검사증명서(각 법령상 대상인 경우)', '안전시설등 완비증명서(시행령상 목욕장업 대상인 경우)']
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
       },
       public_barber: {
         documents: ['공중위생영업 신고서', '영업시설 및 설비개요서'],
-        conditionalDocuments: ['교육수료증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '이용사 면허증(담당 공무원 확인사항; 확인할 수 없는 경우 직접 제출)', '전기안전점검확인서 및 액화석유가스 완성검사증명서(각 법령상 대상인 경우)']
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
       },
       public_beauty: {
         documents: ['공중위생영업 신고서', '영업시설 및 설비개요서'],
-        conditionalDocuments: ['교육수료증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '신고 업종에 해당하는 미용사 면허증(담당 공무원 확인사항; 확인할 수 없는 경우 직접 제출)', '전기안전점검확인서 및 액화석유가스 완성검사증명서(각 법령상 대상인 경우)']
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
       },
       public_laundry: {
         documents: ['공중위생영업 신고서', '영업시설 및 설비개요서'],
-        conditionalDocuments: ['교육수료증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '전기안전점검확인서 및 액화석유가스 완성검사증명서(각 법령상 대상인 경우)']
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
       },
       public_building_hygiene: {
         documents: ['공중위생영업 신고서', '영업시설 및 설비개요서'],
-        conditionalDocuments: ['교육수료증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
-        officialChecks: ['건축물대장 및 토지이용계획확인서', '전기안전점검확인서 및 액화석유가스 완성검사증명서(각 법령상 대상인 경우)']
+        conditionalDocuments: ['위생교육이수증(신고 전에 교육을 이수한 경우)', '국유재산 사용허가서(국유철도 정거장시설 또는 군사시설에서 영업하는 경우)', '철도시설 사용계약 서류(국유철도 외 철도 정거장시설에서 영업하는 경우)'],
       }
     };
+    const foodCommonApplicationDocuments = [
+      '위생교육이수증 1부(신규 영업자 교육 대상자)',
+      '건강진단결과서(보건증, 건강진단 대상자)'
+    ];
+
     db.forEach(item => {
       const documentGuide = applicationDocumentGuides[item.id];
       if (!documentGuide) return;
-      item.docs = documentGuide.documents;
+      item.docs = [
+        ...documentGuide.documents,
+        ...(item.lawKey === 'food' && item.id !== 'food_truck_add' ? foodCommonApplicationDocuments : [])
+      ];
       item.typeSpecificDocuments = documentGuide.typeSpecificDocuments || [];
-      item.conditionalDocuments = documentGuide.conditionalDocuments || [];
-      item.officialChecks = documentGuide.officialChecks || [];
-      if (item.lawKey === 'food' && !['food_shared_kitchen', 'food_group_catering', 'food_truck_add', 'food_temp_instant'].includes(item.id)) {
-        item.conditionalDocuments.push('공유주방 사용계약 서류(공유주방을 이용해 영업하는 경우)');
-      }
+      item.conditionalDocuments = (documentGuide.conditionalDocuments || []).filter(document =>
+        !(item.lawKey === 'food' && document.startsWith('위생교육이수증'))
+      );
     });
 
     const licenseDb = [
@@ -2048,39 +2017,33 @@
 
       const conditionalDocs = item.conditionalDocuments || [];
       const typeSpecificDocs = item.typeSpecificDocuments || [];
-      const officialChecks = item.officialChecks || [];
+      const renderAdditionalDocumentsItem = (documents, emptyMessage, detailsId) => `
+        <li>
+          <details id="${detailsId}" class="shared-docs">
+            <summary><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당 시 추가 제출서류</summary>
+            <div class="shared-docs-content">
+              ${documents.length ? `<ul class="info-list">${documents.map(document => `<li>${document}</li>`).join('')}</ul>` : `<p>${emptyMessage}</p>`}
+            </div>
+          </details>
+        </li>
+      `;
       document.getElementById('resDocsList').innerHTML = [
         ...item.docs.map(document => `<li>${document}</li>`),
-        `<li>
-          <div class="application-extra-docs">
-            ${typeSpecificDocs.length ? `
+        ...(typeSpecificDocs.length ? [`
+          <li>
+            <div class="application-extra-docs">
               <details class="shared-docs">
                 <summary><i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 업종 유형별 제출서류</summary>
                 <div class="shared-docs-content"><ul class="info-list">${typeSpecificDocs.map(document => `<li>${document}</li>`).join('')}</ul></div>
               </details>
-            ` : ''}
-            <details id="resConditionalDocs" class="shared-docs">
-              <summary><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당 시 추가 제출서류</summary>
-              <div class="shared-docs-content">
-                ${conditionalDocs.length ? `<ul class="info-list">${conditionalDocs.map(document => `<li>${document.replace(/(?:위생)?교육(?:수료|이수)증/g, '위생교육이수증')}</li>`).join('')}</ul>` : '<p>별도로 안내할 조건부 첨부서류가 없습니다.</p>'}
-                <p class="detail-caption">신청인의 영업 형태·장소 등 조건에 해당할 때만 준비하세요.</p>
-              </div>
-            </details>
-            ${officialChecks.length ? `
-              <details class="shared-docs">
-                <summary><i class="fa-solid fa-building-shield" style="color: var(--accent);"></i> 담당 공무원 확인사항</summary>
-                <div class="shared-docs-content">
-                  <ul class="info-list">${officialChecks.map(document => `<li>${document}</li>`).join('')}</ul>
-                  <p class="detail-caption">기본 첨부서류와 구분되는 공무원 확인 항목입니다. 행정정보 공동이용에 동의하지 않거나 조회할 수 없는 경우 해당 자료를 직접 제출할 수 있습니다.</p>
-                </div>
-              </details>
-            ` : ''}
-          </div>
-        </li>`
+            </div>
+          </li>
+        `] : []),
+        renderAdditionalDocumentsItem(conditionalDocs, '별도로 안내할 추가 제출서류가 없습니다.', 'resConditionalDocs')
       ].join('');
       const applicationRuleSource = legalGuides[item.lawKey]?.sources.find(([name]) => name.includes('시행규칙'));
       document.getElementById('resDocsSourceNote').innerHTML = `
-          업종별 시행규칙 서식의 신청인 제출서류를 기준으로 정리했습니다. 공무원 확인사항과 조건부 서류는 마지막 번호에서 구분했으며, 지자체별 추가 안내가 있는지 접수 전에 확인하세요.
+          업종별 시행규칙 서식의 제출서류와 위생교육·건강진단 관련 서류를 함께 안내합니다. 위생교육이수증과 건강진단결과서는 해당 업종·대상자 기준에 따라 준비하고, 조건이 붙은 추가 서류는 해당하는 경우에만 제출하세요.
           ${applicationRuleSource ? `<a href="${applicationRuleSource[1]}" target="_blank" rel="noopener noreferrer">${applicationRuleSource[0]} 원문</a>` : ''}
       `;
       document.getElementById('resRulesBizName').textContent = item.name;
@@ -2104,11 +2067,11 @@
       });
       const foodIssueForm = item.lawKey === 'food'
         ? item.id === 'food_group_catering'
-          ? foodForm('68', '18443345', '집단급식소 설치·운영신고서', '168925835')
+          ? foodForm('68', '18443345', '집단급식소 설치·운영신고서 1부', '168925835')
           : item.applicationType === 'registration'
-            ? foodForm('41의2', '18443265', '식품 영업등록신청서', '168925569')
+            ? foodForm('41의2', '18443265', '식품 영업등록신청서 1부', '168925569')
             : item.applicationType === 'permit'
-              ? foodForm('30', '18443241', '식품 영업허가 신청서', '168925475')
+              ? foodForm('30', '18443241', '식품 영업허가 신청서 1부', '168925475')
               : null
         : null;
       const foodReissueForm = item.lawKey === 'food'
@@ -2137,19 +2100,18 @@
             change: [
               '집단급식소 설치·운영신고사항 변경신고서',
               '기존 집단급식소 설치·운영신고증',
-              '변경사항을 확인할 수 있는 증빙서류',
-              '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+              '변경사항을 확인할 수 있는 증빙서류'
             ],
             succession: [
               '집단급식소 설치·운영자 지위승계 신고서',
               '지위승계 사유를 증명하는 서류',
               '기존 집단급식소 설치·운영신고증',
-              '승계인 신분 확인 서류 및 대리 신청 시 위임장'
+              '위생교육이수증(교육 대상자)',
+              '건강진단결과서(보건증, 건강진단 대상자)'
             ],
             closure: [
               '집단급식소 설치·운영 종료신고서',
-              '기존 집단급식소 설치·운영신고증(발급받은 경우)',
-              '신청인 신분 확인 서류 및 대리 신청 시 위임장'
+              '기존 집단급식소 설치·운영신고증(발급받은 경우)'
             ]
           }
         : null;
@@ -2278,10 +2240,13 @@
           ? '수수료는 관할 기관 확인'
           : foodChangeFees[fee]
         : '수수료는 관할 기관 확인';
-      const changePanel = (points, form, fee, color, additionalForm = null) => `
+      const changePanel = (points, form, fee, color, label, additionalForm = null, showAdditionalDocs = false) => `
         <div class="change-box">
-          <h5 style="color:var(--${color});"><i class="fa-solid fa-list-check"></i> 준비할 서류 <span class="change-fee">(${feeLabel(fee)})</span></h5>
-          <ul>${points.map(point => `<li>${point}</li>`).join('')}</ul>
+          <h5 style="color:var(--${color});"><i class="fa-solid fa-list-check"></i> ${label} <span class="change-fee">(${feeLabel(fee)})</span></h5>
+          <ol class="prep-checklist">
+            ${points.map(point => `<li>${point}</li>`).join('')}
+            ${showAdditionalDocs ? renderAdditionalDocumentsItem([], '변경하는 내용에 따라 필요한 증빙서류는 위 구비서류 목록과 관할 기관 안내를 확인하세요.', 'resChangeConditionalDocs') : ''}
+          </ol>
           ${form ? renderFormActions(form) : ''}
           ${additionalForm ? renderFormActions(additionalForm) : ''}
         </div>
@@ -2290,19 +2255,23 @@
         foodGroupCateringDocuments ? foodGroupCateringDocuments.change : guide.changeDocuments,
         changeForms ? changeForms.change : null,
         'change',
-        'accent'
+        'accent',
+        '변경 구비서류',
+        null,
+        true
       );
       document.getElementById('resSuccessionPanel').innerHTML = changePanel(
         foodGroupCateringDocuments ? foodGroupCateringDocuments.succession : guide.succession,
         changeForms ? changeForms.succession : null,
         'succession',
         'secondary',
+        '지위승계 구비서류',
         transferForm
       );
       document.getElementById('resClosurePanel').innerHTML = `
         <div class="change-box">
-          <h5 style="color:var(--danger);"><i class="fa-solid fa-list-check"></i> 준비할 서류 <span class="change-fee">(${feeLabel('closure')})</span></h5>
-          <ul>${(foodGroupCateringDocuments ? foodGroupCateringDocuments.closure : guide.closureDocuments).map(document => `<li>${document}</li>`).join('')}</ul>
+          <h5 style="color:var(--danger);"><i class="fa-solid fa-list-check"></i> 폐업 구비서류 <span class="change-fee">(${feeLabel('closure')})</span></h5>
+          <ol class="prep-checklist">${(foodGroupCateringDocuments ? foodGroupCateringDocuments.closure : guide.closureDocuments).map(document => `<li>${document}</li>`).join('')}</ol>
           ${changeForms ? renderFormActions(changeForms.closure) : ''}
           ${closureService ? `<a href="${closureService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> ${closureService.label}
@@ -2348,10 +2317,9 @@
       const reissuePanel = document.getElementById('task-reissue');
       if (reissuePanel && reissueForm) {
         reissuePanel.innerHTML = `
-          <h4><i class="fa-solid fa-rotate" style="color: var(--secondary);"></i> 증명서 재발급 신청</h4>
+          <h4 class="task-content-heading"><i class="fa-solid fa-rotate" style="color: var(--secondary);"></i> 증명서 재발급 구비서류</h4>
           <div class="change-box">
-            <h5><i class="fa-solid fa-list-check"></i> 확인할 내용</h5>
-            <ul><li>${reissueForm.label} 서식을 작성해 신청하세요.</li><li>훼손·분실 등 재발급 사유별 제출자료와 수수료는 관할 기관에 확인하세요.</li></ul>
+            <ol class="prep-checklist"><li>${reissueForm.label} 서식을 작성해 신청하세요.</li><li>훼손·분실 등 재발급 사유별 제출자료와 수수료는 관할 기관에 확인하세요.</li></ol>
             ${renderFormActions(reissueForm)}
           </div>
         `;
