@@ -37,7 +37,7 @@
     .main-container { max-width: 980px; margin: 0 auto; padding: 20px; }
 
     /* 검색창 */
-    .search-card { background: var(--card-bg); padding: 18px; border-radius: 18px; margin-top: -18px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); border: 1px solid #DCE5F0; position: relative; }
+    .search-card { background: var(--card-bg); padding: 18px; border-radius: 18px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); border: 1px solid #DCE5F0; position: relative; }
     .search-input-wrapper { position: relative; }
     .search-input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.1rem; }
     .search-input { width: 100%; padding: 16px 16px 16px 48px; border: 2px solid #CBD5E1; border-radius: 12px; font-size: 1rem; font-weight: 600; outline: none; }
@@ -48,6 +48,14 @@
     .mascot-tip p { font-size: 0.9rem; line-height: 1.6; }
     .main-mascot-tip { justify-content: space-between; padding-left: 18px; }
     .main-mascot-tip img { order: 1; width: 92px; }
+    .search-or-menu { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+    .som-step-label { display: inline-flex; align-items: center; gap: 7px; color: #16477A; font-size: 0.86rem; font-weight: 800; }
+    .som-step-badge { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; background: #1679C5; color: #FFFFFF; font-size: 0.72rem; flex: 0 0 auto; }
+    .som-option { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 999px; background: #FFFFFF; border: 1.5px solid var(--accent); color: var(--accent); font-size: 0.92rem; font-weight: 800; font-family: inherit; cursor: pointer; transition: background 0.15s, color 0.15s, transform 0.1s; }
+    .som-option:hover { background: var(--accent); color: #FFFFFF; }
+    .som-option:active { transform: scale(0.97); }
+    .som-option i { font-size: 0.95rem; }
+    .som-divider { color: #94A3B8; font-size: 0.8rem; font-weight: 700; }
     .citizen-guide { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px; margin-top: 14px; padding: 16px 18px; border: 1px solid #A9D8F2; border-radius: 18px; background: linear-gradient(110deg, #F0F9FF 0%, #FFFCF2 72%, #FFF5F5 100%); box-shadow: 0 5px 16px rgba(14, 116, 172, 0.08); }
     .citizen-guide-copy { min-width: 0; }
     .citizen-guide-title { display: flex; align-items: center; gap: 8px; color: #16477A; font-size: 1rem; font-weight: 900; letter-spacing: -0.025em; }
@@ -245,6 +253,27 @@
 
   <div class="main-container">
 
+    <!-- 방문 전 준비 순서 안내 -->
+    <aside class="citizen-guide" aria-label="민원 방문 전 준비 순서">
+      <div class="citizen-guide-copy">
+        <p class="citizen-guide-title"><i class="fa-solid fa-clipboard-check"></i> 방문 전에, 이 순서대로 확인하세요</p>
+        <div class="citizen-guide-steps">
+          <span><b>1</b> 하려는 업종 찾기</span>
+          <span><b>2</b> 신청·변경 등 업무 선택</span>
+          <span><b>3</b> 서류 확인 후 방문</span>
+        </div>
+        <p class="citizen-guide-note">신분증은 기본으로 챙기고, 영업장 확인자료와 대리 신청 서류는 해당되는 경우 준비하세요. 정확한 서류는 업종과 업무에 따라 달라요.</p>
+      </div>
+      <img src="img/yangsan-friends/char4_1.png" alt="" aria-hidden="true">
+    </aside>
+
+    <div class="search-or-menu">
+      <span class="som-step-label"><span class="som-step-badge">1</span> 하려는 업종 찾기</span>
+      <button type="button" class="som-option" onclick="focusSearchInput()"><i class="fa-solid fa-magnifying-glass"></i> 업종명 검색</button>
+      <span class="som-divider">또는</span>
+      <button type="button" class="som-option" onclick="scrollToMenuSelection()"><i class="fa-solid fa-list-check"></i> 아래 메뉴 선택</button>
+    </div>
+
     <!-- 검색창 -->
     <div class="search-card">
       <div class="search-input-wrapper">
@@ -257,18 +286,6 @@
         <p>필요한 민원이나 업종명을 검색하거나, 아래 안내 메뉴를 선택하세요.</p>
         <img src="img/yangsan-friends/char3_1.png" alt="" aria-hidden="true">
       </div>
-      <aside class="citizen-guide" aria-label="민원 방문 전 준비 순서">
-        <div class="citizen-guide-copy">
-          <p class="citizen-guide-title"><i class="fa-solid fa-clipboard-check"></i> 방문 전에, 이 순서대로 확인하세요</p>
-          <div class="citizen-guide-steps">
-            <span><b>1</b> 하려는 업종 찾기</span>
-            <span><b>2</b> 신청·변경 등 업무 선택</span>
-            <span><b>3</b> 서류 확인 후 방문</span>
-          </div>
-          <p class="citizen-guide-note">신분증은 기본으로 챙기고, 영업장 확인자료와 대리 신청 서류는 해당되는 경우 준비하세요. 정확한 서류는 업종과 업무에 따라 달라요.</p>
-        </div>
-        <img src="img/yangsan-friends/char4_1.png" alt="" aria-hidden="true">
-      </aside>
     </div>
 
       <div id="flowNavigation" class="flow-navigation" style="display:none;">
@@ -1655,6 +1672,17 @@
       wizardHistory.push({ step: wizardStep, path: [...flowPath] });
       if (label) flowPath.push(label);
       setWizardStep(step);
+    }
+
+    function focusSearchInput() {
+      const input = document.getElementById('searchInput');
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      input.focus();
+    }
+
+    function scrollToMenuSelection() {
+      const heading = document.getElementById('mainSelectionHeading');
+      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function goBackStep() {
