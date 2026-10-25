@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="양산시 웅상보건소 위생 인·허가 원스톱 안내. 업종별 구비서류, 법정서식, 위생교육기관, 보건증 온라인 발급을 한 화면에서 확인하세요.">
+  <meta name="description" content="양산시 위생 인·허가 원스톱 안내. 내 가게에 필요한 서류와 서식을 한 화면에서 확인하세요.">
   <title>QR_ON! 내 손안의 든든한 영업 파트너 | 양산시 위생 인·허가 안내</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     :root {
-      /* 기본 색: 신뢰감 있는 행정 남색 + 캐릭터에서 가져온 따뜻한 노랑 */
       --ink: #14233B;
       --primary: #16325C;
       --accent: #1F5FAE;
@@ -19,592 +17,196 @@
       --accent-soft: #EAF2FB;
       --sun: #F4B400;
       --sun-soft: #FFF6D9;
-      --secondary: #1E8A5F;
-      --warning: #B86E00;
+      --sun-line: #EED48A;
+      --green: #1E8A5F;
       --danger: #C62D2D;
-      --special: #6D3FC0;
       --bg: #F5F7FA;
-      --card-bg: #FFFFFF;
+      --card: #FFFFFF;
       --text: #1B2533;
-      --sub-text: #4A5566;
+      --sub: #4A5566;
       --muted: #6B7686;
       --border: #DCE2EA;
       --line: #E8ECF2;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
+      --r-lg: 20px;
+      --r-md: 14px;
+      --r-sm: 10px;
       --font: "Pretendard GOV Variable", "Pretendard GOV", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { -webkit-text-size-adjust: 100%; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
-    button, input, select { font-family: inherit; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 70px; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+    button, input { font-family: inherit; font-size: inherit; }
     a { color: inherit; }
     :focus-visible { outline: 3px solid #8BB8F0; outline-offset: 2px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 18px; }
 
-    /* ── 운영기관 표시줄 ── */
-    .gov-bar { background: var(--ink); color: #C9D4E3; font-size: 0.8rem; }
-    .gov-bar-inner { max-width: 980px; margin: 0 auto; padding: 8px 20px; display: flex; align-items: center; gap: 8px; }
-    .gov-bar i { color: var(--sun); }
+    /* ── 첫 화면 머리 ── */
+    .hero { position: relative; overflow: hidden; background: var(--accent); color: #FFFFFF; padding: 26px 18px 70px; text-align: center; }
+    .hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.13) 1.6px, transparent 1.7px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000 100%); mask-image: linear-gradient(115deg, transparent 35%, #000 100%); pointer-events: none; }
+    .hero > * { position: relative; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.14); padding: 5px 13px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; margin-bottom: 12px; }
+    .hero-tag i { color: var(--sun); }
+    .brand-row { display: flex; align-items: flex-end; justify-content: center; gap: 10px; }
+    .brand-row .mascots { display: flex; align-items: flex-end; gap: 2px; }
+    .brand-row img { display: block; width: 44px; height: auto; }
+    .hero h1 { font-size: clamp(2.4rem, 8vw, 3.2rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+    .hero h1 span { color: var(--sun); }
+    .hero-sub { margin-top: 10px; font-size: 1.12rem; font-weight: 800; }
 
-    /* ── 첫 화면 ── */
-    header.hero { position: relative; overflow: hidden; background: var(--accent); color: #FFFFFF; padding: 34px 20px 92px; text-align: center; }
-    /* QR 코드의 점 무늬를 아주 옅게 깔아 서비스 정체성을 드러냄 */
-    header.hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.13) 1.6px, transparent 1.7px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000 100%); mask-image: linear-gradient(115deg, transparent 35%, #000 100%); pointer-events: none; }
-    .brand-lockup { position: relative; max-width: 760px; margin: 0 auto; }
-    .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.14); color: #FFFFFF; padding: 6px 14px; border-radius: 999px; font-size: 0.86rem; font-weight: 700; margin-bottom: 14px; }
-    .logo-tag i { color: var(--sun); }
-    .brand-heading-row { display: flex; align-items: flex-end; justify-content: center; gap: 12px; }
-    .brand-mascot-group { display: flex; align-items: flex-end; gap: 2px; }
-    .brand-mascot-group img { display: block; width: 50px; height: auto; }
-    header h1 { font-size: clamp(2.6rem, 8vw, 3.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
-    header h1 .h1-mark { color: var(--sun); }
-    .brand-subtitle { margin-top: 12px; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
-    .header-description { margin: 8px auto 0; max-width: 30em; color: #DCE8F7; font-size: 0.98rem; }
+    /* ── 다른 화면의 윗줄 ── */
+    .topbar { position: sticky; top: 0; z-index: 20; background: var(--primary); color: #FFFFFF; }
+    .topbar-inner { max-width: 720px; margin: 0 auto; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .topbar a, .topbar button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #FFFFFF; font-size: 0.92rem; font-weight: 700; text-decoration: none; cursor: pointer; }
+    .topbar .logo { border: none; font-size: 1.15rem; font-weight: 900; letter-spacing: -0.03em; padding: 6px 4px; }
+    .topbar .logo span { color: var(--sun); }
 
-    .main-container { position: relative; max-width: 980px; margin: -64px auto 0; padding: 0 20px 40px; }
+    main { padding-bottom: 40px; }
+    .pull-up { margin-top: -48px; position: relative; }
+    .card { background: var(--card); border-radius: var(--r-lg); border: 1px solid var(--border); padding: 20px; }
+    .pull-up .card { border: none; box-shadow: 0 10px 30px rgba(20, 35, 59, 0.12); }
+    .q-title { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; margin-bottom: 14px; }
+    .q-help { color: var(--sub); font-size: 0.95rem; margin: -8px 0 14px; }
+    .section { margin-top: 18px; }
 
-    /* 이용 순서 (실제 순서이므로 번호 사용) */
-    .citizen-guide { background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(20, 35, 59, 0.12); padding: 20px 22px 18px; }
-    .citizen-guide-title { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 1.05rem; font-weight: 800; }
-    .citizen-guide-title i { color: var(--sun); }
-    .citizen-guide-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 14px; counter-reset: step; }
-    .citizen-guide-steps li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; font-weight: 700; font-size: 0.95rem; color: var(--text); }
-    .citizen-guide-steps li::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 900; font-size: 1rem; position: relative; z-index: 1; border: 2px solid #FFFFFF; box-shadow: 0 0 0 2px var(--accent-soft); }
-    .citizen-guide-steps li:last-child::before { background: var(--sun); color: var(--ink); box-shadow: 0 0 0 2px var(--sun-soft); }
-    .citizen-guide-steps li + li::after { content: ""; position: absolute; top: 18px; right: 50%; width: 100%; height: 2px; background: var(--line); }
-    .citizen-guide-note { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); color: var(--sub-text); font-size: 0.88rem; display: flex; gap: 8px; }
-    .citizen-guide-note i { color: var(--accent); margin-top: 4px; }
+    /* 큰 선택 버튼 */
+    .big-list { display: grid; gap: 10px; }
+    .big-btn { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 72px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--r-md); background: #FFFFFF; color: var(--text); text-decoration: none; text-align: left; cursor: pointer; }
+    .big-btn:hover { border-color: var(--accent); background: #FBFDFF; }
+    .big-btn .ic { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-size: 1.25rem; }
+    .big-btn strong { display: block; font-size: 1.12rem; font-weight: 800; }
+    .big-btn small { display: block; color: var(--muted); font-size: 0.86rem; }
+    .big-btn .go { margin-left: auto; color: var(--accent); }
+    .big-btn.soft .ic { background: var(--sun-soft); color: #9A6A00; }
 
-    /* ── 검색 ── */
-    .search-card { position: relative; margin-top: 18px; background: var(--card-bg); padding: 20px 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-    .search-heading { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
-    .search-input-wrapper { position: relative; }
-    .search-input-wrapper i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.15rem; }
-    .search-input { width: 100%; padding: 17px 16px 17px 50px; border: 2px solid #B9C6D6; border-radius: var(--radius-md); font-size: 1.05rem; font-weight: 600; color: var(--text); background: #FFFFFF; outline: none; transition: border-color .15s, box-shadow .15s; }
-    .search-input::placeholder { color: #8893A2; font-weight: 500; }
-    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(31, 95, 174, 0.15); }
-    .search-examples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font-size: 0.88rem; }
-    .example-chip { border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 999px; padding: 6px 13px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
-    .example-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
-    .search-alt { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; background: none; border: none; color: var(--accent); font-size: 0.92rem; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    /* 검색 */
+    .search { position: relative; }
+    .search i.fa-magnifying-glass { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--accent); }
+    .search input { width: 100%; padding: 15px 14px 15px 46px; border: 2px solid #B9C6D6; border-radius: var(--r-md); font-weight: 600; background: #FFFFFF; color: var(--text); outline: none; }
+    .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(31,95,174,0.15); }
+    .search-results { margin-top: 8px; display: grid; gap: 6px; }
+    .search-results a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--r-sm); background: var(--accent-soft); text-decoration: none; }
+    .search-results a strong { color: var(--primary); }
+    .search-results a small { display: block; color: var(--muted); font-size: 0.8rem; }
+    .search-empty { margin-top: 8px; color: var(--sub); font-size: 0.92rem; }
+    .divider { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.85rem; margin: 16px 0; }
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
-    .search-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-md); max-height: 300px; overflow-y: auto; z-index: 100; box-shadow: 0 14px 30px rgba(20, 35, 59, 0.16); display: none; }
-    .search-item { padding: 13px 18px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .search-item:last-child { border-bottom: none; }
-    .search-item:hover { background: var(--accent-soft); }
+    /* 업종 타일 */
+    .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 92px; padding: 10px 6px; border: 1.5px solid var(--border); border-radius: var(--r-md); background: #FFFFFF; color: var(--text); text-decoration: none; text-align: center; font-weight: 700; font-size: 0.98rem; line-height: 1.3; cursor: pointer; }
+    .tile i { font-size: 1.5rem; color: var(--accent); }
+    .tile:hover { border-color: var(--accent); background: #FBFDFF; }
+    .all-list summary { cursor: pointer; padding: 14px 16px; border: 1.5px dashed var(--border); border-radius: var(--r-md); font-weight: 700; color: var(--accent); list-style: none; text-align: center; }
+    .all-list summary::-webkit-details-marker { display: none; }
+    .all-group { margin-top: 16px; }
+    .all-group h3 { font-size: 0.95rem; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+    .all-group a { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); text-decoration: none; }
+    .all-group a strong { display: block; color: var(--text); font-size: 1rem; }
+    .all-group a small { display: block; color: var(--muted); font-size: 0.84rem; }
 
-    /* ── 메뉴 ── */
-    .section-title { font-size: 1.3rem; font-weight: 800; color: var(--primary); margin: 34px 0 14px; display: flex; align-items: center; gap: 10px; letter-spacing: -0.02em; }
+    /* ── 결과 화면 ── */
+    .result-head { background: var(--primary); color: #FFFFFF; padding: 20px 18px 56px; }
+    .result-head .wrap { padding: 0; }
+    .crumb { display: inline-block; background: rgba(255,255,255,0.14); padding: 4px 11px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; color: #FFE7A3; }
+    .result-head h1 { margin-top: 8px; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.35; }
+    .result-head p { margin-top: 6px; color: #DCE8F7; font-size: 0.95rem; }
+    .task-chips { display: flex; gap: 6px; overflow-x: auto; margin-top: 14px; padding-bottom: 2px; scrollbar-width: none; }
+    .task-chips::-webkit-scrollbar { display: none; }
+    .task-chips a { flex: 0 0 auto; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.35); color: #FFFFFF; text-decoration: none; font-size: 0.9rem; font-weight: 700; }
+    .task-chips a[aria-current="page"] { background: #FFFFFF; color: var(--primary); border-color: #FFFFFF; }
 
-    .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .cat-card { min-height: 96px; background: var(--card-bg); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color .15s, background .15s; }
-    .cat-card > div { min-width: 0; }
-    .cat-card:hover { border-color: var(--accent); background: #FBFDFF; }
-    .cat-card i { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-size: 1.25rem; }
-    .cat-card strong { display: block; font-size: 1.05rem; line-height: 1.4; font-weight: 800; color: var(--text); }
-    .cat-card span { display: block; margin-top: 3px; font-size: 0.88rem; line-height: 1.5; color: var(--sub-text); }
-    .cat-card.mascot-card { position: relative; padding-right: 76px; }
-    .cat-card .mascot-card-image { position: absolute; right: 12px; bottom: 6px; width: 56px; height: 60px; object-fit: contain; pointer-events: none; }
-    .cat-card.active, .cat-card.featured { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
-    .cat-card.active strong, .cat-card.featured strong { color: var(--accent-strong); }
-    .cat-card.active i { background: var(--accent); color: #FFFFFF; }
-    .cat-card.special-card.active { border-color: var(--special); background: #F5F1FD; box-shadow: inset 0 0 0 1px var(--special); }
-    .cat-card.special-card.active i { background: var(--special); color: #FFFFFF; }
-    .cat-card.special-card.active strong { color: var(--special); }
+    .checklist-title { display: flex; align-items: center; gap: 8px; font-size: 1.3rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+    .checklist-title i { color: var(--green); }
+    .checklist-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
+    .checklist { list-style: none; display: grid; gap: 8px; }
+    .checklist label { display: flex; align-items: flex-start; gap: 12px; padding: 13px 14px; border: 1.5px solid var(--line); border-radius: var(--r-sm); cursor: pointer; background: #FFFFFF; }
+    .checklist input { flex: 0 0 22px; width: 22px; height: 22px; margin-top: 2px; accent-color: var(--green); }
+    .checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
+    .checklist label:has(input:checked) { background: #F4FAF7; border-color: #BFE3D0; }
+    .doc-link { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .doc-link i { margin-left: 5px; font-size: 0.78em; }
+    .fold { margin-top: 10px; border: 1px solid var(--border); border-radius: var(--r-sm); background: #FFFFFF; }
+    .fold summary { cursor: pointer; padding: 12px 14px; font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+    .fold[open] summary { border-bottom: 1px solid var(--line); }
+    .fold-body { padding: 12px 14px; font-size: 0.93rem; color: var(--sub); }
+    .fold-body ul { padding-left: 18px; }
+    .fold-body li + li { margin-top: 5px; }
+    .fold-body p + p, .fold-body p + .btn-row, .fold-body ul + .btn-row, .fold-body ul + p { margin-top: 10px; }
 
-    /* 보건증 바로가기: 외부 서비스임을 색으로 구분 */
-    .cat-card.health-cert-card { border-color: #EED48A; background: #FFFCF2; }
-    .cat-card.health-cert-card i { background: var(--sun-soft); color: #9A6A00; }
-    .cat-card.health-cert-card:hover { border-color: var(--sun); background: #FFF8E0; }
-    .cat-card .external-tag i { display: inline; flex: none; width: auto; height: auto; background: none; border-radius: 0; font-size: inherit; color: inherit; }
-    .external-tag { display: inline-flex !important; align-items: center; gap: 4px; margin-top: 6px !important; font-size: 0.76rem !important; font-weight: 700; color: #8A5E00 !important; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 0.95rem; }
+    .meta-row strong { color: var(--primary); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 16px; border-radius: var(--r-sm); border: 1.5px solid var(--accent); background: #FFFFFF; color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+    .btn:hover { background: var(--accent-soft); }
+    .btn.solid { background: var(--accent); color: #FFFFFF; }
+    .btn.solid:hover { background: var(--accent-strong); }
 
-    .step-label { margin: 0 0 6px; font-size: 1.12rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-    .step-help { color: var(--sub-text); font-size: 0.95rem; margin: 0 0 14px; }
+    .caution { margin-top: 14px; border-radius: var(--r-lg); background: var(--sun-soft); border: 1.5px solid var(--sun-line); padding: 18px 20px; color: #4D3A00; }
+    .caution h2 { display: flex; align-items: center; gap: 8px; font-size: 1.12rem; font-weight: 800; margin-bottom: 10px; }
+    .caution h2 i { color: #B88300; }
+    .caution-item + .caution-item { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--sun-line); }
+    .caution-item strong { display: block; font-size: 1rem; }
+    .caution-item p { font-size: 0.92rem; margin-top: 2px; }
+    .law-checks { list-style: none; margin-top: 8px; display: grid; gap: 6px; }
+    .law-checks li { font-size: 0.92rem; padding: 9px 11px; background: rgba(255,255,255,0.7); border-radius: 8px; }
+    .law-checks b { display: inline-block; margin-right: 6px; padding: 1px 7px; border-radius: 5px; background: var(--primary); color: #FFFFFF; font-size: 0.75rem; }
+    .law-checks small { display: block; color: #7A6320; font-size: 0.8rem; margin-top: 2px; }
+    .law-checks a { color: #7A6320; }
 
-    .flow-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 22px 0 12px; padding: 12px 14px 12px 18px; border-radius: var(--radius-md); background: var(--primary); color: #FFFFFF; }
-    .flow-summary { min-width: 0; font-size: 0.92rem; font-weight: 700; line-height: 1.5; color: #E3ECF8; }
-    .flow-actions { display: flex; flex: 0 0 auto; gap: 8px; }
-    .flow-action { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 8px 12px; background: transparent; color: #FFFFFF; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
-    .flow-action:hover { background: rgba(255,255,255,0.12); }
+    .more h2 { font-size: 1.12rem; font-weight: 800; color: var(--primary); margin: 26px 0 8px; }
+    .annex-original-card { padding: 4px 0; }
+    .annex-tag { display: inline-block; margin-bottom: 6px; padding: 2px 9px; border-radius: 6px; background: var(--primary); color: #FFFFFF; font-size: 0.76rem; font-weight: 700; }
+    .annex-original-card strong { display: block; color: var(--primary); }
+    .annex-original-card p { margin-top: 4px; }
+    .annex-original-card b { color: var(--accent); }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .form-link-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 14px; border: 1.5px solid var(--accent); border-radius: var(--r-sm); background: #FFFFFF; color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.92rem; }
 
-    #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea, #educationSectorArea, #educationProvidersArea { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; }
-    #applicationTypeArea .category-grid { grid-template-columns: repeat(3, 1fr); }
-    .report-sector-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
-    .report-food-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
-    .report-sector-grid .cat-card, .report-food-groups .cat-card { min-height: 84px; }
-    .report-food-groups .cat-card { padding: 14px; gap: 12px; }
-    .report-food-groups .cat-card i { flex-basis: 42px; width: 42px; height: 42px; font-size: 1.1rem; }
+    .share-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #FFFFFF; padding: 10px 16px; border-radius: 999px; font-size: 0.92rem; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 50; }
+    .toast.show { opacity: 1; }
 
-    .sub-biz-area { display: none; margin-top: 14px; background: var(--card-bg); padding: 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-    #subBizLabel { font-size: 1.05rem !important; color: var(--primary) !important; font-weight: 800 !important; margin-bottom: 12px !important; }
-    .sub-select { width: 100%; padding: 15px 14px; border-radius: var(--radius-sm); border: 2px solid #B9C6D6; font-size: 1rem; font-weight: 700; color: var(--text); background: #FFFFFF; outline: none; }
-    .sub-select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(31, 95, 174, 0.15); }
-    .business-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .business-choice-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 132px; padding: 16px; border: 1.5px solid var(--border); border-radius: var(--radius-md); background: #FFFFFF; color: var(--text); text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
-    .business-choice-card:hover { border-color: var(--accent); background: #FBFDFF; }
-    .business-choice-name { font-size: 1.02rem; font-weight: 800; line-height: 1.45; color: var(--primary); }
-    .business-choice-description { margin-top: 6px; color: var(--sub-text); font-size: 0.9rem; line-height: 1.6; }
-    .business-choice-action { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 12px; color: var(--accent); font-size: 0.86rem; font-weight: 800; }
-
-    /* ── 결과 ── */
-    .result-container { display: none; margin-top: 20px; animation: fadeIn .25s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .result-container, .task-panel.active { animation: none !important; } }
-
-    .result-header-card { background: var(--primary); color: #FFFFFF; padding: 22px 24px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .result-header-card h2 { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .result-content { background: var(--card-bg); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 22px 24px; }
-
-    .info-tabs { position: sticky; top: 0; z-index: 5; display: flex; gap: 2px; background: #FFFFFF; border-bottom: 2px solid var(--line); margin: -6px 0 20px; overflow-x: auto; scrollbar-width: none; }
-    .info-tabs::-webkit-scrollbar { display: none; }
-    .tab-btn { display: inline-flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 0.92rem; font-weight: 700; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; margin-bottom: -2px; }
-    .tab-btn:hover { color: var(--text); }
-    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-    .pane { display: none; font-size: 0.95rem; }
-    .pane.active { display: block; }
-    .pane h4 { color: var(--primary); font-size: 1.02rem; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
-    .pane p + p { margin-top: 8px; }
-
-    .visitor-guide { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 16px; padding: 14px 16px; border-radius: var(--radius-md); background: var(--sun-soft); color: #5A4300; }
-    .visitor-guide i { color: #B88300; font-size: 1.2rem; margin-top: 2px; }
-    .visitor-guide strong { display: block; font-size: 0.96rem; }
-    .visitor-guide span { display: block; margin-top: 2px; font-size: 0.88rem; }
-
-    .task-selector { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0 20px; }
-    .task-select-btn { display: block; min-height: 74px; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: #FFFFFF; color: var(--text); text-align: left; text-decoration: none; cursor: pointer; transition: border-color .15s, background .15s; }
-    .task-select-btn:hover { border-color: var(--accent); }
-    .task-button-title { display: block; font-size: 1rem; font-weight: 800; }
-    .task-button-help { display: block; margin-top: 3px; color: var(--muted); font-size: 0.8rem; line-height: 1.4; }
-    .task-select-btn.active { border-color: var(--accent); background: var(--accent); color: #FFFFFF; }
-    .task-select-btn.active .task-button-help { color: #DCE8F7; }
-    a.task-select-btn { border-style: dashed; }
-    a.task-select-btn .task-button-title::after { content: "\f35d"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.75em; margin-left: 6px; color: var(--accent); }
-
-    .prep-checklist { display: grid; gap: 8px; padding-left: 0; list-style: none; counter-reset: doc; }
-    .prep-checklist > li { position: relative; padding: 12px 14px 12px 50px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #FFFFFF; color: var(--text); line-height: 1.55; }
-    .prep-checklist > li::before { counter-increment: doc; content: counter(doc); position: absolute; left: 14px; top: 11px; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-size: 0.8rem; font-weight: 800; }
-    .prep-checklist > li:has(> details), .prep-checklist > li:has(> .application-extra-docs) { padding: 0; border: none; background: none; }
-    .prep-checklist > li:has(> details)::before, .prep-checklist > li:has(> .application-extra-docs)::before { display: none; }
-
-    .annex-original-card { margin: 10px 0; padding: 16px; border: 1px solid #C9DBF1; border-radius: var(--radius-md); background: #F7FAFE; }
-    .annex-original-card strong { display: block; color: var(--primary); font-size: 0.98rem; }
-    .annex-original-card p { margin-top: 5px; color: var(--sub-text); font-size: 0.9rem; }
-    .task-panel { display: none; }
-    .task-panel.active { display: block; animation: fadeIn .18s ease-out; }
-    .task-content-heading { margin-top: 4px; }
-
-    .shared-docs { margin: 0 0 14px; padding: 0 !important; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #FFFFFF; }
-    .shared-docs summary { padding: 13px 16px; cursor: pointer; color: var(--primary); font-weight: 800; list-style-position: inside; }
-    .shared-docs[open] summary { border-bottom: 1px solid var(--line); }
-    .shared-docs-content { padding: 14px 16px; }
-    .prep-checklist .shared-docs { margin: 0; }
-    .common-required-docs { border: 1.5px solid #EED48A; background: #FFFCF2; }
-    .common-required-docs summary { background: var(--sun-soft); color: #5A4300; }
-    .common-required-docs .first-check-label { display: inline-block; margin-right: 8px; padding: 2px 9px; border-radius: 999px; background: var(--sun); color: var(--ink); font-size: 0.78rem; }
-
-    .change-box { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
-    .change-box h4, .change-box h5 { font-size: 0.98rem; color: var(--primary); margin-bottom: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-    .change-fee { color: var(--muted); font-size: 0.82rem; font-weight: 600; }
-    .change-box ul { padding-left: 20px; color: var(--sub-text); font-size: 0.92rem; }
-    .change-box ul li + li { margin-top: 4px; }
-
-    .gov24-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #FFFFFF; padding: 13px 18px; border-radius: var(--radius-sm); text-decoration: none; font-size: 0.95rem; font-weight: 800; margin-top: 14px; }
-    .gov24-btn:hover { background: var(--accent-strong); }
-    .form-link-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 14px; border: 1.5px solid var(--accent); border-radius: var(--radius-sm); background: #FFFFFF; color: var(--accent); text-decoration: none; font-size: 0.92rem; font-weight: 700; cursor: pointer; }
-    .form-link-btn:hover { background: var(--accent-soft); }
-    .form-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .form-entry { margin-top: 12px; padding: 14px; border-radius: var(--radius-sm); background: var(--bg); }
-    .form-entry-label { margin: 0; color: var(--primary); font-size: 0.92rem; font-weight: 800; }
-    .form-entry .form-actions { margin-top: 8px; }
-
-    .education-provider-list { display: grid; gap: 10px; margin-top: 14px; }
-    .education-provider-card { padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius-md); background: #FFFFFF; }
-    .education-provider-card h4 { margin: 0 0 6px; color: var(--primary); font-size: 1.02rem; }
-    .education-provider-card p { margin: 0 0 10px; color: var(--sub-text); font-size: 0.9rem; }
-
-    .detail-caption { color: var(--muted); font-size: 0.86rem; margin: 8px 0 12px; }
-    .info-list { padding-left: 20px; color: var(--sub-text); }
-    .info-list li { margin-bottom: 6px; }
-
-    .legal-note { margin-top: 34px; padding: 20px 22px; border-radius: var(--radius-lg); background: #FFFFFF; border: 1px solid var(--border); font-size: 0.94rem; }
-    .legal-note > strong { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 1.05rem; margin-bottom: 12px; }
-    .legal-links { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; }
-    .legal-links a, .source-links a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-    .legal-source-group { padding-top: 10px; border-top: 1px solid var(--line); }
-    .legal-source-group + .legal-source-group { margin-top: 10px; }
-    .legal-source-group > strong { color: var(--text); font-size: 0.92rem; }
-    .legal-source-group .legal-links { margin-top: 4px; }
+    .provider { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .provider:last-child { border-bottom: none; }
+    .provider h3 { font-size: 1.02rem; color: var(--primary); }
+    .provider p { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
+    .note { color: var(--muted); font-size: 0.86rem; margin-top: 12px; }
 
     /* ── 바닥글 ── */
-    .site-footer { background: var(--ink); color: #B8C4D4; margin-top: 40px; }
-    .site-footer-inner { max-width: 980px; margin: 0 auto; padding: 28px 20px 34px; font-size: 0.86rem; }
+    .site-footer { background: var(--ink); color: #B8C4D4; margin-top: 30px; }
+    .site-footer-inner { max-width: 720px; margin: 0 auto; padding: 26px 18px 32px; font-size: 0.85rem; }
     .footer-org { color: #FFFFFF; font-size: 1rem; font-weight: 800; }
-    .footer-points { list-style: none; display: grid; gap: 6px; margin-top: 12px; }
-    .footer-points li { display: flex; gap: 8px; }
-    .footer-points i { color: var(--sun); margin-top: 4px; width: 14px; }
-    .character-credit { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); color: #8E9BAD; font-size: 0.76rem; }
-    .character-credit a { color: #C9D4E3; text-underline-offset: 2px; }
+    .footer-note { margin-top: 8px; }
+    .footer-laws { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 10px; }
+    .footer-laws a { color: #C9D4E3; text-underline-offset: 2px; }
+    .character-credit { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.12); color: #8E9BAD; font-size: 0.76rem; }
+    .character-credit a { color: #C9D4E3; }
 
-    @media (max-width: 680px) {
-      .gov-bar-inner { padding: 7px 16px; font-size: 0.76rem; }
-      header.hero { padding: 26px 16px 84px; }
-      .brand-heading-row { gap: 6px; }
-      .brand-mascot-group img { width: 32px; }
-      .brand-subtitle { font-size: 1.05rem; }
-      .header-description { font-size: 0.9rem; }
-      .main-container { padding: 0 14px 32px; }
-      .citizen-guide { padding: 18px 14px 14px; }
-      .citizen-guide-steps li { font-size: 0.86rem; }
-      .search-card { padding: 18px 16px; }
-      .category-grid, #applicationTypeArea .category-grid, .report-sector-grid, .report-food-groups, .business-choice-grid { grid-template-columns: 1fr; }
-      #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea, #educationSectorArea, #educationProvidersArea, .sub-biz-area { padding: 16px; }
-      .cat-card { min-height: 84px; padding: 14px; }
-      .business-choice-card { min-height: 0; }
-      .section-title { font-size: 1.18rem; }
-      .flow-navigation { align-items: stretch; flex-direction: column; padding: 12px; }
-      .flow-actions { width: 100%; }
-      .flow-action { flex: 1; justify-content: center; min-height: 44px; }
-      .result-header-card { padding: 18px; }
-      .result-header-card h2 { font-size: 1.25rem; }
-      .result-content { padding: 18px 16px; }
-      .task-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 520px) {
+      body { font-size: 16.5px; }
+      .wrap { padding: 0 14px; }
+      .brand-row img { width: 30px; }
+      .card { padding: 18px 15px; }
+      .tiles { gap: 8px; }
+      .tile { min-height: 84px; font-size: 0.92rem; }
+      .result-head h1 { font-size: 1.3rem; }
     }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
   </style>
 </head>
 <body>
-
-  <header class="hero">
-    <div class="brand-lockup">
-      <div class="logo-tag"><i class="fa-solid fa-qrcode" aria-hidden="true"></i> 양산시 위생 인·허가 원스톱 안내</div>
-      <div class="brand-heading-row">
-        <div class="brand-mascot-group" aria-hidden="true">
-          <img src="img/yangsan-friends/char3_1.png" alt="">
-          <img src="img/yangsan-friends/char1_1.png" alt="">
-        </div>
-        <h1>QR_ON<span class="h1-mark">!</span></h1>
-        <div class="brand-mascot-group" aria-hidden="true">
-          <img src="img/yangsan-friends/char2_1.png" alt="">
-          <img src="img/yangsan-friends/char4_1.png" alt="">
-        </div>
-      </div>
-      <p class="brand-subtitle">내 손안의 든든한 영업 파트너</p>
-      <p class="header-description">영업 신고부터 면허 발급, 위생교육, 보건증까지. 방문하기 전에 필요한 서류와 서식을 여기서 먼저 확인하세요.</p>
-    </div>
-  </header>
-
-  <main class="main-container">
-
-    <!-- 방문 전 준비 순서 안내 -->
-    <section class="citizen-guide" aria-labelledby="guideTitle">
-      <p id="guideTitle" class="citizen-guide-title"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 방문 전에 이 순서대로 확인하세요</p>
-      <ol class="citizen-guide-steps">
-        <li>업종 찾기</li>
-        <li>하려는 업무 선택</li>
-        <li>서류 챙겨 방문</li>
-      </ol>
-      <p class="citizen-guide-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>신분증은 꼭 챙기시고, 대리인이 오시거나 법인 명의라면 추가 서류가 필요해요. 정확한 서류는 업종과 업무에 따라 달라집니다.</span></p>
-    </section>
-
-    <!-- 검색창 -->
-    <section class="search-card" aria-labelledby="searchHeading">
-      <h2 id="searchHeading" class="search-heading">어떤 업종인가요?</h2>
-      <div class="search-input-wrapper">
-        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <label for="searchInput" class="sr-only">업종명 또는 민원명 검색</label>
-        <input type="search" id="searchInput" class="search-input" placeholder="업종 이름을 입력하세요" autocomplete="off" oninput="onSearchInput(this.value)">
-      </div>
-      <div id="searchDropdown" class="search-dropdown"></div>
-      <div class="search-examples">
-        <span>자주 찾는 업종</span>
-        <button type="button" class="example-chip" onclick="searchExample('음식점')">음식점</button>
-        <button type="button" class="example-chip" onclick="searchExample('카페')">카페</button>
-        <button type="button" class="example-chip" onclick="searchExample('반찬가게')">반찬가게</button>
-        <button type="button" class="example-chip" onclick="searchExample('미용실')">미용실</button>
-        <button type="button" class="example-chip" onclick="searchExample('조리사')">조리사 면허</button>
-      </div>
-      <button type="button" class="search-alt" onclick="scrollToMenuSelection()"><i class="fa-solid fa-list-ul" aria-hidden="true"></i> 업종 이름을 모르겠다면 아래 메뉴에서 골라보세요</button>
-    </section>
-
-      <div id="flowNavigation" class="flow-navigation" style="display:none;">
-        <div id="flowSummary" class="flow-summary"></div>
-        <div class="flow-actions">
-          <button id="flowBackButton" class="flow-action" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> 이전</button>
-          <button class="flow-action" type="button" onclick="restartFlow()"><i class="fa-solid fa-house"></i> 처음으로</button>
-        </div>
-      </div>
-
-      <!-- 안내 분야 선택 -->
-      <h2 id="mainSelectionHeading" class="section-title">
-        어떤 안내가 필요하신가요?
-      </h2>
-
-      <div id="mainCategoryArea" class="category-grid">
-      <div class="cat-card main-category mascot-card" role="button" tabindex="0" onclick="selectMainCategory('business', this)">
-        <i class="fa-solid fa-store"></i>
-        <div>
-          <strong>영업 인허가 안내</strong>
-          <span>신고·허가·등록부터 변경, 지위승계, 폐업까지</span>
-        </div>
-        <img class="mascot-card-image" src="img/yangsan-friends/char1_1.png" alt="" aria-hidden="true">
-      </div>
-      <div class="cat-card main-category mascot-card" role="button" tabindex="0" onclick="selectMainCategory('license', this)">
-        <i class="fa-solid fa-id-card"></i>
-        <div>
-          <strong>면허 발급</strong>
-          <span>조리사, 이용사, 미용사 면허 발급과 재발급</span>
-        </div>
-        <img class="mascot-card-image" src="img/yangsan-friends/char2_1.png" alt="" aria-hidden="true">
-      </div>
-      <div class="cat-card main-category mascot-card" role="button" tabindex="0" onclick="selectMainCategory('education', this)">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <div>
-          <strong>업종별 위생교육 안내</strong>
-          <span>내 업종의 위생교육기관으로 바로 이동</span>
-        </div>
-        <img class="mascot-card-image" src="img/yangsan-friends/char3_1.png" alt="" aria-hidden="true">
-      </div>
-      <!-- 보건증 온라인 발급: 연결 주소는 스크립트의 HEALTH_CERT_URL 값 -->
-      <div class="cat-card health-cert-card mascot-card" role="button" tabindex="0" onclick="openHealthCertificate()">
-        <i class="fa-solid fa-file-medical"></i>
-        <div>
-          <strong>보건증 온라인 발급</strong>
-          <span>보건소에서 검사받았다면 다시 오지 않고 스마트폰으로 받으세요</span>
-          <span class="external-tag"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> e보건소 건강진단결과서 발급 화면으로 이동</span>
-        </div>
-        <img class="mascot-card-image" src="img/yangsan-friends/char4_1.png" alt="" aria-hidden="true">
-      </div>
-    </div>
-
-    <div id="educationSectorArea" style="display:none; margin-top:14px;">
-      <div class="step-label">위생교육 대상 업종을 선택하세요</div>
-      <p class="step-help">업종에 따라 법정 교육기관이 다릅니다. 영업신고증에 적힌 업종을 확인하고 선택하세요.</p>
-      <div class="report-sector-grid">
-        <div class="cat-card" role="button" tabindex="0" onclick="selectEducationSector('food', this)">
-          <i class="fa-solid fa-utensils"></i>
-          <div><strong>식품·건강기능식품</strong><span>음식점, 제조·가공, 판매, 급식</span></div>
-        </div>
-        <div class="cat-card" role="button" tabindex="0" onclick="selectEducationSector('public', this)">
-          <i class="fa-solid fa-pump-soap"></i>
-          <div><strong>공중위생</strong><span>숙박, 목욕, 이용·미용, 세탁, 건물위생</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="educationProvidersArea" style="display:none; margin-top:14px;">
-      <div id="educationProvidersList"></div>
-    </div>
-
-    <div id="applicationTypeArea" style="display:none; margin-top: 14px;">
-      <div class="step-label">인허가 방식을 선택하세요</div>
-      <p class="step-help">식당, 카페, 미용실을 준비 중이라면 ‘신고 대상’을 고르세요.</p>
-      <div class="category-grid">
-      <div class="cat-card" role="button" tabindex="0" onclick="selectApplicationType('report', this)">
-        <i class="fa-solid fa-file-circle-check"></i>
-        <div><strong>신고 대상</strong><span>음식점, 카페, 미용실 등 공중위생업소</span></div>
-      </div>
-      <div class="cat-card" role="button" tabindex="0" onclick="selectApplicationType('permit', this)">
-        <i class="fa-solid fa-stamp"></i>
-        <div><strong>허가 대상</strong><span>유흥·단란주점 등</span></div>
-      </div>
-      <div class="cat-card" role="button" tabindex="0" onclick="selectApplicationType('registration', this)">
-        <i class="fa-solid fa-clipboard-check"></i>
-        <div><strong>등록 대상</strong><span>식품제조·가공업 등</span></div>
-      </div>
-      </div>
-    </div>
-
-    <div id="reportSectorArea" style="display:none; margin-top: 14px;">
-      <div class="step-label">어떤 분야의 영업인가요?</div>
-      <p class="step-help">식품·건강기능식품 영업인지, 공중위생 영업인지 선택하세요.</p>
-      <div class="report-sector-grid">
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportSector('food', this)">
-          <i class="fa-solid fa-utensils"></i>
-          <div><strong>식품·건강기능식품</strong><span>음식점, 제조, 식품판매, 급식</span></div>
-        </div>
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportSector('public', this)">
-          <i class="fa-solid fa-pump-soap"></i>
-          <div><strong>공중위생</strong><span>숙박, 목욕, 이용, 미용, 세탁, 청소</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="reportFoodGroupArea" style="display:none; margin-top: 14px;">
-      <div class="step-label">하려는 식품 영업을 고르세요</div>
-      <p class="step-help">가장 가까운 분야를 고르면 세부 업종별 뜻을 확인할 수 있어요.</p>
-      <div class="report-food-groups">
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('food_service', this)">
-          <i class="fa-solid fa-bowl-food"></i>
-          <div><strong>식품접객업 (음식점·카페 등)</strong><span>휴게, 일반, 제과점, 푸드트럭</span></div>
-        </div>
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('instant_food', this)">
-          <i class="fa-solid fa-store"></i>
-          <div><strong>즉석판매제조·가공</strong><span>반찬가게, 떡집 등</span></div>
-        </div>
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('health_sale', this)">
-          <i class="fa-solid fa-capsules"></i>
-          <div><strong>건강기능식품 판매</strong><span>영양제, 건강기능식품 판매</span></div>
-        </div>
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('group_catering', this)">
-          <i class="fa-solid fa-users"></i>
-          <div><strong>집단급식소</strong><span>구내식당, 학교·병원 급식 운영</span></div>
-        </div>
-        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('other_food', this)">
-          <i class="fa-solid fa-boxes-stacked"></i>
-          <div><strong>식품 운반·소분·판매업 등</strong><span>운반, 소분·재포장, 얼음, 자판기, 유통판매</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="subBizArea" class="sub-biz-area">
-      <p id="subBizLabel" style="font-size: 0.85rem; font-weight: 700; color: var(--sub-text); display: block; margin-bottom: 8px;">하위 업종 선택</p>
-      <select id="subBizSelect" class="sub-select" aria-labelledby="subBizLabel" onchange="renderSelection(this.value)"></select>
-      <div id="businessChoices" class="business-choice-grid" role="group" aria-labelledby="subBizLabel" style="display:none;"></div>
-    </div>
-
-    <div id="licenseResult" class="result-container"></div>
-
-    <!-- 원스톱 결과 출력 카드 -->
-    <div id="resultContainer" class="result-container">
-      <div class="result-header-card">
-        <div>
-          <h2 id="resBizName">업종 명칭</h2>
-          <span id="resLawTag" style="background: rgba(255,255,255,0.16); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">적용 법률</span>
-          <p id="resBizDefinition" style="margin-top:10px; color:#DCE8F7; font-size:0.95rem; max-width:720px;">업종 정의</p>
-        </div>
-        <div style="font-size: 2rem; opacity: 0.85; color: var(--sun);" id="resIcon"><i class="fa-solid fa-store"></i></div>
-      </div>
-      <div class="result-content">
-        <div class="info-tabs" role="tablist">
-          <button class="tab-btn active" onclick="switchTab(this, 'tab-docs')"><i class="fa-solid fa-file-lines"></i> 민원 업무 안내</button>
-          <button class="tab-btn" onclick="switchTab(this, 'tab-facility')"><i class="fa-solid fa-ruler-combined"></i> 시설기준</button>
-          <button class="tab-btn" onclick="switchTab(this, 'tab-edu')"><i class="fa-solid fa-graduation-cap"></i> 위생교육</button>
-          <button class="tab-btn" onclick="switchTab(this, 'tab-rules')"><i class="fa-solid fa-triangle-exclamation"></i> 준수사항</button>
-        </div>
-
-        <!-- 민원업무별 신청·변경 안내 -->
-        <div id="tab-docs" class="pane active">
-          <details class="change-box shared-docs common-required-docs" open>
-            <summary><span class="first-check-label">먼저 확인</span>모든 민원 공통 필수서류</summary>
-            <div class="shared-docs-content">
-            <ul class="info-list">
-              <li><strong>본인이 신청할 때:</strong> 신청인 신분증</li>
-              <li><strong>대리인이 방문할 때:</strong> 모든 신고서에 신고인 자필서명, 자필서명한 신고인 신분증 사본, 위임장 및 대리인 신분증. 신고인이 인감도장을 찍는 경우 인감증명서 제출</li>
-              <li><strong>법인 명의로 신청할 때:</strong> 법인등기부등본(말소사항 포함), 법인인감증명서(사용인감 사용 시 사용인감계) 및 법인인감</li>
-              <li><strong>법인 대리인이 신청할 때:</strong> 법인인감을 찍은 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대신할 수 없음</li>
-            </ul>
-            <div class="form-entry">
-              <p class="form-entry-label">위임장 (민원처리법 시행규칙 별지 제3호서식)</p>
-              <div class="form-actions">
-                <a class="form-link-btn" href="https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=265249&bylSeq=16632391&efYd=20240906" target="_blank" rel="noopener noreferrer">
-                  <i class="fa-solid fa-eye"></i> PDF 바로보기
-                </a>
-                <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=144030689&bylClsCd=110202" target="_blank" rel="noopener noreferrer">
-                  <i class="fa-solid fa-download"></i> 한글파일 다운로드
-                </a>
-              </div>
-            </div>
-            <p class="detail-caption">법인 대리 신청에서 법인인감 대신 사용인감을 쓰는 경우 사용인감계와 법인인감증명서를 준비하세요. 제출 방식이나 추가 확인자료는 방문 전 관할 기관에 확인하세요.</p>
-            </div>
-          </details>
-          <div class="visitor-guide">
-            <i class="fa-solid fa-hand-pointer" aria-hidden="true"></i>
-            <div>
-              <strong>어떤 일로 방문하시나요?</strong>
-              <span>잘 모르겠다면 가장 가까운 항목을 눌러보세요. 준비할 서류가 바로 아래에 나옵니다.</span>
-            </div>
-          </div>
-          <div id="resTaskSelector" class="task-selector" role="group" aria-label="민원 업무 선택"></div>
-          <section id="task-application" class="task-panel active" aria-label="신규 신청">
-          <h4 class="task-content-heading"><i class="fa-solid fa-clipboard-check" style="color: var(--secondary);"></i> 신규 영업 신청 구비서류</h4>
-          <ol id="resDocsList" class="prep-checklist"></ol>
-          <p id="resDocsSourceNote" class="detail-caption"></p>
-          <div id="resFormLinks"></div>
-          <div id="resGovServiceLinks"></div>
-          <div id="resFeeInfo" class="change-box" style="display:none; margin-top:12px;"></div>
-          <p class="detail-caption">온라인 신청 가능 여부와 최종 제출서류는 업종과 관할 지자체에 따라 다를 수 있습니다. 신청 전 관할 시·군·구에 확인하세요.</p>
-          </section>
-          <section id="task-change" class="task-panel" aria-label="변경">
-            <h4 class="task-content-heading"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent);"></i> 변경 구비서류</h4>
-            <div id="resChangePanel"></div>
-          </section>
-          <section id="task-succession" class="task-panel" aria-label="지위승계">
-            <h4 class="task-content-heading"><i class="fa-solid fa-people-arrows-left-right" style="color: var(--secondary);"></i> 지위승계 구비서류</h4>
-            <div id="resSuccessionPanel"></div>
-          </section>
-          <section id="task-closure" class="task-panel" aria-label="폐업(온라인 신청)">
-            <h4 class="task-content-heading"><i class="fa-solid fa-circle-xmark" style="color: var(--danger);"></i> 폐업 구비서류</h4>
-            <div id="resClosurePanel"></div>
-          </section>
-          <section id="task-reissue" class="task-panel" aria-label="증명서 재발급"></section>
-        </div>
-
-        <!-- 시설기준/장소조건 -->
-        <div id="tab-facility" class="pane">
-          <h4><i class="fa-solid fa-building" style="color: var(--accent);"></i> 시설기준 및 지정 장소 요건</h4>
-          <div id="resFacilityList"></div>
-          <p class="detail-caption">시설기준은 업종별 법령과 시행규칙 별표에 따릅니다. 건축물 용도, 소방·가스·환경 관련 요건도 계약 전에 관할 기관에서 확인하세요.</p>
-        </div>
-
-        <!-- 위생교육 -->
-        <div id="tab-edu" class="pane">
-          <h4><i class="fa-solid fa-user-graduate" style="color: var(--accent);"></i> 위생교육 안내</h4>
-          <div id="resEduBox" style="background:var(--bg); padding:16px; border-radius:var(--radius-md);"></div>
-        </div>
-
-        <!-- 준수사항 -->
-        <div id="tab-rules" class="pane">
-          <h4><i class="fa-solid fa-shield-halved" style="color: var(--danger);"></i> 업종별 영업자 준수사항</h4>
-          <p class="detail-caption"><strong id="resRulesBizName"></strong>에 적용되는 법령 원문입니다. 요약하거나 바꾸어 쓰지 않고 해당 별표 원문으로 연결합니다.</p>
-          <div id="resRulesList"></div>
-          <p id="resRuleScope" class="detail-caption" style="display:none;">별표 17의 준수사항은 별표에서 정한 영업자 등에 적용됩니다. 업종별 적용 범위와 그 밖의 식품영업자 의무는 현행 법령 원문 및 관할 기관 안내를 함께 확인하세요.</p>
-        </div>
-
-      </div>
-    </div>
-
-    <aside class="legal-note">
-      <strong><i class="fa-solid fa-scale-balanced" style="color: var(--accent);" aria-hidden="true"></i> 관련 법령 원문</strong>
-      <div class="legal-source-group">
-        <strong>식품·식품접객업</strong>
-        <div class="legal-links">
-          <a href="https://www.law.go.kr/법령/식품위생법" target="_blank" rel="noopener noreferrer">식품위생법</a>
-          <a href="https://www.law.go.kr/법령/식품위생법시행령" target="_blank" rel="noopener noreferrer">식품위생법 시행령</a>
-          <a href="https://www.law.go.kr/법령/식품위생법시행규칙" target="_blank" rel="noopener noreferrer">식품위생법 시행규칙</a>
-        </div>
-      </div>
-      <div class="legal-source-group">
-        <strong>건강기능식품</strong>
-        <div class="legal-links">
-          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률</a>
-          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행령" target="_blank" rel="noopener noreferrer">시행령</a>
-          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행규칙" target="_blank" rel="noopener noreferrer">시행규칙</a>
-        </div>
-      </div>
-      <div class="legal-source-group">
-        <strong>공중위생업</strong>
-        <div class="legal-links">
-          <a href="https://www.law.go.kr/법령/공중위생관리법" target="_blank" rel="noopener noreferrer">공중위생관리법</a>
-          <a href="https://www.law.go.kr/법령/공중위생관리법시행령" target="_blank" rel="noopener noreferrer">공중위생관리법 시행령</a>
-          <a href="https://www.law.go.kr/법령/공중위생관리법시행규칙" target="_blank" rel="noopener noreferrer">공중위생관리법 시행규칙</a>
-        </div>
-      </div>
-    </aside>
-
-  </main>
+  <div id="app" aria-live="polite"></div>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
       <p class="footer-org">양산시 웅상보건소 보건위생팀</p>
-      <ul class="footer-points">
-        <li><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><span>안내 내용은 관련 법령과 국가법령정보센터 서식을 기준으로 작성했습니다. 법령 개정 등으로 달라질 수 있으니 최종 확인은 관할 기관에 해주세요.</span></li>
-        <!-- 문의 전화번호를 넣으려면 아래 줄의 주석을 풀고 번호를 입력하세요 -->
-        <!-- <li><i class="fa-solid fa-phone" aria-hidden="true"></i><span>문의 055-000-0000</span></li> -->
-      </ul>
+      <p class="footer-note">안내 내용은 관련 법령과 국가법령정보센터 서식을 기준으로 작성했습니다. 법령 개정 등으로 달라질 수 있으니 최종 확인은 관할 기관에 해주세요.</p>
+      <div class="footer-laws">
+        <a href="https://www.law.go.kr/법령/식품위생법" target="_blank" rel="noopener noreferrer">식품위생법</a>
+        <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품법</a>
+        <a href="https://www.law.go.kr/법령/공중위생관리법" target="_blank" rel="noopener noreferrer">공중위생관리법</a>
+      </div>
       <p class="character-credit">
         캐릭터 출처: 양산시 관광캐릭터 ‘양산프렌즈’, 비영리 목적으로 변형 없이 사용
         (<a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101030000" target="_blank" rel="noopener noreferrer">캐릭터 소개</a>,
@@ -612,8 +214,10 @@
       </p>
     </div>
   </footer>
+  <div id="toast" class="toast" role="status"></div>
 
   <script>
+
     // 보건증(건강진단결과서) 온라인 발급 안내 주소. 더 정확한 발급 페이지 주소가 있으면 여기만 바꾸면 됩니다.
     const HEALTH_CERT_URL = 'https://www.e-health.go.kr/gh/caSrvcGud/selectScrtfIssGud.do?prfDocClCd=01&menuId=200022';
 
@@ -1468,6 +1072,11 @@
       );
     });
 
+    // 법제처 한글주소: 서식이 개정돼도 항상 현행 서식 화면(보기·한글·PDF 내려받기)이 열립니다.
+    function lawFormUrl(lawName, formNo) {
+      return `https://www.law.go.kr/법령별표서식/(${lawName},서식${formNo})`;
+    }
+
     const licenseDb = [
       {
         id: 'license_cook', name: '조리사 면허', type: '식품위생법에 따른 조리사 면허',
@@ -1509,8 +1118,7 @@
         ],
         issueForm: {
           label: '별지 제7호서식 · 면허신청서',
-          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293989&efYd=20260714',
-          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093887&bylClsCd=110202'
+          url: lawFormUrl('공중위생관리법시행규칙', '7')
         },
         reissueDocs: [
           '이용사 면허증 재발급 신청서',
@@ -1519,8 +1127,7 @@
         ],
         reissueForm: {
           label: '별지 제10호서식 · 면허증 재발급 신청서',
-          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293995&efYd=20260714',
-          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093907&bylClsCd=110202'
+          url: lawFormUrl('공중위생관리법시행규칙', '10')
         },
         notes: [
           '면허는 국가기술자격 취득과 별도로 발급 신청해야 합니다. 법정 자격 경로 및 결격사유는 공중위생관리법 제6조를 확인하세요.',
@@ -1543,8 +1150,7 @@
         ],
         issueForm: {
           label: '별지 제7호서식 · 면허신청서',
-          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293989&efYd=20260714',
-          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093887&bylClsCd=110202'
+          url: lawFormUrl('공중위생관리법시행규칙', '7')
         },
         reissueDocs: [
           '미용사 면허증 재발급 신청서',
@@ -1553,8 +1159,7 @@
         ],
         reissueForm: {
           label: '별지 제10호서식 · 면허증 재발급 신청서',
-          url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293995&efYd=20260714',
-          downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093907&bylClsCd=110202'
+          url: lawFormUrl('공중위생관리법시행규칙', '10')
         },
         notes: [
           '미용사 면허는 미용 분야 자격증과 별도의 면허입니다. 일반·피부·네일 등 자격 분야와 법령상 면허 업무 범위를 확인하세요.',
@@ -1708,346 +1313,54 @@
       ]
     };
 
-    let wizardStep = 'main';
-    let wizardHistory = [];
-    let flowPath = [];
+    // ── 신고 전 다른 법령(타법) 확인사항 ──
+    // 법령·지침이 바뀌어도 고칠 필요가 없도록 "무엇을 확인할지"와 "어디에 물을지"만 안내합니다.
+    // 세부 기준(면적, 용도 등)은 담당 부서 안내를 따르도록 일부러 넣지 않았습니다.
+    const otherLawChecks = {
+      building_use: { law: '건축법', check: '건축물대장의 용도가 하려는 영업에 맞는지, 위반건축물이 아닌지', where: '건축 담당 부서', url: 'https://www.law.go.kr/법령/건축법' },
+      septic: { law: '하수도법', check: '정화조(개인하수처리시설) 용량이 충분한지', where: '하수도 담당 부서', url: 'https://www.law.go.kr/법령/하수도법' },
+      fire_safety: { law: '다중이용업소법', check: '소방시설 완비증명서와 화재배상책임보험 가입 대상인지', where: '관할 소방서', url: 'https://www.law.go.kr/법령/다중이용업소의안전관리에관한특별법' },
+      lpg: { law: '액화석유가스법', check: 'LPG를 쓴다면 가스시설 완성검사를 받았는지', where: '한국가스안전공사', url: 'https://www.law.go.kr/법령/액화석유가스의안전관리및사업법' },
+      school_zone: { law: '교육환경보호법', check: '학교 주변 교육환경보호구역에 해당하는지', where: '관할 교육지원청', url: 'https://www.law.go.kr/법령/교육환경보호에관한법률' },
+      land_use: { law: '국토계획법', check: '용도지역상 해당 시설을 둘 수 있는지', where: '도시계획 담당 부서', url: 'https://www.law.go.kr/법령/국토의계획및이용에관한법률' },
+      environment: { law: '환경 관련 법령', check: '폐수·대기 배출시설 설치 신고 대상인지', where: '환경 담당 부서', url: 'https://www.law.go.kr/법령/물환경보전법' },
+      vehicle: { law: '자동차관리법', check: '조리용 차량으로 구조변경 승인을 받았는지', where: '한국교통안전공단', url: 'https://www.law.go.kr/법령/자동차관리법' }
+    };
 
-    function setWizardStep(step) {
-      wizardStep = step;
-      const stepAreas = {
-        main: ['mainSelectionHeading', 'mainCategoryArea'],
-        educationSector: ['educationSectorArea'],
-        educationProviders: ['educationProvidersArea'],
-        applicationType: ['applicationTypeArea'],
-        reportSector: ['reportSectorArea'],
-        reportFoodGroup: ['reportFoodGroupArea'],
-        subtype: ['subBizArea']
-      };
-      ['mainSelectionHeading', 'mainCategoryArea', 'educationSectorArea', 'educationProvidersArea', 'applicationTypeArea', 'reportSectorArea', 'reportFoodGroupArea', 'subBizArea']
-        .forEach(id => { document.getElementById(id).style.display = 'none'; });
-      (stepAreas[step] || []).forEach(id => {
-        document.getElementById(id).style.display = id === 'mainCategoryArea' ? 'grid' : id === 'mainSelectionHeading' ? 'flex' : 'block';
-      });
-      document.getElementById('flowNavigation').style.display = step === 'main' ? 'none' : 'flex';
-      document.getElementById('flowBackButton').style.display = wizardHistory.length ? 'inline-flex' : 'none';
-      document.getElementById('flowSummary').textContent = flowPath.join('  ›  ');
-    }
+    // 업종별로 해당하는 확인사항
+    const otherLawByBusiness = {
+      food_rest: ['building_use', 'septic', 'fire_safety', 'lpg'],
+      food_general: ['building_use', 'septic', 'fire_safety', 'lpg'],
+      food_bakery: ['building_use', 'septic', 'fire_safety', 'lpg'],
+      food_short_night: ['building_use', 'school_zone', 'septic', 'fire_safety', 'lpg'],
+      food_entertainment: ['building_use', 'school_zone', 'septic', 'fire_safety', 'lpg'],
+      food_truck: ['vehicle', 'lpg'],
+      food_temp_instant: ['lpg'],
+      food_instant: ['building_use', 'septic', 'lpg'],
+      food_catering: ['building_use', 'septic', 'lpg'],
+      food_group_catering: ['building_use', 'septic', 'lpg'],
+      food_shared_kitchen: ['building_use', 'septic', 'lpg'],
+      food_manufacturing: ['building_use', 'land_use', 'septic', 'environment'],
+      food_additive_manufacturing: ['building_use', 'land_use', 'environment'],
+      food_container_packaging: ['building_use', 'land_use', 'environment'],
+      food_pottery: ['building_use', 'land_use', 'environment'],
+      food_irradiation: ['building_use', 'land_use'],
+      food_cold_storage: ['building_use'],
+      food_subdivision: ['building_use'],
+      food_ice_sales: ['building_use'],
+      food_distribution: ['building_use'],
+      food_group_catering_sales: ['building_use'],
+      food_other_sales: ['building_use'],
+      health_sale: ['building_use'],
+      health_manufacturing: ['building_use', 'land_use', 'septic', 'environment'],
+      public_lodging: ['building_use', 'school_zone', 'septic'],
+      public_bath: ['building_use', 'septic', 'fire_safety'],
+      public_barber: ['building_use'],
+      public_beauty: ['building_use'],
+      public_laundry: ['building_use', 'environment']
+    };
 
-    function advanceWizard(step, label) {
-      wizardHistory.push({ step: wizardStep, path: [...flowPath] });
-      if (label) flowPath.push(label);
-      setWizardStep(step);
-    }
-
-    function focusSearchInput() {
-      const input = document.getElementById('searchInput');
-      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      input.focus();
-    }
-
-    function searchExample(word) {
-      const input = document.getElementById('searchInput');
-      input.value = word;
-      onSearchInput(word);
-      input.focus();
-    }
-
-    function openHealthCertificate() {
-      window.open(HEALTH_CERT_URL, '_blank', 'noopener,noreferrer');
-    }
-
-    function scrollToMenuSelection() {
-      if (wizardStep !== 'main') restartFlow();
-      const heading = document.getElementById('mainSelectionHeading');
-      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function goBackStep() {
-      const previous = wizardHistory.pop();
-      if (!previous) return;
-      flowPath = previous.path;
-      document.getElementById('resultContainer').style.display = 'none';
-      document.getElementById('licenseResult').style.display = 'none';
-      setWizardStep(previous.step);
-      document.getElementById('flowNavigation').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function restartFlow() {
-      wizardHistory = [];
-      flowPath = [];
-      document.getElementById('resultContainer').style.display = 'none';
-      document.getElementById('licenseResult').style.display = 'none';
-      document.getElementById('subBizSelect').innerHTML = '';
-      document.getElementById('searchInput').value = '';
-      document.getElementById('searchDropdown').style.display = 'none';
-      document.querySelectorAll('.cat-card.active').forEach(card => card.classList.remove('active'));
-      setWizardStep('main');
-    }
-
-    function selectMainCategory(category, el) {
-      document.querySelectorAll('.main-category').forEach(card => card.classList.remove('active'));
-      el.classList.add('active');
-      wizardHistory = [];
-      flowPath = [];
-      document.getElementById('resultContainer').style.display = 'none';
-      document.getElementById('licenseResult').style.display = 'none';
-      document.getElementById('subBizArea').style.display = 'none';
-      document.getElementById('educationProvidersList').innerHTML = '';
-      document.getElementById('reportSectorArea').style.display = 'none';
-      document.getElementById('reportFoodGroupArea').style.display = 'none';
-      document.querySelectorAll('#applicationTypeArea .cat-card').forEach(card => card.classList.remove('active'));
-
-      if (category === 'license') {
-        populateSubcategorySelect(licenseDb, '어떤 면허가 필요하신가요?');
-        advanceWizard('subtype', '면허 발급');
-      } else if (category === 'education') {
-        document.getElementById('educationProvidersList').innerHTML = '';
-        advanceWizard('educationSector', '업종별 위생교육 안내');
-      } else {
-        document.getElementById('subBizSelect').innerHTML = '';
-        advanceWizard('applicationType', '영업 인허가 안내');
-      }
-      document.getElementById('flowNavigation').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function openEducationProviders(sector) {
-      const educationCard = [...document.querySelectorAll('#mainCategoryArea .main-category')]
-        .find(card => card.textContent.includes('업종별 위생교육 안내'));
-      if (!educationCard) throw new Error('위생교육 안내 화면을 찾을 수 없습니다.');
-
-      document.getElementById('resultContainer').style.display = 'none';
-      wizardHistory = [];
-      flowPath = [];
-      selectMainCategory('education', educationCard);
-
-      const sectorCard = [...document.querySelectorAll('#educationSectorArea .cat-card')]
-        .find(card => card.getAttribute('onclick').includes(`selectEducationSector('${sector}'`));
-      if (!sectorCard) throw new Error(`${sector} 위생교육 분야를 찾을 수 없습니다.`);
-      selectEducationSector(sector, sectorCard);
-    }
-
-    function selectEducationSector(sector, el) {
-      document.querySelectorAll('#educationSectorArea .cat-card').forEach(card => card.classList.remove('active'));
-      el.classList.add('active');
-      const title = sector === 'food' ? '식품·건강기능식품' : '공중위생';
-      const categories = hygieneEducationCategories[sector];
-      document.getElementById('educationProvidersList').innerHTML = `
-        <div class="step-label">${title} 업종별 위생교육기관</div>
-        <p class="step-help">영업신고증에 적힌 업종을 찾아 해당 교육기관의 과정, 일정, 이수방법을 확인하세요. 선택할 수 있는 교육기관이 여러 곳이면 모두 표시했습니다.</p>
-        <div class="education-provider-list">
-          ${categories.map(category => `
-            <article class="education-provider-card">
-              <h4>${category.business}</h4>
-              <p><strong>위생교육기관:</strong> ${category.providers.map(provider => `${provider.name}${provider.scope ? ` (${provider.scope})` : ''}`).join(', ')}</p>
-              ${category.providers.some(provider => provider.notice) ? `<p class="detail-caption">${category.providers.filter(provider => provider.notice).map(provider => provider.notice).join(' ')}</p>` : ''}
-              <div class="form-actions">
-                ${category.providers.map(provider => `
-                  <a class="form-link-btn" href="${provider.url}" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> ${provider.name} 바로가기
-                  </a>
-                `).join('')}
-              </div>
-            </article>
-          `).join('')}
-        </div>
-        <div class="legal-links">
-          <a href="${sector === 'food' ? 'https://www.law.go.kr/법령/식품위생법' : 'https://www.law.go.kr/법령/공중위생관리법'}" target="_blank" rel="noopener noreferrer">${sector === 'food' ? '식품위생법' : '공중위생관리법'} 원문</a>
-          ${sector === 'food' ? '<a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률 원문</a>' : ''}
-        </div>
-        <p class="detail-caption">교육 대상, 신규·기존 영업자별 이수시기, 교육시간은 법령과 지정 고시에 따릅니다. 업종이 여러 개이거나 교육기관이 불분명하면 영업신고 관할 시·군·구에 확인하세요.</p>
-      `;
-      advanceWizard('educationProviders', title);
-      document.getElementById('educationProvidersArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function populateSubcategorySelect(items, label) {
-      const select = document.getElementById('subBizSelect');
-      document.getElementById('subBizLabel').textContent = label;
-      const choices = document.getElementById('businessChoices');
-      const canShowDefinitions = items.length > 0 &&
-        items.every(item => item.description || businessDefinitions[item.id]);
-
-      if (canShowDefinitions) {
-        select.innerHTML = '';
-        select.style.display = 'none';
-        choices.innerHTML = items.map(item => `
-          <button class="business-choice-card" type="button" onclick="renderSelection('${item.id}')">
-            <span class="business-choice-name">${item.name}</span>
-            <span class="business-choice-description">${item.description || businessDefinitions[item.id]}</span>
-            <span class="business-choice-action">이 업종 안내 보기 <i class="fa-solid fa-chevron-right"></i></span>
-          </button>
-        `).join('');
-        choices.style.display = 'grid';
-      } else {
-        choices.innerHTML = '';
-        choices.style.display = 'none';
-        select.style.display = 'block';
-        select.innerHTML = '<option value="">-- 선택하세요 --</option>' +
-          items.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
-      }
-      document.getElementById('subBizArea').style.display = 'block';
-    }
-
-    function selectApplicationType(applicationType, el) {
-      document.querySelectorAll('#applicationTypeArea .cat-card').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      document.querySelectorAll('#applicationTypeArea .cat-card').forEach(card => card.classList.remove('featured'));
-
-      document.getElementById('resultContainer').style.display = 'none';
-      document.getElementById('licenseResult').style.display = 'none';
-      document.getElementById('subBizArea').style.display = 'none';
-      document.getElementById('reportFoodGroupArea').style.display = 'none';
-      document.getElementById('reportSectorArea').style.display = 'none';
-
-      if (applicationType === 'report') {
-        advanceWizard('reportSector', '신고');
-      } else {
-        const filtered = db.filter(item => item.applicationType === applicationType);
-        populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 업종을 고르세요`);
-        advanceWizard('subtype', applicationTypeLabels[applicationType]);
-      }
-    }
-
-    function selectReportSector(sector, el) {
-      document.querySelectorAll('.report-sector-grid .cat-card').forEach(card => card.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('subBizArea').style.display = 'none';
-      document.getElementById('resultContainer').style.display = 'none';
-      document.getElementById('licenseResult').style.display = 'none';
-
-      if (sector === 'food') {
-        document.querySelectorAll('.report-food-groups .cat-card').forEach(card => card.classList.remove('active'));
-        document.getElementById('subBizSelect').innerHTML = '';
-        advanceWizard('reportFoodGroup', '식품·건강기능식품');
-        return;
-      }
-
-      document.getElementById('reportFoodGroupArea').style.display = 'none';
-      const publicItems = db.filter(item => item.applicationType === 'report' && item.lawKey === 'public');
-      populateSubcategorySelect(publicItems, '공중위생 신고 대상 업종을 고르세요');
-      advanceWizard('subtype', '공중위생');
-    }
-
-    function selectReportGroup(group, el) {
-      document.querySelectorAll('.report-food-groups .cat-card').forEach(card => card.classList.remove('active'));
-      el.classList.add('active');
-      const items = reportGroupIds[group].map(id => db.find(item => item.id === id)).filter(Boolean);
-      const label = group === 'food_service' ? '식품접객업 세부 업종을 고르세요'
-        : group === 'instant_food' ? '즉석판매제조·가공 세부 유형을 고르세요'
-        : group === 'health_sale' ? '건강기능식품 판매업 종류를 고르세요'
-        : group === 'group_catering' ? '집단급식소 관련 신고 종류를 고르세요'
-        : '그 외 식품 신고 대상 업종을 고르세요';
-      populateSubcategorySelect(items, label);
-      document.getElementById('resultContainer').style.display = 'none';
-      document.getElementById('licenseResult').style.display = 'none';
-      advanceWizard('subtype', el.querySelector('strong').textContent);
-    }
-
-    function onSearchInput(val) {
-      const dropdown = document.getElementById('searchDropdown');
-      const query = val.trim().toLowerCase();
-      if (!query) { dropdown.style.display = 'none'; return; }
-
-      const matches = [...db, ...licenseDb].filter(item =>
-        item.name.toLowerCase().includes(query) ||
-        item.keywords.some(k => k.toLowerCase().includes(query))
-      );
-
-      if (matches.length > 0) {
-        dropdown.innerHTML = matches.map(m => `
-          <div class="search-item" role="button" tabindex="0" onclick="selectFromSearch('${m.id}')">
-            <div>
-              <strong style="font-size:0.98rem; color:var(--primary);">${m.name}</strong>
-              <div style="font-size:0.8rem; color:var(--muted);">${m.type || applicationTypeLabels[m.applicationType]} · ${m.law}</div>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="color:var(--accent);" aria-hidden="true"></i>
-          </div>
-        `).join('');
-        dropdown.style.display = 'block';
-      } else {
-        dropdown.innerHTML = `<div class="search-item" style="color:var(--sub-text); font-size:0.92rem; cursor:default;">찾는 업종이 없어요. 다른 이름으로 검색하거나 아래 메뉴에서 골라보세요.</div>`;
-        dropdown.style.display = 'block';
-      }
-    }
-
-    function selectFromSearch(id) {
-      document.getElementById('searchDropdown').style.display = 'none';
-      document.getElementById('searchInput').value = '';
-      wizardHistory = [];
-      flowPath = ['검색 결과'];
-      setWizardStep('main');
-      renderSelection(id);
-    }
-
-    function renderSelection(id) {
-      const item = [...db, ...licenseDb].find(entry => entry.id === id);
-      if (!item) return;
-      if (item.id === 'food_truck_add') {
-        window.open(item.govUrl, '_blank', 'noopener,noreferrer');
-        return;
-      }
-      advanceWizard('result', item.name);
-      if (licenseDb.some(item => item.id === id)) {
-        renderLicense(id);
-      } else {
-        renderResult(id);
-      }
-    }
-
-    function renderFormActions(form) {
-      if (!form) return '';
-      if (!form.downloadUrl) {
-        throw new Error(`서식 다운로드 링크가 등록되지 않았습니다: ${form.label || '이름 없는 서식'}`);
-      }
-      return `<div class="form-entry">
-        <p class="form-entry-label">${form.label}</p>
-        <div class="form-actions">
-          ${form.url ? `<a class="form-link-btn" href="${form.url}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i> PDF 바로보기</a>` : ''}
-          <a class="form-link-btn" href="${form.downloadUrl}" ${form.download ? 'download' : 'target="_blank"'} rel="noopener noreferrer"><i class="fa-solid fa-download"></i> 한글파일 다운로드</a>
-        </div>
-      </div>`;
-    }
-
-    function renderLicense(id) {
-      const item = licenseDb.find(license => license.id === id);
-      if (!item) return;
-
-      document.getElementById('resultContainer').style.display = 'none';
-      const container = document.getElementById('licenseResult');
-      container.innerHTML = `
-        <div class="result-header-card">
-          <div>
-            <h2>${item.name}</h2>
-            <span style="background:rgba(255,255,255,0.16);padding:4px 10px;border-radius:6px;font-size:0.8rem;">${item.type}</span>
-          </div>
-          <div style="font-size:2rem;opacity:0.85;color:var(--sun);"><i class="fa-solid fa-id-card"></i></div>
-        </div>
-        <div class="result-content">
-          <p class="detail-caption" style="margin-top:0;">일반적인 준비서류 안내입니다. 자격 경로, 결격사유, 건강진단 요건에 따라 추가 서류가 달라질 수 있으니 신청 전 관할 시·군·구에 확인하세요.</p>
-          <div class="change-box">
-            <h5 style="color:var(--accent);"><i class="fa-solid fa-file-circle-plus"></i> 신규 발급 신청서류</h5>
-            <ul>${item.issueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
-            ${renderFormActions(item.issueForm)}
-          </div>
-          <div class="change-box">
-            <h5 style="color:var(--secondary);"><i class="fa-solid fa-rotate"></i> 재발급 신청서류</h5>
-            <ul>${item.reissueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
-            ${renderFormActions(item.reissueForm)}
-          </div>
-          <div class="change-box">
-            <h5><i class="fa-solid fa-circle-info"></i> 신청 전 확인사항</h5>
-            <ul>${item.notes.map(note => `<li>${note}</li>`).join('')}</ul>
-          </div>
-          <div class="legal-links">
-            ${item.sources.map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${label} 원문</a>`).join('')}
-            <a href="https://www.gov.kr" target="_blank" rel="noopener noreferrer">정부24에서 면허 발급 민원 검색</a>
-          </div>
-        </div>
-      `;
-      container.style.display = 'block';
-      container.scrollIntoView({ behavior: 'smooth' });
-    }
-
+    // 업종별로 덧붙일 건축물 용도 안내(건축법 시행령 별표 1)
     const foodAnnexReferences = {
       food_manufacturing: { facility: [14, 1, '식품제조·가공업의 시설기준'], rules: [17, 1, '식품제조·가공업자 및 식품첨가물제조업자와 그 종업원의 준수사항'] },
       food_instant: { facility: [14, 2, '즉석판매제조·가공업의 시설기준'], rules: [17, 2, '즉석판매제조·가공업자와 그 종업원의 준수사항'] },
@@ -2078,417 +1391,500 @@
 
     function renderAnnexOriginal(targetId, reference, subject) {
       const [annexNumber, sectionNumber, sectionTitle] = reference;
-      const pdfSequences = { 14: '168924919', 17: '168924991', 24: '168925163', 25: '168925169' };
-      const pdfSequence = pdfSequences[annexNumber];
-      if (!pdfSequence) throw new Error(`법령 별표 PDF가 등록되지 않았습니다: 별표 ${annexNumber}`);
+      // 법제처 한글주소: 법령이 개정돼도 항상 현행 별표가 열립니다.
+      const annexUrl = `https://www.law.go.kr/법령별표서식/(식품위생법시행규칙,별표${annexNumber})`;
       const sectionLabel = sectionNumber ? `제${sectionNumber}호 ${sectionTitle}` : sectionTitle;
       document.getElementById(targetId).innerHTML = `
         <article class="annex-original-card">
+          <span class="annex-tag">식품위생법 시행규칙 별표 ${annexNumber}${sectionNumber ? ` · 제${sectionNumber}호` : ''}</span>
           <strong>${sectionLabel}</strong>
-          <p>${subject}에 해당하는 법령 원문입니다.${sectionNumber ? ' 원문 전체에서 해당 호를 확인하세요.' : ' 업종에 적용되는 조항을 원문에서 확인하세요.'}</p>
+          <p>${sectionNumber
+            ? `버튼을 누르면 현행 별표 ${annexNumber} 전체가 열려요. 그중 <b>${sectionNumber}.</b>으로 시작하는 위 제목 부분이 ${subject}에 해당합니다.`
+            : `버튼을 누르면 현행 별표 ${annexNumber}가 열려요. ${subject}에 적용되는 부분을 확인하세요.`}</p>
           <div class="form-actions">
-            <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?gubun=&amp;flSeq=${pdfSequence}&amp;bylClsCd=110201" target="_blank" rel="noopener noreferrer">
-              <i class="fa-solid fa-file-pdf"></i> 법제처 별표 ${annexNumber} 원문 PDF 보기
-            </a>
-            <a class="form-link-btn" href="https://www.law.go.kr/법령/식품위생법시행규칙" target="_blank" rel="noopener noreferrer">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> 현행 시행규칙 확인
+            <a class="form-link-btn" href="${annexUrl}" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-scale-balanced"></i> 현행 별표 ${annexNumber} 바로보기
             </a>
           </div>
         </article>
       `;
     }
 
-    function renderResult(id) {
-      const item = db.find(i => i.id === id);
-      if (!item) return;
 
-      document.getElementById('licenseResult').style.display = 'none';
-      document.getElementById('resBizName').innerText = item.name;
-      document.getElementById('resLawTag').innerText = `${applicationTypeLabels[item.applicationType]} · ${item.law}`;
-      document.getElementById('resIcon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
-      const businessDefinition = item.description || businessDefinitions[item.id];
-      if (!businessDefinition) throw new Error(`업종 정의가 등록되지 않았습니다: ${item.id}`);
-      document.getElementById('resBizDefinition').textContent = businessDefinition;
+    // ───────────── 화면 구성 (여기부터 새 구조) ─────────────
+    const TASKS = {
+      new: { label: '가게를 새로 열어요', short: '새로 열기', legal: '영업 신고·허가·등록', icon: 'fa-store' },
+      change: { label: '가게 정보를 바꿔요', short: '정보 변경', legal: '상호·주소·대표자 등 변경', icon: 'fa-pen-to-square' },
+      succession: { label: '가게를 넘겨받아요', short: '넘겨받기', legal: '지위승계', icon: 'fa-right-left' },
+      closure: { label: '가게 문을 닫아요', short: '폐업', legal: '폐업 신고', icon: 'fa-door-closed' },
+      reissue: { label: '영업신고증을 다시 받아요', short: '신고증 재발급', legal: '영업신고증·허가증 재발급', icon: 'fa-rotate' }
+    };
+    const MAIN_TASKS = ['new', 'change', 'succession', 'closure'];
 
-      // 새 업종을 열면 항상 첫 탭(민원 업무 안내)부터 보이도록
-      const firstTab = document.querySelector('.info-tabs .tab-btn');
-      if (firstTab) switchTab(firstTab, 'tab-docs');
+    // 자주 찾는 업종(일상 이름)
+    const POPULAR = [
+      { id: 'food_general', label: '식당', icon: 'fa-utensils' },
+      { id: 'food_rest', label: '카페·분식', icon: 'fa-mug-hot' },
+      { id: 'food_bakery', label: '빵집·제과', icon: 'fa-bread-slice' },
+      { id: 'food_instant', label: '반찬가게·떡집', icon: 'fa-bowl-rice' },
+      { id: 'public_beauty', label: '미용실·네일·피부', icon: 'fa-scissors' },
+      { id: 'public_barber', label: '이발소', icon: 'fa-user-tie' },
+      { id: 'food_truck', label: '푸드트럭', icon: 'fa-truck' },
+      { id: 'public_lodging', label: '숙박', icon: 'fa-bed' },
+      { id: 'public_laundry', label: '세탁소', icon: 'fa-shirt' }
+    ];
 
-      const educationBox = document.getElementById('resEduBox');
-      if (item.lawKey === 'food') {
-        educationBox.innerHTML = `
-          <p>식품위생법 제41조에 따라 식품 영업자는 위생교육을 받아야 합니다. 신규 영업자는 원칙적으로 영업 시작 전 교육을 이수하고, 기존 영업자는 매년 정기교육을 이수해야 합니다.</p>
-          <p>교육시간과 교육 대상은 영업 종류별 법령에 따라 달라질 수 있으므로 관할 기관과 지정 교육기관의 안내를 확인하세요.</p>
-          <div class="legal-links">
-            <a href="https://www.law.go.kr/법령/식품위생법/제41조" target="_blank" rel="noopener noreferrer">식품위생법 제41조 원문</a>
-          </div>
-          <div class="form-actions">
-            <button class="form-link-btn" type="button" onclick="openEducationProviders('food')">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> 식품 위생교육기관 바로가기
-            </button>
-          </div>
-        `;
-      } else {
-        educationBox.textContent = item.edu;
+    // 전체 업종 목록 묶음
+    const GROUPS = [
+      { title: '음식점·카페·주점', ids: ['food_general', 'food_rest', 'food_bakery', 'food_truck', 'food_short_night', 'food_entertainment'] },
+      { title: '식품을 만들어 팔아요', ids: ['food_instant', 'food_temp_instant', 'food_manufacturing', 'food_additive_manufacturing', 'food_shared_kitchen'] },
+      { title: '식품을 팔거나 나르거나 보관해요', ids: ['food_other_sales', 'food_subdivision', 'food_distribution', 'food_group_catering_sales', 'food_ice_sales', 'food_vending', 'food_transport', 'food_cold_storage', 'food_irradiation'] },
+      { title: '급식', ids: ['food_group_catering', 'food_catering'] },
+      { title: '건강기능식품', ids: ['health_sale', 'health_manufacturing'] },
+      { title: '식품 용기·포장 만들기', ids: ['food_container_packaging', 'food_pottery'] },
+      { title: '미용·이용·숙박·목욕·세탁 등', ids: ['public_beauty', 'public_barber', 'public_lodging', 'public_bath', 'public_laundry', 'public_building_hygiene'] },
+      { title: '푸드트럭', ids: ['food_truck_add'] }
+    ];
+
+    const findBiz = id => db.find(item => item.id === id);
+    const popularLabel = id => (POPULAR.find(p => p.id === id) || {}).label;
+
+    function isAvailable(task, item) {
+      if (!item) return false;
+      if (item.id === 'food_truck_add') return task === 'change';
+      if (item.id === 'food_temp_instant') return task === 'new';
+      if (task === 'reissue') return item.lawKey === 'food' || item.lawKey === 'health';
+      return true;
+    }
+
+    // ── 서식 ──
+    const FORM_LAW = { food: '식품위생법시행규칙', health: '건강기능식품에관한법률시행규칙', public: '공중위생관리법시행규칙' };
+    function lawForm(lawKey, no, label) {
+      const numberText = no.includes('의') ? no.replace('의', '호의') : `${no}호`;
+      return { label: `별지 제${numberText}서식 · ${label}`, url: lawFormUrl(FORM_LAW[lawKey], no) };
+    }
+    function getForms(item) {
+      const k = item.lawKey;
+      const gc = item.id === 'food_group_catering';
+      const permit = item.applicationType === 'permit';
+      const reg = item.applicationType === 'registration';
+      if (k === 'food') {
+        return {
+          new: gc ? lawForm(k, '68', '집단급식소 설치·운영신고서')
+            : reg ? lawForm(k, '41의2', '식품 영업등록신청서')
+            : permit ? lawForm(k, '30', '식품 영업허가 신청서')
+            : lawForm(k, '37', '식품 영업 신고서'),
+          change: gc ? lawForm(k, '71', '집단급식소 설치·운영신고사항 변경신고서')
+            : reg ? lawForm(k, '41의4', '식품 영업등록사항 변경신청서·신고서')
+            : permit ? lawForm(k, '36', '식품 영업허가사항 변경신청서·신고서')
+            : lawForm(k, '41', '식품 영업신고사항 변경신고서'),
+          succession: gc ? lawForm(k, '73', '집단급식소 설치·운영자 지위승계 신고서') : lawForm(k, '49', '식품영업자 지위승계 신고서'),
+          closure: gc ? lawForm(k, '72', '집단급식소 설치·운영 종료신고서') : lawForm(k, '42', '영업의 폐업신고서'),
+          reissue: lawForm(k, '35', '영업허가증·신고증·등록증 재발급신청서')
+        };
       }
-
-      const conditionalDocs = item.conditionalDocuments || [];
-      const typeSpecificDocs = item.typeSpecificDocuments || [];
-      const renderAdditionalDocumentsItem = (documents, emptyMessage, detailsId) => `
-        <li>
-          <details id="${detailsId}" class="shared-docs">
-            <summary><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당되는 경우 추가 제출서류</summary>
-            <div class="shared-docs-content">
-              ${documents.length ? `<ul class="info-list">${documents.map(document => `<li>${document}</li>`).join('')}</ul>` : `<p>${emptyMessage}</p>`}
-            </div>
-          </details>
-        </li>
-      `;
-      document.getElementById('resDocsList').innerHTML = [
-        ...item.docs.map(document => `<li>${document}</li>`),
-        ...(typeSpecificDocs.length ? [`
-          <li>
-            <div class="application-extra-docs">
-              <details class="shared-docs">
-                <summary><i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 업종 유형별 제출서류</summary>
-                <div class="shared-docs-content"><ul class="info-list">${typeSpecificDocs.map(document => `<li>${document}</li>`).join('')}</ul></div>
-              </details>
-            </div>
-          </li>
-        `] : []),
-        renderAdditionalDocumentsItem(conditionalDocs, '별도로 안내할 추가 제출서류가 없습니다.', 'resConditionalDocs')
-      ].join('');
-      const applicationRuleSource = legalGuides[item.lawKey]?.sources.find(([name]) => name.includes('시행규칙'));
-      document.getElementById('resDocsSourceNote').innerHTML = `
-          업종별 시행규칙 서식의 제출서류와 위생교육·건강진단 관련 서류를 함께 안내합니다. 위생교육이수증과 건강진단결과서는 해당 업종·대상자 기준에 따라 준비하고, 조건이 붙은 추가 서류는 해당하는 경우에만 제출하세요.
-          ${applicationRuleSource ? `<a href="${applicationRuleSource[1]}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700;">${applicationRuleSource[0]} 원문</a>` : ''}
-      `;
-      document.getElementById('resRulesBizName').textContent = item.name;
-      if (item.lawKey === 'food') {
-        const annexes = foodAnnexReferences[item.id];
-        if (!annexes) throw new Error(`업종별 법령 별표 연결이 등록되지 않았습니다: ${item.id}`);
-        renderAnnexOriginal('resFacilityList', annexes.facility, item.name);
-        renderAnnexOriginal('resRulesList', annexes.rules, item.name);
-      } else {
-        document.getElementById('resFacilityList').innerHTML = item.facility.map(f => `<p>${f}</p>`).join('');
-        document.getElementById('resRulesList').innerHTML = item.rules.map(r => `<p>${r}</p>`).join('');
+      if (k === 'health') {
+        return {
+          new: permit ? lawForm(k, '1', '건강기능식품 영업허가 신청서') : lawForm(k, '6', '건강기능식품 영업신고서'),
+          change: permit ? lawForm(k, '5', '건강기능식품 영업허가사항 변경신청서·신고서') : lawForm(k, '13', '건강기능식품 영업신고사항 변경신고서'),
+          succession: lawForm(k, '28', '건강기능식품 영업자 지위승계 신고서'),
+          closure: lawForm(k, '14', '건강기능식품영업 폐업신고서'),
+          reissue: permit ? lawForm(k, '4', '건강기능식품 영업허가증 재발급신청서') : lawForm(k, '12', '건강기능식품 영업신고증 재발급신청서')
+        };
       }
-      document.getElementById('resRuleScope').style.display = 'none';
+      return {
+        new: lawForm(k, '1', '영업신고서'),
+        change: lawForm(k, '5', '영업신고사항 변경신고서'),
+        succession: lawForm(k, '6', '영업자지위승계신고서'),
+        closure: lawForm(k, '5의2', '영업 폐업신고서'),
+        reissue: null
+      };
+    }
+    const TRANSFER_FORM = { label: '영업권 양도·양수서 (사고팔아서 넘겨받는 경우)', url: 'forms/영업권양도양수서.hwp', download: true };
 
+    // ── 구비서류 ──
+    const GC_DOCS = {
+      change: ['집단급식소 설치·운영신고사항 변경신고서', '기존 집단급식소 설치·운영신고증', '변경사항을 확인할 수 있는 증빙서류'],
+      succession: ['집단급식소 설치·운영자 지위승계 신고서', '지위승계 사유를 증명하는 서류', '기존 집단급식소 설치·운영신고증', '위생교육이수증(교육 대상자)', '건강진단결과서(보건증, 건강진단 대상자)'],
+      closure: ['집단급식소 설치·운영 종료신고서', '기존 집단급식소 설치·운영신고증(발급받은 경우)']
+    };
+    function getDocs(item, task) {
       const guide = legalGuides[item.lawKey];
-      const closureService = getClosureGovService(item, guide);
-      const foodForm = (formNumber, formId, label, hwpSeq) => ({
-        label: `별지 제${formNumber.includes('의') ? formNumber.replace('의', '호의') : `${formNumber}호`}서식 · ${label}`,
-        url: `https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=289161&bylSeq=${formId}&efYd=20260901`,
-        downloadUrl: `https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=${hwpSeq}&bylClsCd=110202`
-      });
-      const foodIssueForm = item.lawKey === 'food'
-        ? item.id === 'food_group_catering'
-          ? foodForm('68', '18443345', '집단급식소 설치·운영신고서 1부', '168925835')
-          : item.applicationType === 'registration'
-            ? foodForm('41의2', '18443265', '식품 영업등록신청서 1부', '168925569')
-            : item.applicationType === 'permit'
-              ? foodForm('30', '18443241', '식품 영업허가 신청서 1부', '168925475')
-              : null
-        : null;
-      const foodReissueForm = item.lawKey === 'food'
-        ? foodForm('35', '18443251', '(영업허가증·영업신고증·영업등록증·집단급식소 설치·운영신고증) 재발급신청서', '168925517')
-        : null;
-      const foodBusinessForms = item.lawKey === 'food' && item.id !== 'food_group_catering'
-        ? {
-            change: item.applicationType === 'registration'
-              ? foodForm('41의4', '18443269', '식품 영업등록사항 변경(등록신청서, 신고서)', '168925583')
-              : item.applicationType === 'permit'
-                ? foodForm('36', '18443253', '식품 영업허가사항 변경(허가신청서, 신고서)', '168925523')
-                : foodForm('41', '18443263', '식품 영업신고사항 변경신고서', '168925561'),
-            succession: foodForm('49', '18443285', '식품영업자 지위승계 신고서', '168925637'),
-            closure: foodForm('42', '18443271', '영업의 폐업신고서', '168925591')
-          }
-        : null;
-      const foodGroupCateringForms = item.id === 'food_group_catering'
-        ? {
-            change: foodForm('71', '18443351', '집단급식소 설치·운영신고사항 변경신고서', '168925863'),
-            succession: foodForm('73', '18443355', '집단급식소 설치·운영자 지위승계 신고서', '168925877'),
-            closure: foodForm('72', '18443353', '집단급식소 설치·운영 종료신고서', '168925871')
-          }
-        : null;
-      const foodGroupCateringDocuments = item.id === 'food_group_catering'
-        ? {
-            change: [
-              '집단급식소 설치·운영신고사항 변경신고서',
-              '기존 집단급식소 설치·운영신고증',
-              '변경사항을 확인할 수 있는 증빙서류'
-            ],
-            succession: [
-              '집단급식소 설치·운영자 지위승계 신고서',
-              '지위승계 사유를 증명하는 서류',
-              '기존 집단급식소 설치·운영신고증',
-              '위생교육이수증(교육 대상자)',
-              '건강진단결과서(보건증, 건강진단 대상자)'
-            ],
-            closure: [
-              '집단급식소 설치·운영 종료신고서',
-              '기존 집단급식소 설치·운영신고증(발급받은 경우)'
-            ]
-          }
-        : null;
-      const foodReportForm = item.lawKey === 'food'
-        && item.applicationType === 'report'
-        && item.id !== 'food_truck_add'
-        && item.id !== 'food_group_catering'
-        ? {
-            label: '별지 제37호서식 · 식품 영업 신고서',
-            url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=289161&bylSeq=18443255&efYd=20260901',
-            downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=168925531&bylClsCd=110202'
-          }
-        : null;
-      const publicReportForm = item.lawKey === 'public'
-        ? {
-            label: '별지 제1호서식 · 영업신고서',
-            url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293975&efYd=20260714',
-            downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093837&bylClsCd=110202'
-          }
-        : null;
-      const publicBusinessForms = item.lawKey === 'public'
-        ? {
-            change: {
-              label: '별지 제5호서식 · 영업신고사항 변경신고서',
-              url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293983&efYd=20260714',
-              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093865&bylClsCd=110202'
-            },
-            closure: {
-              label: '별지 제5의2호서식 · 영업 폐업신고서',
-              url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293985&efYd=20260714',
-              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093873&bylClsCd=110202'
-            },
-            succession: {
-              label: '별지 제6호서식 · 영업자지위승계신고서',
-              url: 'https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=288139&bylSeq=18293987&efYd=20260714',
-              downloadUrl: 'https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=167093879&bylClsCd=110202'
-            }
-          }
-        : null;
-      const healthForm = (formNumber, formId, label, hwpSeq) => ({
-        label: `별지 제${formNumber}호서식 · ${label}`,
-        url: `https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=286669&bylSeq=${formId}&efYd=20260602`,
-        downloadUrl: `https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=${hwpSeq}&bylClsCd=110202`
-      });
-      const healthIssueForm = item.lawKey === 'health'
-        ? item.applicationType === 'permit'
-          ? healthForm('1', '18181625', '건강기능식품 영업허가 신청서', '164785021')
-          : healthForm('6', '18181635', '건강기능식품 영업신고서', '164785063')
-        : null;
-      const healthReissueForm = item.lawKey === 'health'
-        ? item.applicationType === 'permit'
-          ? healthForm('4', '18181631', '건강기능식품 영업허가증 재발급신청서', '164785049')
-          : healthForm('12', '18181647', '건강기능식품 영업신고증 재발급신청서', '164785107')
-        : null;
-      const healthBusinessForms = item.lawKey === 'health'
-        ? {
-            change: item.applicationType === 'permit'
-              ? healthForm('5', '18181633', '건강기능식품 영업허가사항 변경(허가신청서, 신고서)', '164785055')
-              : healthForm('13', '18181649', '건강기능식품 영업신고사항 변경신고서', '164785113'),
-            succession: healthForm('28', '18181689', '건강기능식품 영업자 지위승계 신고서', '164785243'),
-            closure: healthForm('14', '18181651', '건강기능식품영업 폐업신고서', '164785121')
-          }
-        : null;
-      const transferForm = {
-        label: '영업권 양도·양수서 (양도·양수에 의한 승계 시)',
-        downloadUrl: 'forms/영업권양도양수서.hwp',
-        download: true
-      };
-      const changeForms = foodGroupCateringForms || foodBusinessForms || healthBusinessForms || publicBusinessForms;
-      const applicationForm = foodIssueForm || healthIssueForm;
-      const reissueForm = foodReissueForm || healthReissueForm;
-      document.getElementById('resFormLinks').innerHTML = publicReportForm
-        ? renderFormActions(publicReportForm)
-        : applicationForm
-          ? renderFormActions(applicationForm)
-          : foodReportForm
-            ? renderFormActions(foodReportForm)
-            : reissueForm
-              ? renderFormActions(reissueForm)
-              : '';
-      const govService = ['food_truck_add', 'food_temp_instant'].includes(item.id)
-        ? { url: item.govUrl, label: item.id === 'food_truck_add' ? '푸드트럭 영업장소 추가 신고 신청' : '즉석판매제조·가공업 한시적 영업신고 신청' }
-        : null;
-      document.getElementById('resGovServiceLinks').innerHTML = govService ? `
-        <a href="${govService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> ${govService.label}
-        </a>
-      ` : '';
-      const feeInfo = document.getElementById('resFeeInfo');
-      if (item.lawKey === 'food') {
-        const initialFee = item.id === 'food_temp_instant'
-          ? `<li>제42조제3항에 따른 신고 영업소 외 한시적 영업: 전자민원 <strong>8,300원</strong>, 방문·우편 <strong>9,300원</strong></li>`
-          : item.id === 'food_truck_add'
-            ? ''
-            : `<li>신규 허가·등록·신고: 전자민원 <strong>25,200원</strong>, 방문·우편 <strong>28,000원</strong></li>`;
-        const specialFee = item.id === 'food_group_catering'
-          ? `<li>집단급식소 설치·운영 신고는 시행규칙 제94조제2항에 해당하면 수수료 면제 규정이 있습니다.</li>`
-          : '';
-        if (initialFee || specialFee) {
-          feeInfo.style.display = 'block';
-          feeInfo.innerHTML = `
-            <h4><i class="fa-solid fa-coins" style="color:var(--sun);"></i> 신규 신청 수수료 참고</h4>
-            <ul>
-              ${initialFee}
-              ${specialFee}
-            </ul>
-            <p class="detail-caption">금액은 2026년 9월 1일 시행 식품위생법 시행규칙 별표 26 기준입니다. 실제 신청 유형, 전자민원 이용 여부, 면제 사유에 따라 달라질 수 있으니 접수 전 정부24나 관할 기관에서 최종 금액을 확인하세요.</p>
-          `;
-        } else {
-          feeInfo.style.display = 'none';
-          feeInfo.innerHTML = '';
-        }
+      const gc = item.id === 'food_group_catering';
+      if (task === 'new') return { docs: item.docs, extra: item.conditionalDocuments || [], typeSpecific: item.typeSpecificDocuments || [] };
+      if (task === 'reissue') return { docs: ['재발급신청서', '기존 영업신고증(훼손된 경우)'], extra: [], typeSpecific: [] };
+      const map = { change: 'changeDocuments', succession: 'succession', closure: 'closureDocuments' };
+      return { docs: gc ? GC_DOCS[task] : guide[map[task]], extra: [], typeSpecific: [] };
+    }
+
+    // ── 수수료 ──
+    function getFee(item, task) {
+      if (item.lawKey !== 'food') return task === 'closure' ? null : '관할 기관에 확인하세요';
+      if (item.id === 'food_group_catering') return task === 'new' ? '면제 규정이 있어요(시행규칙 제94조제2항 해당 시)' : '관할 기관에 확인하세요';
+      return {
+        new: item.id === 'food_temp_instant' ? '방문·우편 9,300원 (전자민원 8,300원)' : '방문·우편 28,000원',
+        change: '주소 변경 26,500원, 그 밖의 변경 9,300원 (방문·우편)',
+        succession: '9,300원 (방문·우편)',
+        closure: '없음',
+        reissue: null
+      }[task];
+    }
+
+    // ── 작은 도우미 ──
+    function formLinkText(text, form) {
+      if (!form || !form.url) return text;
+      const attrs = form.download ? 'download' : 'target="_blank"';
+      return `<a class="doc-link" href="${form.url}" ${attrs} rel="noopener noreferrer">${text}<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>`;
+    }
+    function formButton(form) {
+      if (!form) return '';
+      const attrs = form.download ? 'download' : 'target="_blank"';
+      const icon = form.download ? 'fa-download' : 'fa-file-lines';
+      const text = form.download ? '한글파일 내려받기' : '서식 보기·내려받기';
+      return `<div class="fold-body" style="padding:12px 0 0;"><strong style="color:var(--primary);font-size:0.92rem;">${form.label}</strong>
+        <div class="btn-row" style="margin-top:6px;"><a class="btn" href="${form.url}" ${attrs} rel="noopener noreferrer"><i class="fa-solid ${icon}"></i> ${text}</a></div></div>`;
+    }
+    function checklistHTML(items) {
+      return `<ul class="checklist">${items.map(text => `<li><label><input type="checkbox"><span>${text}</span></label></li>`).join('')}</ul>`;
+    }
+    const AGENT_FOLD = `
+      <details class="fold">
+        <summary>대리인이 오거나 법인 명의로 신청한다면</summary>
+        <div class="fold-body">
+          <ul>
+            <li><strong>대리인이 올 때:</strong> 모든 신고서에 신고인 자필서명, 자필서명한 신고인 신분증 사본, 위임장, 대리인 신분증. 신고인이 인감도장을 찍는 경우 인감증명서</li>
+            <li><strong>법인 명의일 때:</strong> 법인등기부등본(말소사항 포함), 법인인감증명서(사용인감 사용 시 사용인감계), 법인인감</li>
+            <li><strong>법인 대리인이 올 때:</strong> 법인인감을 찍은 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대신할 수 없어요.</li>
+          </ul>
+          <div class="btn-row"><a class="btn" href="https://www.law.go.kr/법령별표서식/(민원처리에관한법률시행규칙,서식3)" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-lines"></i> 위임장 서식 보기·내려받기</a></div>
+        </div>
+      </details>`;
+
+    function topbar() {
+      return `<div class="topbar"><div class="topbar-inner">
+        <button type="button" onclick="goBack()" aria-label="이전 화면"><i class="fa-solid fa-arrow-left"></i> 이전</button>
+        <a class="logo" href="#">QR_ON<span>!</span></a>
+        <a href="#" aria-label="처음 화면"><i class="fa-solid fa-house"></i> 처음</a>
+      </div></div>`;
+    }
+    function goBack() {
+      if (history.length > 1) history.back(); else location.hash = '';
+    }
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+    function copyLink() {
+      const url = location.href;
+      const done = () => showToast('안내 주소를 복사했어요');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done).catch(() => window.prompt('이 주소를 복사하세요', url));
       } else {
-        feeInfo.style.display = 'none';
-        feeInfo.innerHTML = '';
+        window.prompt('이 주소를 복사하세요', url);
       }
-      const foodChangeFees = {
-        change: item.id === 'food_truck_add'
-          ? '소재지 변경 처리 시 전자민원 23,800원 / 방문·우편 26,500원; 그 외 변경 또는 한시적 타 장소 영업 시 전자민원 8,300원 / 방문·우편 9,300원'
-          : '소재지 변경: 전자민원 23,800원 / 방문·우편 26,500원; 그 외 변경: 전자민원 8,300원 / 방문·우편 9,300원',
-        succession: '전자민원 8,300원 / 방문·우편 9,300원',
-        closure: '별표 26 별도 수수료 항목 없음'
-      };
-      const feeLabel = (fee) => item.lawKey === 'food'
-        ? item.id === 'food_group_catering'
-          ? '수수료는 관할 기관 확인'
-          : foodChangeFees[fee]
-        : '수수료는 관할 기관 확인';
-      const changePanel = (points, form, fee, color, label, additionalForm = null, showAdditionalDocs = false) => `
-        <div class="change-box">
-          <h5 style="color:var(--${color});"><i class="fa-solid fa-list-check"></i> ${label} <span class="change-fee">(${feeLabel(fee)})</span></h5>
-          <ol class="prep-checklist">
-            ${points.map(point => `<li>${point}</li>`).join('')}
-            ${showAdditionalDocs ? renderAdditionalDocumentsItem([], '변경하는 내용에 따라 필요한 증빙서류는 위 구비서류 목록과 관할 기관 안내를 확인하세요.', 'resChangeConditionalDocs') : ''}
-          </ol>
-          ${form ? renderFormActions(form) : ''}
-          ${additionalForm ? renderFormActions(additionalForm) : ''}
-        </div>
-      `;
-      document.getElementById('resChangePanel').innerHTML = changePanel(
-        foodGroupCateringDocuments ? foodGroupCateringDocuments.change : guide.changeDocuments,
-        changeForms ? changeForms.change : null,
-        'change',
-        'accent',
-        '변경 구비서류',
-        null,
-        true
-      );
-      document.getElementById('resSuccessionPanel').innerHTML = changePanel(
-        foodGroupCateringDocuments ? foodGroupCateringDocuments.succession : guide.succession,
-        changeForms ? changeForms.succession : null,
-        'succession',
-        'secondary',
-        '지위승계 구비서류',
-        transferForm
-      );
-      document.getElementById('resClosurePanel').innerHTML = `
-        <div class="change-box">
-          <h5 style="color:var(--danger);"><i class="fa-solid fa-list-check"></i> 폐업 구비서류 <span class="change-fee">(${feeLabel('closure')})</span></h5>
-          <ol class="prep-checklist">${(foodGroupCateringDocuments ? foodGroupCateringDocuments.closure : guide.closureDocuments).map(document => `<li>${document}</li>`).join('')}</ol>
-          ${changeForms ? renderFormActions(changeForms.closure) : ''}
-          ${closureService ? `<a href="${closureService.url}" target="_blank" rel="noopener noreferrer" class="gov24-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${closureService.label}
-          </a>` : ''}
-        </div>
-      `;
-      const locationAddService = item.id === 'food_truck'
-        ? db.find(entry => entry.id === 'food_truck_add')
-        : null;
-      if (item.id === 'food_truck' && !locationAddService) {
-        throw new Error('음식판매자동차 영업장소 추가 신고 연결이 등록되지 않았습니다.');
-      }
-      const taskButtons = [
-        {
-          id: 'application',
-          label: item.applicationType === 'permit' ? '신규 허가' : item.applicationType === 'registration' ? '신규 등록' : '신규 신고',
-          help: '처음 영업을 시작해요'
-        },
-        { id: 'change', label: '변경', help: '상호·주소·대표자 등을 바꿔요' },
-        { id: 'succession', label: '지위승계', help: '기존 영업을 이어받아요' },
-        { id: 'closure', label: '폐업', help: '영업을 그만해요' },
-        ...(reissueForm ? [{ id: 'reissue', label: '증명서 재발급', help: '영업증을 다시 발급받아요' }] : []),
-        ...(item.id === 'food_truck'
-          ? [{
-              id: 'location-add',
-              label: '영업장소 추가 신고',
-              help: '정부24에서 바로 신청해요',
-              url: locationAddService.govUrl
-            }]
-          : [])
-      ];
-      document.getElementById('resTaskSelector').innerHTML = taskButtons.map((task, index) => {
-        const taskContent = `
-          <span class="task-button-title">${task.label}</span>
-          <span class="task-button-help">${task.help}</span>
-        `;
-        if (task.url) {
-          return `<a class="task-select-btn" href="${task.url}" target="_blank" rel="noopener noreferrer">${taskContent}</a>`;
-        }
-        return `<button class="task-select-btn${index === 0 ? ' active' : ''}" type="button"
-          aria-pressed="${index === 0}" onclick="selectBusinessTask('${task.id}', this)">${taskContent}</button>`;
-      }).join('');
-      const reissuePanel = document.getElementById('task-reissue');
-      if (reissuePanel && reissueForm) {
-        reissuePanel.innerHTML = `
-          <h4 class="task-content-heading"><i class="fa-solid fa-rotate" style="color: var(--secondary);"></i> 증명서 재발급 구비서류</h4>
-          <div class="change-box">
-            <ol class="prep-checklist"><li>재발급신청서</li><li>(훼손 시) 기존 영업증</li></ol>
-            ${renderFormActions(reissueForm)}
+    }
+    function shareRow() {
+      return `<div class="share-row">
+        <button type="button" class="btn" onclick="copyLink()"><i class="fa-solid fa-link"></i> 이 안내 주소 복사</button>
+        <a class="btn" href="#"><i class="fa-solid fa-house"></i> 처음으로</a>
+      </div>`;
+    }
+
+    // ── 검색 ──
+    function searchItems(query, task) {
+      const q = query.trim().toLowerCase();
+      if (!q) return [];
+      const bizMatches = db.filter(item => isAvailable(task || 'new', item) && (
+        item.name.toLowerCase().includes(q) ||
+        item.keywords.some(k => k.toLowerCase().includes(q)) ||
+        (popularLabel(item.id) || '').includes(q)
+      ));
+      const licenseMatches = task ? [] : licenseDb.filter(item => item.name.includes(q) || item.keywords.some(k => k.includes(q)));
+      return [...bizMatches.map(item => ({ item, href: `#${task || 'new'}/${item.id}` })), ...licenseMatches.map(item => ({ item, href: `#license/${item.id}` }))];
+    }
+    function onSearch(input, task) {
+      const box = document.getElementById('searchResults');
+      const results = searchItems(input.value, task);
+      if (!input.value.trim()) { box.innerHTML = ''; return; }
+      box.innerHTML = results.length
+        ? `<div class="search-results">${results.slice(0, 8).map(({ item, href }) => {
+            const out = item.id === 'food_truck_add';
+            return `<a href="${out ? item.govUrl : href}" ${out ? 'target="_blank" rel="noopener noreferrer"' : ''}><span><strong>${item.name}</strong><small>${item.type || (businessDefinitions[item.id] || '')}</small></span><i class="fa-solid fa-chevron-right" style="color:var(--accent)"></i></a>`;
+          }).join('')}</div>`
+        : `<p class="search-empty">찾는 업종이 없어요. 다른 이름으로 검색하거나 아래에서 골라 보세요.</p>`;
+    }
+    function searchBox(task, placeholder) {
+      return `<div class="search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <label class="sr-only" for="searchInput">업종 이름 검색</label>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="${placeholder}" oninput="onSearch(this, ${task ? `'${task}'` : 'null'})">
+      </div><div id="searchResults"></div>`;
+    }
+
+    // ───────────── 화면들 ─────────────
+    function viewHome() {
+      return `
+        <header class="hero">
+          <div class="hero-tag"><i class="fa-solid fa-qrcode" aria-hidden="true"></i> 양산시 위생 인·허가 원스톱 안내</div>
+          <div class="brand-row">
+            <div class="mascots" aria-hidden="true"><img src="img/yangsan-friends/char3_1.png" alt=""><img src="img/yangsan-friends/char1_1.png" alt=""></div>
+            <h1>QR_ON<span>!</span></h1>
+            <div class="mascots" aria-hidden="true"><img src="img/yangsan-friends/char2_1.png" alt=""><img src="img/yangsan-friends/char4_1.png" alt=""></div>
           </div>
-        `;
-      } else if (reissuePanel) {
-        reissuePanel.innerHTML = '';
-      }
-      selectBusinessTask('application', document.querySelector('#resTaskSelector .task-select-btn'));
-      document.getElementById('resultContainer').style.display = 'block';
-      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+          <p class="hero-sub">내 손안의 든든한 영업 파트너</p>
+        </header>
+        <main class="wrap">
+          <div class="pull-up"><section class="card" aria-labelledby="homeQ">
+            <h2 id="homeQ" class="q-title">무엇을 하러 오셨나요?</h2>
+            <div class="big-list">
+              ${MAIN_TASKS.map(key => `
+                <a class="big-btn" href="#${key}"><span class="ic"><i class="fa-solid ${TASKS[key].icon}"></i></span>
+                  <span><strong>${TASKS[key].label}</strong><small>${TASKS[key].legal}</small></span><i class="fa-solid fa-chevron-right go"></i></a>`).join('')}
+              <a class="big-btn soft" href="#more"><span class="ic"><i class="fa-solid fa-id-card"></i></span>
+                <span><strong>면허·위생교육·보건증</strong><small>조리사·이미용 면허, 교육기관, 보건증 발급</small></span><i class="fa-solid fa-chevron-right go"></i></a>
+            </div>
+          </section></div>
+          <section class="card section" aria-labelledby="homeSearch">
+            <h2 id="homeSearch" class="q-title" style="font-size:1.1rem;">업종 이름으로 바로 찾기</h2>
+            ${searchBox(null, '예: 카페, 반찬가게, 미용실')}
+          </section>
+        </main>`;
     }
 
-    function selectBusinessTask(taskId, button) {
-      document.querySelectorAll('#resTaskSelector .task-select-btn').forEach(taskButton => {
-        const isSelected = taskButton === button;
-        taskButton.classList.toggle('active', isSelected);
-        taskButton.setAttribute('aria-pressed', String(isSelected));
-      });
-      document.querySelectorAll('#tab-docs .task-panel').forEach(panel => {
-        const isSelected = panel.id === `task-${taskId}`;
-        panel.classList.toggle('active', isSelected);
-        panel.setAttribute('aria-hidden', String(!isSelected));
-      });
+    function viewPicker(task) {
+      const t = TASKS[task];
+      const popular = POPULAR.filter(p => isAvailable(task, findBiz(p.id)));
+      const groups = GROUPS.map(g => ({ ...g, items: g.ids.map(findBiz).filter(item => isAvailable(task, item)) })).filter(g => g.items.length);
+      return `${topbar()}
+        <main class="wrap" style="padding-top:18px;">
+          <p class="crumb" style="background:var(--accent-soft);color:var(--accent);">${t.label}</p>
+          <h1 class="q-title" style="margin-top:10px;">어떤 가게인가요?</h1>
+          ${searchBox(task, '업종 이름 검색')}
+          <div class="divider">자주 찾는 업종</div>
+          <div class="tiles">
+            ${popular.map(p => `<a class="tile" href="#${task}/${p.id}"><i class="fa-solid ${p.icon}" aria-hidden="true"></i>${p.label}</a>`).join('')}
+          </div>
+          <details class="all-list section">
+            <summary>여기에 없어요. 모든 업종 보기</summary>
+            ${groups.map(g => `
+              <div class="all-group"><h3>${g.title}</h3>
+                ${g.items.map(item => item.id === 'food_truck_add'
+                  ? `<a href="${item.govUrl}" target="_blank" rel="noopener noreferrer"><strong>${item.name} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75em;color:var(--accent)"></i></strong><small>정부24에서 바로 신청해요</small></a>`
+                  : `<a href="#${task}/${item.id}"><strong>${item.name}</strong><small>${businessDefinitions[item.id] || ''}</small></a>`).join('')}
+              </div>`).join('')}
+          </details>
+        </main>`;
     }
 
-    function switchTab(btn, paneId) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
-      document.getElementById(paneId).classList.add('active');
+    function cautionHTML(item, task) {
+      const gc = item.id === 'food_group_catering';
+      const parts = [];
+      const lawKeys = otherLawByBusiness[item.id] || [];
+      if (task === 'new' && lawKeys.length) {
+        parts.push(`<div class="caution-item"><strong>계약 전에 다른 법령도 확인하세요</strong>
+          <p>건물이나 장소가 다른 법령에 맞지 않으면 신고할 수 없어요. 임대차 계약이나 공사 전에 각 담당 부서에 확인하세요.</p>
+          <ul class="law-checks">${lawKeys.map(key => {
+            const c = otherLawChecks[key];
+            return `<li><b>${c.law}</b>${c.check}<small>확인처: ${c.where} · <a href="${c.url}" target="_blank" rel="noopener noreferrer">법령 원문</a></small></li>`;
+          }).join('')}</ul></div>`);
+      }
+      if (task === 'change' && lawKeys.length) {
+        parts.push(`<div class="caution-item"><strong>가게 주소를 옮긴다면</strong><p>새 장소도 건물 용도 등 다른 법령에 맞는지 계약 전에 확인하세요.</p></div>`);
+      }
+      if (task === 'succession') {
+        parts.push(`<div class="caution-item"><strong>넘겨받기 전에 행정처분 이력을 확인하세요</strong><p>이전 영업자가 받은 행정처분이나 진행 중인 처분의 효과는 넘겨받는 사람에게 이어질 수 있어요.</p></div>`);
+      }
+      if (!gc) {
+        const word = item.applicationType === 'permit' ? '영업허가증' : item.applicationType === 'registration' ? '영업등록증' : '영업신고증';
+        if (task === 'new') parts.push(`<div class="caution-item"><strong>다음 단계: 사업자등록</strong><p>${word}을 받은 뒤, ${word}을 가지고 세무서나 홈택스에서 사업자등록을 하세요.</p></div>`);
+        if (task === 'succession') parts.push(`<div class="caution-item"><strong>사업자등록도 함께 정리하세요</strong><p>넘겨받는 분은 세무서에서 사업자등록을 새로 하고, 넘겨주는 분은 사업자 폐업신고를 해야 해요.</p></div>`);
+        if (task === 'closure') parts.push(`<div class="caution-item"><strong>세무서에서 사업자만 폐업하면 영업 폐업은 되지 않아요</strong><p>영업 폐업신고(영업신고를 한 기관)와 사업자 폐업신고(세무서·홈택스)는 각각 따로 해야 해요. 영업 폐업신고를 하지 않으면 계속 영업 중인 것으로 남아 세금 등이 부과될 수 있어요.</p></div>`);
+      }
+      if (!parts.length) return '';
+      return `<section class="caution" aria-labelledby="cautionTitle"><h2 id="cautionTitle"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 꼭 확인하세요</h2>${parts.join('')}</section>`;
     }
 
-    // 키보드 사용자도 카드형 메뉴를 Enter·스페이스로 선택할 수 있도록
-    document.addEventListener('keydown', event => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) return;
-      if (target.getAttribute('role') !== 'button' || target.tagName === 'BUTTON') return;
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        target.click();
-      }
-    });
+    function viewResult(task, item) {
+      const t = TASKS[task];
+      const forms = getForms(item);
+      const mainForm = forms[task];
+      const { docs, extra, typeSpecific } = getDocs(item, task);
+      const fee = getFee(item, task);
+      const guide = legalGuides[item.lawKey];
+      const list = ['신분증', ...docs.map((doc, i) => i === 0 ? formLinkText(doc, mainForm) : doc)];
 
-    // 검색창 바깥을 누르면 검색 결과 목록 닫기
-    document.addEventListener('click', event => {
-      const searchCard = document.querySelector('.search-card');
-      if (searchCard && !searchCard.contains(event.target)) {
-        document.getElementById('searchDropdown').style.display = 'none';
-      }
-    });
+      let online = '';
+      if (task === 'new' && item.id === 'food_temp_instant') online = `<a class="btn solid" href="${item.govUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> 정부24에서 신청하기</a>`;
+      if (task === 'closure') { const s = getClosureGovService(item, guide); online = `<a class="btn solid" href="${s.url}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${s.label}</a>`; }
+      if (task === 'change' && item.id === 'food_truck') online = `<a class="btn solid" href="${findBiz('food_truck_add').govUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> 영업장소 추가는 정부24에서</a>`;
 
-    setWizardStep('main');
+      const chips = Object.keys(TASKS).filter(key => isAvailable(key, item)).map(key =>
+        `<a href="#${key}/${item.id}" ${key === task ? 'aria-current="page"' : ''}>${TASKS[key].short}</a>`).join('');
+      const eduSector = item.lawKey === 'public' ? 'public' : 'food';
+      const eduText = item.lawKey === 'food'
+        ? '식품 영업자는 위생교육을 받아야 해요. 새로 여는 분은 원칙적으로 영업 시작 전에, 기존 영업자는 매년 받아야 합니다.'
+        : item.edu;
+      const showFacility = task === 'new' || task === 'change';
+
+      const html = `${topbar()}
+        <div class="result-head"><div class="wrap">
+          <span class="crumb">${t.label}</span>
+          <h1>${popularLabel(item.id) ? `${popularLabel(item.id)} <span style="font-weight:600;font-size:0.8em;color:#DCE8F7;">(${item.name})</span>` : item.name}</h1>
+          <p>${businessDefinitions[item.id] || ''}</p>
+          <nav class="task-chips" aria-label="다른 업무">${chips}</nav>
+        </div></div>
+        <main class="wrap">
+          <div class="pull-up" style="margin-top:-36px;"><section class="card" aria-labelledby="checkTitle">
+            <h2 id="checkTitle" class="checklist-title"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 이것만 챙겨 오세요</h2>
+            <p class="checklist-sub">챙긴 서류는 눌러서 표시해 보세요.</p>
+            ${checklistHTML(list)}
+            ${typeSpecific.length ? `<details class="fold"><summary>업종 유형별 서류</summary><div class="fold-body"><ul>${typeSpecific.map(d => `<li>${d}</li>`).join('')}</ul></div></details>` : ''}
+            ${extra.length ? `<details class="fold"><summary>해당되는 경우에만 추가로 내는 서류</summary><div class="fold-body"><ul>${extra.map(d => `<li>${d}</li>`).join('')}</ul></div></details>` : ''}
+            ${AGENT_FOLD}
+            ${mainForm ? formButton(mainForm) : (task === 'reissue' ? '<p class="note">재발급 신청서는 관할 기관에 문의하세요.</p>' : '')}
+            ${task === 'succession' ? formButton(TRANSFER_FORM) : ''}
+            <div class="meta-row">
+              ${fee ? `<span><strong>수수료</strong> ${fee}</span>` : ''}
+            </div>
+            ${item.lawKey === 'food' && fee ? '<p class="note" style="margin-top:4px;">2026년 9월 1일 시행 식품위생법 시행규칙 별표 26 기준이에요. 접수 전 관할 기관에서 최종 금액을 확인하세요.</p>' : ''}
+            ${online ? `<div class="btn-row">${online}</div>` : ''}
+          </section></div>
+
+          ${cautionHTML(item, task)}
+
+          <section class="more" aria-labelledby="moreTitle">
+            <h2 id="moreTitle">더 알아보기</h2>
+            ${showFacility ? `<details class="fold"><summary>시설기준</summary><div class="fold-body" id="foldFacility"></div></details>` : ''}
+            <details class="fold"><summary>영업자가 지켜야 할 사항</summary><div class="fold-body" id="foldRules"></div></details>
+            <details class="fold"><summary>위생교육</summary><div class="fold-body"><p>${eduText}</p>
+              <div class="btn-row"><a class="btn" href="#edu/${eduSector}"><i class="fa-solid fa-graduation-cap"></i> 위생교육 받을 곳 찾기</a></div></div></details>
+            <details class="fold"><summary>관련 법령</summary><div class="fold-body"><div class="btn-row" style="margin-top:0;">
+              ${guide.sources.map(([name, url]) => `<a class="btn" href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`).join('')}
+            </div></div></details>
+          </section>
+          <p class="note">최종 제출서류는 업종과 관할 기관에 따라 다를 수 있어요. 신청 전 관할 시·군·구에 확인하세요.</p>
+          ${shareRow()}
+        </main>`;
+      return html;
+    }
+
+    function fillResultFolds(task, item) {
+      const annexes = item.lawKey === 'food' ? foodAnnexReferences[item.id] : null;
+      const facility = document.getElementById('foldFacility');
+      const rules = document.getElementById('foldRules');
+      if (annexes) {
+        if (facility) renderAnnexOriginal('foldFacility', annexes.facility, item.name);
+        renderAnnexOriginal('foldRules', annexes.rules, item.name);
+      } else {
+        if (facility) facility.innerHTML = item.facility.map(f => `<p>${f}</p>`).join('');
+        rules.innerHTML = item.rules.map(r => `<p>${r}</p>`).join('');
+      }
+    }
+
+    function viewMore() {
+      return `${topbar()}
+        <main class="wrap" style="padding-top:18px;">
+          <h1 class="q-title">무엇이 필요하세요?</h1>
+          <div class="big-list">
+            ${licenseDb.map(l => `<a class="big-btn" href="#license/${l.id}"><span class="ic"><i class="fa-solid fa-id-card"></i></span><span><strong>${l.name} 발급</strong><small>처음 발급, 다시 발급</small></span><i class="fa-solid fa-chevron-right go"></i></a>`).join('')}
+            <a class="big-btn" href="#edu"><span class="ic"><i class="fa-solid fa-graduation-cap"></i></span><span><strong>위생교육 받을 곳 찾기</strong><small>업종별 교육기관 바로가기</small></span><i class="fa-solid fa-chevron-right go"></i></a>
+            <a class="big-btn soft" href="${HEALTH_CERT_URL}" target="_blank" rel="noopener noreferrer"><span class="ic"><i class="fa-solid fa-file-medical"></i></span><span><strong>보건증 온라인 발급</strong><small>보건소에서 검사받았다면 다시 오지 않고 스마트폰으로 받으세요</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></a>
+            <a class="big-btn" href="#reissue"><span class="ic"><i class="fa-solid fa-rotate"></i></span><span><strong>영업신고증 다시 받기</strong><small>잃어버리거나 훼손된 경우</small></span><i class="fa-solid fa-chevron-right go"></i></a>
+          </div>
+        </main>`;
+    }
+
+    function viewLicense(item) {
+      const chips = licenseDb.map(l => `<a href="#license/${l.id}" ${l.id === item.id ? 'aria-current="page"' : ''}>${l.name}</a>`).join('');
+      const issue = item.issueDocs.map((d, i) => i === 0 ? formLinkText(d, item.issueForm) : d);
+      const reissue = item.reissueDocs.map((d, i) => i === 0 ? formLinkText(d, item.reissueForm) : d);
+      return `${topbar()}
+        <div class="result-head"><div class="wrap">
+          <span class="crumb">면허 발급</span>
+          <h1>${item.name}</h1>
+          <p>${item.type}</p>
+          <nav class="task-chips" aria-label="다른 면허">${chips}</nav>
+        </div></div>
+        <main class="wrap">
+          <div class="pull-up" style="margin-top:-36px;"><section class="card">
+            <h2 class="checklist-title"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 처음 발급받을 때</h2>
+            ${checklistHTML(issue)}
+            ${formButton(item.issueForm)}
+          </section></div>
+          <section class="card section">
+            <h2 class="checklist-title"><i class="fa-solid fa-rotate" aria-hidden="true"></i> 다시 발급받을 때</h2>
+            ${checklistHTML(reissue)}
+            ${formButton(item.reissueForm)}
+          </section>
+          <section class="caution"><h2><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 꼭 확인하세요</h2>
+            ${item.notes.map(n => `<div class="caution-item"><p>${n}</p></div>`).join('')}
+          </section>
+          <p class="note">${item.sources.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700;">${name} 원문</a>`).join(' · ')}</p>
+          ${shareRow()}
+        </main>`;
+    }
+
+    function viewEdu(sector) {
+      if (!sector) {
+        return `${topbar()}
+          <main class="wrap" style="padding-top:18px;">
+            <h1 class="q-title">어떤 업종의 위생교육인가요?</h1>
+            <p class="q-help">영업신고증에 적힌 업종을 확인하고 고르세요.</p>
+            <div class="big-list">
+              <a class="big-btn" href="#edu/food"><span class="ic"><i class="fa-solid fa-utensils"></i></span><span><strong>음식점·식품·건강기능식품</strong><small>식당, 카페, 제과, 반찬가게, 제조·판매, 급식</small></span><i class="fa-solid fa-chevron-right go"></i></a>
+              <a class="big-btn" href="#edu/public"><span class="ic"><i class="fa-solid fa-pump-soap"></i></span><span><strong>미용·이용·숙박·목욕·세탁</strong><small>공중위생 영업</small></span><i class="fa-solid fa-chevron-right go"></i></a>
+            </div>
+          </main>`;
+      }
+      const categories = hygieneEducationCategories[sector];
+      return `${topbar()}
+        <main class="wrap" style="padding-top:18px;">
+          <p class="crumb" style="background:var(--accent-soft);color:var(--accent);">위생교육 받을 곳</p>
+          <h1 class="q-title" style="margin-top:10px;">${sector === 'food' ? '음식점·식품·건강기능식품' : '미용·이용·숙박·목욕·세탁'}</h1>
+          <p class="q-help">내 업종을 찾아 교육기관으로 이동하세요. 여러 곳이 있으면 그중 한 곳에서 받으면 돼요.</p>
+          <section class="card">
+            ${categories.map(c => `
+              <div class="provider"><h3>${c.business}</h3>
+                ${c.providers.some(p => p.notice) ? `<p>${c.providers.filter(p => p.notice).map(p => p.notice).join(' ')}</p>` : ''}
+                <div class="btn-row">${c.providers.map(p => `<a class="btn" href="${p.url}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${p.name}${p.scope ? ` (${p.scope})` : ''}</a>`).join('')}</div>
+              </div>`).join('')}
+          </section>
+          <p class="note">교육 대상과 시기, 교육시간은 법령과 지정 고시에 따라요. 업종이 여러 개이거나 교육기관이 헷갈리면 관할 기관에 확인하세요.</p>
+          ${shareRow()}
+        </main>`;
+    }
+
+    // ───────────── 주소(#)에 따라 화면 바꾸기 ─────────────
+    function route() {
+      const app = document.getElementById('app');
+      const [head, sub] = decodeURIComponent(location.hash.replace(/^#\/?/, '')).split('/');
+      let afterRender = null;
+      if (TASKS[head] && sub && isAvailable(head, findBiz(sub))) {
+        const item = findBiz(sub);
+        if (item.id === 'food_truck_add') { location.hash = 'change'; return; }
+        app.innerHTML = viewResult(head, item);
+        afterRender = () => fillResultFolds(head, item);
+        document.title = `${popularLabel(item.id) || item.name} ${TASKS[head].short} | QR_ON!`;
+      } else if (TASKS[head]) {
+        app.innerHTML = viewPicker(head);
+        document.title = `${TASKS[head].label} | QR_ON!`;
+      } else if (head === 'more') {
+        app.innerHTML = viewMore();
+      } else if (head === 'license' && licenseDb.some(l => l.id === sub)) {
+        app.innerHTML = viewLicense(licenseDb.find(l => l.id === sub));
+      } else if (head === 'edu') {
+        app.innerHTML = viewEdu(sub === 'food' || sub === 'public' ? sub : null);
+      } else {
+        app.innerHTML = viewHome();
+        document.title = 'QR_ON! 내 손안의 든든한 영업 파트너 | 양산시 위생 인·허가 안내';
+      }
+      if (afterRender) afterRender();
+      window.scrollTo(0, 0);
+    }
+    window.addEventListener('hashchange', route);
+    route();
   </script>
 </body>
 </html>
