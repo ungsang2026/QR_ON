@@ -3,290 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR_ON!
-    - 내 손 안의 든든한 영업 파트너</title>
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="양산시 웅상보건소 위생 인·허가 원스톱 안내. 업종별 구비서류, 법정서식, 위생교육기관, 보건증 온라인 발급을 한 화면에서 확인하세요.">
+  <title>QR_ON! 내 손안의 든든한 영업 파트너 | 양산시 위생 인·허가 안내</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
     :root {
-      --primary: #0F172A;
-      --accent: #2563EB;
-      --secondary: #059669;
-      --warning: #D97706;
-      --danger: #DC2626;
-      --special: #7C3AED; /* 특수민원 전용 퍼플 */
-      --bg: #F1F5F9;
+      /* 기본 색: 신뢰감 있는 행정 남색 + 캐릭터에서 가져온 따뜻한 노랑 */
+      --ink: #14233B;
+      --primary: #16325C;
+      --accent: #1F5FAE;
+      --accent-strong: #174C8F;
+      --accent-soft: #EAF2FB;
+      --sun: #F4B400;
+      --sun-soft: #FFF6D9;
+      --secondary: #1E8A5F;
+      --warning: #B86E00;
+      --danger: #C62D2D;
+      --special: #6D3FC0;
+      --bg: #F5F7FA;
       --card-bg: #FFFFFF;
-      --text: #0F172A;
-      --sub-text: #475569;
-      --border: #E2E8F0;
+      --text: #1B2533;
+      --sub-text: #4A5566;
+      --muted: #6B7686;
+      --border: #DCE2EA;
+      --line: #E8ECF2;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --font: "Pretendard GOV Variable", "Pretendard GOV", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", sans-serif;
     }
 
-    * { box-sizing: border-box; font-family: "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", Arial, sans-serif; margin: 0; padding: 0; }
-    body { background: #F3F6FB; color: var(--text); padding-bottom: 48px; font-size: 16px; line-height: 1.55; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+    button, input, select { font-family: inherit; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid #8BB8F0; outline-offset: 2px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-    header { background: linear-gradient(135deg, #103B73 0%, #087BB8 58%, #159AC4 100%); color: white; padding: 24px 20px 28px; text-align: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; box-shadow: 0 8px 24px rgba(15, 42, 84, 0.18); }
-    .brand-lockup { max-width: 760px; margin: 0 auto; }
-    .brand-heading-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .brand-mascot-group { display: flex; align-items: center; gap: 2px; }
-    .brand-mascot-group img { display: block; width: 44px; height: auto; }
-    .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(37, 99, 235, 0.3); border: 1px solid var(--accent); color: #60A5FA; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
-    header h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: -0.045em; line-height: 1.1; }
-    .brand-subtitle { font-size: 1.02rem; color: #DBEAFE; margin-top: 8px; font-weight: 600; letter-spacing: -0.02em; }
-    .header-description { font-size: 0.86rem; color: #BFDBFE; margin-top: 8px; }
-    .main-container { max-width: 980px; margin: 0 auto; padding: 20px; }
+    /* ── 운영기관 표시줄 ── */
+    .gov-bar { background: var(--ink); color: #C9D4E3; font-size: 0.8rem; }
+    .gov-bar-inner { max-width: 980px; margin: 0 auto; padding: 8px 20px; display: flex; align-items: center; gap: 8px; }
+    .gov-bar i { color: var(--sun); }
 
-    /* 검색창 */
-    .search-card { background: var(--card-bg); padding: 18px; border-radius: 18px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); border: 1px solid #DCE5F0; position: relative; }
+    /* ── 첫 화면 ── */
+    header.hero { position: relative; overflow: hidden; background: var(--accent); color: #FFFFFF; padding: 34px 20px 92px; text-align: center; }
+    /* QR 코드의 점 무늬를 아주 옅게 깔아 서비스 정체성을 드러냄 */
+    header.hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.13) 1.6px, transparent 1.7px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000 100%); mask-image: linear-gradient(115deg, transparent 35%, #000 100%); pointer-events: none; }
+    .brand-lockup { position: relative; max-width: 760px; margin: 0 auto; }
+    .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.14); color: #FFFFFF; padding: 6px 14px; border-radius: 999px; font-size: 0.86rem; font-weight: 700; margin-bottom: 14px; }
+    .logo-tag i { color: var(--sun); }
+    .brand-heading-row { display: flex; align-items: flex-end; justify-content: center; gap: 12px; }
+    .brand-mascot-group { display: flex; align-items: flex-end; gap: 2px; }
+    .brand-mascot-group img { display: block; width: 50px; height: auto; }
+    header h1 { font-size: clamp(2.6rem, 8vw, 3.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+    header h1 .h1-mark { color: var(--sun); }
+    .brand-subtitle { margin-top: 12px; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
+    .header-description { margin: 8px auto 0; max-width: 30em; color: #DCE8F7; font-size: 0.98rem; }
+
+    .main-container { position: relative; max-width: 980px; margin: -64px auto 0; padding: 0 20px 40px; }
+
+    /* 이용 순서 (실제 순서이므로 번호 사용) */
+    .citizen-guide { background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(20, 35, 59, 0.12); padding: 20px 22px 18px; }
+    .citizen-guide-title { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 1.05rem; font-weight: 800; }
+    .citizen-guide-title i { color: var(--sun); }
+    .citizen-guide-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 14px; counter-reset: step; }
+    .citizen-guide-steps li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .citizen-guide-steps li::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 900; font-size: 1rem; position: relative; z-index: 1; border: 2px solid #FFFFFF; box-shadow: 0 0 0 2px var(--accent-soft); }
+    .citizen-guide-steps li:last-child::before { background: var(--sun); color: var(--ink); box-shadow: 0 0 0 2px var(--sun-soft); }
+    .citizen-guide-steps li + li::after { content: ""; position: absolute; top: 18px; right: 50%; width: 100%; height: 2px; background: var(--line); }
+    .citizen-guide-note { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); color: var(--sub-text); font-size: 0.88rem; display: flex; gap: 8px; }
+    .citizen-guide-note i { color: var(--accent); margin-top: 4px; }
+
+    /* ── 검색 ── */
+    .search-card { position: relative; margin-top: 18px; background: var(--card-bg); padding: 20px 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    .search-heading { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
     .search-input-wrapper { position: relative; }
-    .search-input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.1rem; }
-    .search-input { width: 100%; padding: 16px 16px 16px 48px; border: 2px solid #CBD5E1; border-radius: 12px; font-size: 1rem; font-weight: 600; outline: none; }
-    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-    .search-examples { margin: 6px 0 0 48px; color: #64748B; font-size: 0.82rem; line-height: 1.4; }
-    .mascot-tip { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 10px 14px; border: 1px solid #DBEAFE; border-radius: 14px; background: linear-gradient(100deg, #F8FBFF, #EFF6FF); color: #334155; }
-    .mascot-tip img { flex: 0 0 auto; width: 76px; height: auto; }
-    .mascot-tip p { font-size: 0.9rem; line-height: 1.6; }
-    .main-mascot-tip { justify-content: space-between; padding-left: 18px; }
-    .main-mascot-tip img { order: 1; width: 92px; }
-    .search-or-menu { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
-    .som-step-label { display: inline-flex; align-items: center; gap: 7px; color: #16477A; font-size: 0.86rem; font-weight: 800; }
-    .som-step-badge { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; background: #1679C5; color: #FFFFFF; font-size: 0.72rem; flex: 0 0 auto; }
-    .som-option { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 999px; background: #FFFFFF; border: 1.5px solid var(--accent); color: var(--accent); font-size: 0.92rem; font-weight: 800; font-family: inherit; cursor: pointer; transition: background 0.15s, color 0.15s, transform 0.1s; }
-    .som-option:hover { background: var(--accent); color: #FFFFFF; }
-    .som-option:active { transform: scale(0.97); }
-    .som-option i { font-size: 0.95rem; }
-    .som-divider { color: #94A3B8; font-size: 0.8rem; font-weight: 700; }
-    .citizen-guide { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px; margin-top: 14px; padding: 16px 18px; border: 1px solid #A9D8F2; border-radius: 18px; background: linear-gradient(110deg, #F0F9FF 0%, #FFFCF2 72%, #FFF5F5 100%); box-shadow: 0 5px 16px rgba(14, 116, 172, 0.08); }
-    .citizen-guide-copy { min-width: 0; }
-    .citizen-guide-title { display: flex; align-items: center; gap: 8px; color: #16477A; font-size: 1rem; font-weight: 900; letter-spacing: -0.025em; }
-    .citizen-guide-title i { color: #E7A600; }
-    .citizen-guide-steps { display: flex; flex-wrap: wrap; gap: 7px 14px; margin-top: 10px; color: #334155; font-size: 0.84rem; font-weight: 700; }
-    .citizen-guide-steps span { display: inline-flex; align-items: center; gap: 6px; }
-    .citizen-guide-steps b { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; background: #1679C5; color: #FFFFFF; font-size: 0.72rem; }
-    .citizen-guide-steps span:nth-child(2) b { background: #E7A600; }
-    .citizen-guide-steps span:nth-child(3) b { background: #15966D; }
-    .citizen-guide-note { margin-top: 7px; color: #64748B; font-size: 0.76rem; line-height: 1.5; }
-    .citizen-guide img { width: 92px; height: 92px; object-fit: contain; align-self: end; }
-    .character-credit { max-width: 980px; margin: 18px auto 0; padding: 0 20px 22px; color: #64748B; text-align: center; font-size: 0.68rem; line-height: 1.6; }
-    .character-credit a { color: #475569; text-underline-offset: 2px; }
-    
-    .search-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 12px; margin-top: 6px; max-height: 250px; overflow-y: auto; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none; }
-    .search-item { padding: 12px 16px; border-bottom: 1px solid #F1F5F9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .search-item:hover { background: #EFF6FF; }
+    .search-input-wrapper i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.15rem; }
+    .search-input { width: 100%; padding: 17px 16px 17px 50px; border: 2px solid #B9C6D6; border-radius: var(--radius-md); font-size: 1.05rem; font-weight: 600; color: var(--text); background: #FFFFFF; outline: none; transition: border-color .15s, box-shadow .15s; }
+    .search-input::placeholder { color: #8893A2; font-weight: 500; }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(31, 95, 174, 0.15); }
+    .search-examples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font-size: 0.88rem; }
+    .example-chip { border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 999px; padding: 6px 13px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+    .example-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+    .search-alt { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; background: none; border: none; color: var(--accent); font-size: 0.92rem; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
-    .section-title { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 28px 0 14px; display: flex; align-items: center; gap: 10px; letter-spacing: -0.02em; }
+    .search-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-md); max-height: 300px; overflow-y: auto; z-index: 100; box-shadow: 0 14px 30px rgba(20, 35, 59, 0.16); display: none; }
+    .search-item { padding: 13px 18px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .search-item:last-child { border-bottom: none; }
+    .search-item:hover { background: var(--accent-soft); }
 
-    .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .cat-card { min-height: 92px; background: var(--card-bg); border: 2px solid #D7E0EC; border-radius: 16px; padding: 16px; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s; box-shadow: 0 2px 7px rgba(15, 23, 42, 0.035); }
+    /* ── 메뉴 ── */
+    .section-title { font-size: 1.3rem; font-weight: 800; color: var(--primary); margin: 34px 0 14px; display: flex; align-items: center; gap: 10px; letter-spacing: -0.02em; }
+
+    .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cat-card { min-height: 96px; background: var(--card-bg); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color .15s, background .15s; }
     .cat-card > div { min-width: 0; }
-    .cat-card.mascot-card { position: relative; padding-right: 68px; }
-    .cat-card .mascot-card-image { position: absolute; right: 10px; bottom: 3px; width: 54px; height: 58px; object-fit: contain; pointer-events: none; }
-    .cat-card:hover { border-color: #8DB3F2; box-shadow: 0 6px 16px rgba(37, 99, 235, 0.09); transform: translateY(-1px); }
-    .cat-card:focus-visible { outline: 3px solid #93C5FD; outline-offset: 3px; }
-    .cat-card i { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 14px; margin: 0; background: #EEF4FF; color: #1D4ED8; font-size: 1.25rem; }
-    .cat-card strong { display: block; font-size: 1rem; line-height: 1.4; font-weight: 800; color: var(--text); }
-    .cat-card span { font-size: 0.86rem; line-height: 1.5; color: #475569; margin-top: 4px; display: block; }
-    .cat-card.active { border-color: var(--accent); background: #EFF6FF; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
-    .cat-card.active i, .cat-card.active strong { color: var(--accent); }
-    .cat-card.featured { border-color: #2563EB; background: #EFF6FF; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10); }
-    .cat-card.featured i, .cat-card.featured strong { color: var(--accent); }
-    .step-label { margin: 0 0 7px; font-size: 1.08rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-    .step-help { color: #475569; font-size: 0.94rem; margin: 0 0 14px; line-height: 1.6; }
-    .flow-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 12px; padding: 12px 14px; border: 1px solid #D7E0EC; border-radius: 12px; background: #FFFFFF; }
-    .flow-summary { min-width: 0; font-size: 0.9rem; font-weight: 700; line-height: 1.5; color: #334155; }
+    .cat-card:hover { border-color: var(--accent); background: #FBFDFF; }
+    .cat-card i { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-size: 1.25rem; }
+    .cat-card strong { display: block; font-size: 1.05rem; line-height: 1.4; font-weight: 800; color: var(--text); }
+    .cat-card span { display: block; margin-top: 3px; font-size: 0.88rem; line-height: 1.5; color: var(--sub-text); }
+    .cat-card.mascot-card { position: relative; padding-right: 76px; }
+    .cat-card .mascot-card-image { position: absolute; right: 12px; bottom: 6px; width: 56px; height: 60px; object-fit: contain; pointer-events: none; }
+    .cat-card.active, .cat-card.featured { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+    .cat-card.active strong, .cat-card.featured strong { color: var(--accent-strong); }
+    .cat-card.active i { background: var(--accent); color: #FFFFFF; }
+    .cat-card.special-card.active { border-color: var(--special); background: #F5F1FD; box-shadow: inset 0 0 0 1px var(--special); }
+    .cat-card.special-card.active i { background: var(--special); color: #FFFFFF; }
+    .cat-card.special-card.active strong { color: var(--special); }
+
+    /* 보건증 바로가기: 외부 서비스임을 색으로 구분 */
+    .cat-card.health-cert-card { border-color: #EED48A; background: #FFFCF2; }
+    .cat-card.health-cert-card i { background: var(--sun-soft); color: #9A6A00; }
+    .cat-card.health-cert-card:hover { border-color: var(--sun); background: #FFF8E0; }
+    .cat-card .external-tag i { display: inline; flex: none; width: auto; height: auto; background: none; border-radius: 0; font-size: inherit; color: inherit; }
+    .external-tag { display: inline-flex !important; align-items: center; gap: 4px; margin-top: 6px !important; font-size: 0.76rem !important; font-weight: 700; color: #8A5E00 !important; }
+
+    .step-label { margin: 0 0 6px; font-size: 1.12rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+    .step-help { color: var(--sub-text); font-size: 0.95rem; margin: 0 0 14px; }
+
+    .flow-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 22px 0 12px; padding: 12px 14px 12px 18px; border-radius: var(--radius-md); background: var(--primary); color: #FFFFFF; }
+    .flow-summary { min-width: 0; font-size: 0.92rem; font-weight: 700; line-height: 1.5; color: #E3ECF8; }
     .flow-actions { display: flex; flex: 0 0 auto; gap: 8px; }
-    .flow-action { border: 1px solid #CBD5E1; border-radius: 8px; padding: 8px 11px; background: #FFFFFF; color: #1E3A8A; font-size: 0.86rem; font-weight: 700; cursor: pointer; }
-    .flow-action:hover { background: #EFF6FF; border-color: #93C5FD; }
-    #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea { background: #FFFFFF; border: 1px solid #DCE5F0; border-radius: 18px; padding: 20px; box-shadow: 0 5px 18px rgba(15, 23, 42, 0.045); }
+    .flow-action { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 8px 12px; background: transparent; color: #FFFFFF; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
+    .flow-action:hover { background: rgba(255,255,255,0.12); }
+
+    #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea, #educationSectorArea, #educationProvidersArea { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; }
     #applicationTypeArea .category-grid { grid-template-columns: repeat(3, 1fr); }
-    .report-sector-grid .cat-card, .report-food-groups .cat-card { min-height: 82px; }
-    .report-food-groups .cat-card { padding: 13px; gap: 11px; }
-    .report-food-groups .cat-card i { flex-basis: 42px; width: 42px; height: 42px; font-size: 1.1rem; }
-    .report-food-groups .cat-card strong { font-size: 0.96rem; }
-    .report-food-groups .cat-card span { font-size: 0.82rem; }
     .report-sector-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
-    .report-food-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
-    
-    /* 특수민원 전용 카드의 활성화 스타일 */
-    .cat-card.special-card.active { border-color: var(--special); background: #F5F3FF; }
-    .cat-card.special-card.active i, .cat-card.special-card.active strong { color: var(--special); }
+    .report-food-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+    .report-sector-grid .cat-card, .report-food-groups .cat-card { min-height: 84px; }
+    .report-food-groups .cat-card { padding: 14px; gap: 12px; }
+    .report-food-groups .cat-card i { flex-basis: 42px; width: 42px; height: 42px; font-size: 1.1rem; }
 
-    .sub-biz-area { display: none; margin-top: 14px; background: white; padding: 20px; border-radius: 16px; border: 2px solid #BFDBFE; box-shadow: 0 5px 16px rgba(37, 99, 235, 0.07); }
-    .sub-select { width: 100%; padding: 15px 14px; border-radius: 10px; border: 2px solid #94A3B8; font-size: 1rem; font-weight: 700; color: var(--primary); outline: none; background: #FFFFFF; }
-    .sub-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14); }
+    .sub-biz-area { display: none; margin-top: 14px; background: var(--card-bg); padding: 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    #subBizLabel { font-size: 1.05rem !important; color: var(--primary) !important; font-weight: 800 !important; margin-bottom: 12px !important; }
+    .sub-select { width: 100%; padding: 15px 14px; border-radius: var(--radius-sm); border: 2px solid #B9C6D6; font-size: 1rem; font-weight: 700; color: var(--text); background: #FFFFFF; outline: none; }
+    .sub-select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(31, 95, 174, 0.15); }
     .business-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .business-choice-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 136px; padding: 15px; border: 2px solid #D7E0EC; border-radius: 13px; background: #FFFFFF; color: var(--text); text-align: left; text-decoration: none; cursor: pointer; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s; }
-    .business-choice-card:hover, .business-choice-card:focus-visible { border-color: #7AA6EF; background: #F8FBFF; box-shadow: 0 5px 14px rgba(37, 99, 235, 0.09); transform: translateY(-1px); }
-    .business-choice-card:focus-visible { outline: 3px solid #93C5FD; outline-offset: 2px; }
-    .business-choice-name { font-size: 0.98rem; font-weight: 900; line-height: 1.45; color: #1E3A8A; }
-    .business-choice-description { margin-top: 7px; color: #475569; font-size: 0.86rem; font-weight: 500; line-height: 1.6; }
-    .business-choice-action { display: flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 10px; color: #1D4ED8; font-size: 0.78rem; font-weight: 800; }
+    .business-choice-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 132px; padding: 16px; border: 1.5px solid var(--border); border-radius: var(--radius-md); background: #FFFFFF; color: var(--text); text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
+    .business-choice-card:hover { border-color: var(--accent); background: #FBFDFF; }
+    .business-choice-name { font-size: 1.02rem; font-weight: 800; line-height: 1.45; color: var(--primary); }
+    .business-choice-description { margin-top: 6px; color: var(--sub-text); font-size: 0.9rem; line-height: 1.6; }
+    .business-choice-action { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 12px; color: var(--accent); font-size: 0.86rem; font-weight: 800; }
 
-    /* 결과 카드 */
-    .result-container { display: none; margin-top: 24px; animation: fadeIn 0.3s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* ── 결과 ── */
+    .result-container { display: none; margin-top: 20px; animation: fadeIn .25s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .result-container, .task-panel.active { animation: none !important; } }
 
-    .result-header-card { background: var(--primary); color: white; padding: 20px; border-radius: 16px 16px 0 0; display: flex; justify-content: space-between; align-items: center; }
-    .result-content { background: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 16px 16px; padding: 20px; }
+    .result-header-card { background: var(--primary); color: #FFFFFF; padding: 22px 24px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .result-header-card h2 { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .result-content { background: var(--card-bg); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 22px 24px; }
 
-    .info-tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
-    .tab-btn { padding: 10px 12px; font-size: 0.85rem; font-weight: 700; color: var(--sub-text); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; margin-bottom: -2px; }
+    .info-tabs { position: sticky; top: 0; z-index: 5; display: flex; gap: 2px; background: #FFFFFF; border-bottom: 2px solid var(--line); margin: -6px 0 20px; overflow-x: auto; scrollbar-width: none; }
+    .info-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { display: inline-flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 0.92rem; font-weight: 700; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; margin-bottom: -2px; }
+    .tab-btn:hover { color: var(--text); }
     .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-    .pane { display: none; line-height: 1.6; font-size: 0.9rem; }
+    .pane { display: none; font-size: 0.95rem; }
     .pane.active { display: block; }
-    .pane h4 { color: var(--primary); font-size: 0.95rem; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-    .task-selector { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 12px 0 18px; }
-    .task-select-btn { min-height: 76px; padding: 11px 13px; border: 2px solid #D7E0EC; border-radius: 12px; background: #FFFFFF; color: #334155; text-align: left; cursor: pointer; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s; }
-    .task-select-btn:hover { border-color: #93B4EC; background: #F8FBFF; transform: translateY(-1px); }
-    .task-button-title { display: block; font-size: 0.94rem; font-weight: 900; }
-    .task-button-help { display: block; margin-top: 4px; color: #64748B; font-size: 0.76rem; font-weight: 600; line-height: 1.4; }
-    .task-select-btn.active { border-color: #2563EB; background: #EFF6FF; color: #1D4ED8; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
-    .task-select-btn.active .task-button-help { color: #1E40AF; }
-    .task-select-btn:focus-visible { outline: 3px solid #93C5FD; outline-offset: 2px; }
-    .visitor-guide { display: flex; align-items: center; gap: 12px; margin: 12px 0 16px; padding: 13px 16px; border: 1px solid #F5D48A; border-radius: 12px; background: #FFFBEB; color: #713F12; }
-    .visitor-guide i { color: #D97706; font-size: 1.15rem; }
-    .visitor-guide strong { display: block; font-size: 0.92rem; }
-    .visitor-guide span { display: block; margin-top: 2px; color: #78350F; font-size: 0.82rem; line-height: 1.5; }
-    .prep-checklist { display: grid; gap: 8px; padding-left: 2.25rem; list-style: decimal; }
-    .prep-checklist li { padding: 11px 14px; border: 1px solid #DDE8E2; border-radius: 10px; background: #FBFEFC; color: #334155; line-height: 1.55; }
-    .annex-original-card { margin: 10px 0; padding: 15px; border: 1px solid #BFDBFE; border-radius: 12px; background: #F8FBFF; }
-    .annex-original-card strong { display: block; color: #1E3A8A; font-size: 0.95rem; }
-    .annex-original-card p { margin-top: 5px; color: #475569; font-size: 0.84rem; line-height: 1.55; }
-    .annex-original-card .form-actions { margin-top: 10px; }
-    .task-panel { display: none; }
-    .task-panel.active { display: block; animation: fadeIn 0.18s ease-in-out; }
-    .shared-docs { margin: 0 0 14px; padding: 0; overflow: hidden; }
-    .shared-docs summary { padding: 13px 15px; cursor: pointer; color: #1E3A8A; font-weight: 800; list-style-position: inside; }
-    .shared-docs[open] summary { border-bottom: 1px solid var(--border); }
-    .shared-docs-content { padding: 14px; }
-    .common-required-docs { border: 2px solid #F2C66D; background: #FFFBEB; }
-    .common-required-docs summary { background: #FEF3C7; color: #713F12; }
-    .common-required-docs .first-check-label { display: inline-block; margin-right: 7px; padding: 3px 8px; border-radius: 999px; background: #B45309; color: #FFFFFF; font-size: 0.78rem; }
-    .task-content-heading { margin-top: 16px; }
-    
-    .change-box { background: #F8FAFC; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
-    .change-box h5 { font-size: 0.9rem; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-    .change-fee { color: var(--sub-text); font-size: 0.8rem; font-weight: 600; }
-    .change-box ul { padding-left: 18px; color: var(--sub-text); font-size: 0.85rem; }
+    .pane h4 { color: var(--primary); font-size: 1.02rem; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+    .pane p + p { margin-top: 8px; }
 
-    .gov24-btn { display: inline-flex; align-items: center; gap: 8px; background: #0066FF; color: white; padding: 12px 18px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; font-weight: 700; margin-top: 14px; box-shadow: 0 4px 10px rgba(0,102,255,0.2); }
-    .gov24-btn:hover { background: #0052CC; }
-    .form-link-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 14px; border: 1px solid #1D4ED8; border-radius: 9px; background: #FFFFFF; color: #1D4ED8; text-decoration: none; font-size: 0.9rem; font-weight: 800; }
-    .form-link-btn:hover { background: #EFF6FF; }
-    .form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    .form-entry { margin-top: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 9px; background: #FFFFFF; }
-    .form-entry-label { margin: 0; color: var(--primary); font-size: 0.9rem; font-weight: 800; }
+    .visitor-guide { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 16px; padding: 14px 16px; border-radius: var(--radius-md); background: var(--sun-soft); color: #5A4300; }
+    .visitor-guide i { color: #B88300; font-size: 1.2rem; margin-top: 2px; }
+    .visitor-guide strong { display: block; font-size: 0.96rem; }
+    .visitor-guide span { display: block; margin-top: 2px; font-size: 0.88rem; }
+
+    .task-selector { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0 20px; }
+    .task-select-btn { display: block; min-height: 74px; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: #FFFFFF; color: var(--text); text-align: left; text-decoration: none; cursor: pointer; transition: border-color .15s, background .15s; }
+    .task-select-btn:hover { border-color: var(--accent); }
+    .task-button-title { display: block; font-size: 1rem; font-weight: 800; }
+    .task-button-help { display: block; margin-top: 3px; color: var(--muted); font-size: 0.8rem; line-height: 1.4; }
+    .task-select-btn.active { border-color: var(--accent); background: var(--accent); color: #FFFFFF; }
+    .task-select-btn.active .task-button-help { color: #DCE8F7; }
+    a.task-select-btn { border-style: dashed; }
+    a.task-select-btn .task-button-title::after { content: "\f35d"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.75em; margin-left: 6px; color: var(--accent); }
+
+    .prep-checklist { display: grid; gap: 8px; padding-left: 0; list-style: none; counter-reset: doc; }
+    .prep-checklist > li { position: relative; padding: 12px 14px 12px 50px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #FFFFFF; color: var(--text); line-height: 1.55; }
+    .prep-checklist > li::before { counter-increment: doc; content: counter(doc); position: absolute; left: 14px; top: 11px; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-size: 0.8rem; font-weight: 800; }
+    .prep-checklist > li:has(> details), .prep-checklist > li:has(> .application-extra-docs) { padding: 0; border: none; background: none; }
+    .prep-checklist > li:has(> details)::before, .prep-checklist > li:has(> .application-extra-docs)::before { display: none; }
+
+    .annex-original-card { margin: 10px 0; padding: 16px; border: 1px solid #C9DBF1; border-radius: var(--radius-md); background: #F7FAFE; }
+    .annex-original-card strong { display: block; color: var(--primary); font-size: 0.98rem; }
+    .annex-original-card p { margin-top: 5px; color: var(--sub-text); font-size: 0.9rem; }
+    .task-panel { display: none; }
+    .task-panel.active { display: block; animation: fadeIn .18s ease-out; }
+    .task-content-heading { margin-top: 4px; }
+
+    .shared-docs { margin: 0 0 14px; padding: 0 !important; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #FFFFFF; }
+    .shared-docs summary { padding: 13px 16px; cursor: pointer; color: var(--primary); font-weight: 800; list-style-position: inside; }
+    .shared-docs[open] summary { border-bottom: 1px solid var(--line); }
+    .shared-docs-content { padding: 14px 16px; }
+    .prep-checklist .shared-docs { margin: 0; }
+    .common-required-docs { border: 1.5px solid #EED48A; background: #FFFCF2; }
+    .common-required-docs summary { background: var(--sun-soft); color: #5A4300; }
+    .common-required-docs .first-check-label { display: inline-block; margin-right: 8px; padding: 2px 9px; border-radius: 999px; background: var(--sun); color: var(--ink); font-size: 0.78rem; }
+
+    .change-box { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
+    .change-box h4, .change-box h5 { font-size: 0.98rem; color: var(--primary); margin-bottom: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .change-fee { color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+    .change-box ul { padding-left: 20px; color: var(--sub-text); font-size: 0.92rem; }
+    .change-box ul li + li { margin-top: 4px; }
+
+    .gov24-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #FFFFFF; padding: 13px 18px; border-radius: var(--radius-sm); text-decoration: none; font-size: 0.95rem; font-weight: 800; margin-top: 14px; }
+    .gov24-btn:hover { background: var(--accent-strong); }
+    .form-link-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 14px; border: 1.5px solid var(--accent); border-radius: var(--radius-sm); background: #FFFFFF; color: var(--accent); text-decoration: none; font-size: 0.92rem; font-weight: 700; cursor: pointer; }
+    .form-link-btn:hover { background: var(--accent-soft); }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .form-entry { margin-top: 12px; padding: 14px; border-radius: var(--radius-sm); background: var(--bg); }
+    .form-entry-label { margin: 0; color: var(--primary); font-size: 0.92rem; font-weight: 800; }
     .form-entry .form-actions { margin-top: 8px; }
-    .education-provider-list { display: grid; gap: 12px; margin-top: 14px; }
-    .education-provider-card { padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: #FFFFFF; }
-    .education-provider-card h4 { margin: 0 0 8px; color: var(--primary); font-size: 1rem; }
-    .education-provider-card p { margin: 0 0 12px; color: var(--sub-text); line-height: 1.6; font-size: 0.9rem; }
-    .education-provider-card .form-actions { margin-top: 8px; }
-    .education-provider-card .form-link-btn { min-height: 42px; }
-    .legal-note { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 14px 16px; margin-top: 22px; color: #1E3A8A; font-size: 0.92rem; line-height: 1.7; }
-    .legal-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .legal-links a, .source-links a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-    .legal-source-group + .legal-source-group { margin-top: 12px; }
-    .legal-source-group > strong { color: var(--primary); }
-    .legal-source-group .legal-links { margin-top: 4px; }
-    .source-links { margin-top: 12px; font-size: 0.82rem; color: var(--sub-text); }
-    .source-links a { margin-right: 12px; }
-    .detail-caption { color: var(--sub-text); font-size: 0.82rem; margin: -2px 0 12px; }
+
+    .education-provider-list { display: grid; gap: 10px; margin-top: 14px; }
+    .education-provider-card { padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius-md); background: #FFFFFF; }
+    .education-provider-card h4 { margin: 0 0 6px; color: var(--primary); font-size: 1.02rem; }
+    .education-provider-card p { margin: 0 0 10px; color: var(--sub-text); font-size: 0.9rem; }
+
+    .detail-caption { color: var(--muted); font-size: 0.86rem; margin: 8px 0 12px; }
     .info-list { padding-left: 20px; color: var(--sub-text); }
     .info-list li { margin-bottom: 6px; }
 
+    .legal-note { margin-top: 34px; padding: 20px 22px; border-radius: var(--radius-lg); background: #FFFFFF; border: 1px solid var(--border); font-size: 0.94rem; }
+    .legal-note > strong { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 1.05rem; margin-bottom: 12px; }
+    .legal-links { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; }
+    .legal-links a, .source-links a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .legal-source-group { padding-top: 10px; border-top: 1px solid var(--line); }
+    .legal-source-group + .legal-source-group { margin-top: 10px; }
+    .legal-source-group > strong { color: var(--text); font-size: 0.92rem; }
+    .legal-source-group .legal-links { margin-top: 4px; }
+
+    /* ── 바닥글 ── */
+    .site-footer { background: var(--ink); color: #B8C4D4; margin-top: 40px; }
+    .site-footer-inner { max-width: 980px; margin: 0 auto; padding: 28px 20px 34px; font-size: 0.86rem; }
+    .footer-org { color: #FFFFFF; font-size: 1rem; font-weight: 800; }
+    .footer-points { list-style: none; display: grid; gap: 6px; margin-top: 12px; }
+    .footer-points li { display: flex; gap: 8px; }
+    .footer-points i { color: var(--sun); margin-top: 4px; width: 14px; }
+    .character-credit { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); color: #8E9BAD; font-size: 0.76rem; }
+    .character-credit a { color: #C9D4E3; text-underline-offset: 2px; }
+
     @media (max-width: 680px) {
-      header { padding: 22px 16px 24px; }
+      .gov-bar-inner { padding: 7px 16px; font-size: 0.76rem; }
+      header.hero { padding: 26px 16px 84px; }
       .brand-heading-row { gap: 6px; }
-      .brand-mascot-group { gap: 0; }
-      .brand-mascot-group img { width: 29px; }
-      header h1 { font-size: clamp(2rem, 9vw, 2.45rem); }
-      .brand-subtitle { font-size: 0.9rem; }
-      .header-description { font-size: 0.78rem; }
-      .main-container { padding: 16px 14px; }
-      .mascot-tip { align-items: flex-start; padding: 9px 11px; }
-      .mascot-tip img { width: 48px; }
-      .main-mascot-tip { align-items: center; padding-left: 12px; }
-      .main-mascot-tip img { width: 54px; }
-      .citizen-guide { gap: 6px; padding: 13px 12px; }
-      .citizen-guide-title { font-size: 0.94rem; }
-      .citizen-guide-steps { display: grid; gap: 6px; font-size: 0.82rem; }
-      .citizen-guide img { width: 66px; height: 74px; }
-      .task-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-      .task-select-btn { min-height: 76px; padding: 10px; }
-      .visitor-guide { align-items: flex-start; padding: 12px; }
-      .cat-card .mascot-card-image { right: 8px; width: 48px; height: 54px; }
-      .character-credit { padding: 0 14px 18px; }
-      .category-grid, #applicationTypeArea .category-grid { grid-template-columns: 1fr; }
-      .report-sector-grid, .report-food-groups { grid-template-columns: 1fr; }
-      .business-choice-grid { grid-template-columns: 1fr; }
-      #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea { padding: 15px; }
-      .cat-card { min-height: 82px; padding: 13px; }
-      .section-title { font-size: 1.15rem; }
-      .flow-navigation { align-items: flex-start; flex-direction: column; }
+      .brand-mascot-group img { width: 32px; }
+      .brand-subtitle { font-size: 1.05rem; }
+      .header-description { font-size: 0.9rem; }
+      .main-container { padding: 0 14px 32px; }
+      .citizen-guide { padding: 18px 14px 14px; }
+      .citizen-guide-steps li { font-size: 0.86rem; }
+      .search-card { padding: 18px 16px; }
+      .category-grid, #applicationTypeArea .category-grid, .report-sector-grid, .report-food-groups, .business-choice-grid { grid-template-columns: 1fr; }
+      #applicationTypeArea, #reportSectorArea, #reportFoodGroupArea, #educationSectorArea, #educationProvidersArea, .sub-biz-area { padding: 16px; }
+      .cat-card { min-height: 84px; padding: 14px; }
+      .business-choice-card { min-height: 0; }
+      .section-title { font-size: 1.18rem; }
+      .flow-navigation { align-items: stretch; flex-direction: column; padding: 12px; }
       .flow-actions { width: 100%; }
-      .flow-action { flex: 1; min-height: 44px; }
+      .flow-action { flex: 1; justify-content: center; min-height: 44px; }
+      .result-header-card { padding: 18px; }
+      .result-header-card h2 { font-size: 1.25rem; }
+      .result-content { padding: 18px 16px; }
+      .task-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
 <body>
 
-  <header>
+  <header class="hero">
     <div class="brand-lockup">
-      <div class="logo-tag"><i class="fa-solid fa-qrcode"></i> 양산시 위생 인허가 안내</div>
+      <div class="logo-tag"><i class="fa-solid fa-qrcode" aria-hidden="true"></i> 양산시 위생 인·허가 원스톱 안내</div>
       <div class="brand-heading-row">
-        <div class="brand-mascot-group" aria-label="양산프렌즈 캐릭터">
-          <img src="img/yangsan-friends/char3_1.png" alt="금이">
-          <img src="img/yangsan-friends/char1_1.png" alt="뿌용이">
+        <div class="brand-mascot-group" aria-hidden="true">
+          <img src="img/yangsan-friends/char3_1.png" alt="">
+          <img src="img/yangsan-friends/char1_1.png" alt="">
         </div>
-        <h1>QR_ON!</h1>
-        <div class="brand-mascot-group" aria-label="양산프렌즈 캐릭터">
-          <img src="img/yangsan-friends/char2_1.png" alt="호잇">
-          <img src="img/yangsan-friends/char4_1.png" alt="매롱">
+        <h1>QR_ON<span class="h1-mark">!</span></h1>
+        <div class="brand-mascot-group" aria-hidden="true">
+          <img src="img/yangsan-friends/char2_1.png" alt="">
+          <img src="img/yangsan-friends/char4_1.png" alt="">
         </div>
       </div>
       <p class="brand-subtitle">내 손안의 든든한 영업 파트너</p>
-      <p class="header-description">영업 인허가 · 면허 발급 · 업종별 위생교육 안내</p>
+      <p class="header-description">영업 신고부터 면허 발급, 위생교육, 보건증까지. 방문하기 전에 필요한 서류와 서식을 여기서 먼저 확인하세요.</p>
     </div>
   </header>
 
-  <div class="main-container">
+  <main class="main-container">
 
     <!-- 방문 전 준비 순서 안내 -->
-    <aside class="citizen-guide" aria-label="민원 방문 전 준비 순서">
-      <div class="citizen-guide-copy">
-        <p class="citizen-guide-title"><i class="fa-solid fa-clipboard-check"></i> 방문 전에, 이 순서대로 확인하세요</p>
-        <div class="citizen-guide-steps">
-          <span><b>1</b> 하려는 업종 찾기</span>
-          <span><b>2</b> 신청·변경 등 업무 선택</span>
-          <span><b>3</b> 서류 확인 후 방문</span>
-        </div>
-        <p class="citizen-guide-note">신분증은 기본으로 챙기고, 영업장 확인자료와 대리 신청 서류는 해당되는 경우 준비하세요. 정확한 서류는 업종과 업무에 따라 달라요.</p>
-      </div>
-      <img src="img/yangsan-friends/char4_1.png" alt="" aria-hidden="true">
-    </aside>
-
-    <div class="search-or-menu">
-      <span class="som-step-label"><span class="som-step-badge">1</span> 하려는 업종 찾기</span>
-      <button type="button" class="som-option" onclick="focusSearchInput()"><i class="fa-solid fa-magnifying-glass"></i> 업종명 검색</button>
-      <span class="som-divider">또는</span>
-      <button type="button" class="som-option" onclick="scrollToMenuSelection()"><i class="fa-solid fa-list-check"></i> 아래 메뉴 선택</button>
-    </div>
+    <section class="citizen-guide" aria-labelledby="guideTitle">
+      <p id="guideTitle" class="citizen-guide-title"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 방문 전에 이 순서대로 확인하세요</p>
+      <ol class="citizen-guide-steps">
+        <li>업종 찾기</li>
+        <li>하려는 업무 선택</li>
+        <li>서류 챙겨 방문</li>
+      </ol>
+      <p class="citizen-guide-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>신분증은 꼭 챙기시고, 대리인이 오시거나 법인 명의라면 추가 서류가 필요해요. 정확한 서류는 업종과 업무에 따라 달라집니다.</span></p>
+    </section>
 
     <!-- 검색창 -->
-    <div class="search-card">
+    <section class="search-card" aria-labelledby="searchHeading">
+      <h2 id="searchHeading" class="search-heading">어떤 업종인가요?</h2>
       <div class="search-input-wrapper">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="안내가 필요한 업종을 입력하세요" oninput="onSearchInput(this.value)">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <label for="searchInput" class="sr-only">업종명 또는 민원명 검색</label>
+        <input type="search" id="searchInput" class="search-input" placeholder="업종 이름을 입력하세요" autocomplete="off" oninput="onSearchInput(this.value)">
       </div>
-      <p class="search-examples">예: 음식점, 카페, 반찬가게, 미용실</p>
       <div id="searchDropdown" class="search-dropdown"></div>
-      <div class="mascot-tip main-mascot-tip">
-        <p>필요한 민원이나 업종명을 검색하거나, 아래 안내 메뉴를 선택하세요.</p>
-        <img src="img/yangsan-friends/char3_1.png" alt="" aria-hidden="true">
+      <div class="search-examples">
+        <span>자주 찾는 업종</span>
+        <button type="button" class="example-chip" onclick="searchExample('음식점')">음식점</button>
+        <button type="button" class="example-chip" onclick="searchExample('카페')">카페</button>
+        <button type="button" class="example-chip" onclick="searchExample('반찬가게')">반찬가게</button>
+        <button type="button" class="example-chip" onclick="searchExample('미용실')">미용실</button>
+        <button type="button" class="example-chip" onclick="searchExample('조리사')">조리사 면허</button>
       </div>
-    </div>
+      <button type="button" class="search-alt" onclick="scrollToMenuSelection()"><i class="fa-solid fa-list-ul" aria-hidden="true"></i> 업종 이름을 모르겠다면 아래 메뉴에서 골라보세요</button>
+    </section>
 
       <div id="flowNavigation" class="flow-navigation" style="display:none;">
         <div id="flowSummary" class="flow-summary"></div>
@@ -297,48 +339,58 @@
       </div>
 
       <!-- 안내 분야 선택 -->
-      <div id="mainSelectionHeading" class="section-title">
-        <i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 어떤 안내가 필요하신가요?
-      </div>
-    
+      <h2 id="mainSelectionHeading" class="section-title">
+        어떤 안내가 필요하신가요?
+      </h2>
+
       <div id="mainCategoryArea" class="category-grid">
-      <div class="cat-card main-category mascot-card" onclick="selectMainCategory('business', this)">
+      <div class="cat-card main-category mascot-card" role="button" tabindex="0" onclick="selectMainCategory('business', this)">
         <i class="fa-solid fa-store"></i>
         <div>
           <strong>영업 인허가 안내</strong>
-          <span>허가·등록·신고부터 지위승계·변경·폐업까지</span>
+          <span>신고·허가·등록부터 변경, 지위승계, 폐업까지</span>
         </div>
         <img class="mascot-card-image" src="img/yangsan-friends/char1_1.png" alt="" aria-hidden="true">
       </div>
-      <div class="cat-card main-category mascot-card" onclick="selectMainCategory('license', this)">
+      <div class="cat-card main-category mascot-card" role="button" tabindex="0" onclick="selectMainCategory('license', this)">
         <i class="fa-solid fa-id-card"></i>
         <div>
-          <strong>면허발급</strong>
-          <span>조리사 · 이용사 · 미용사 발급·재발급</span>
+          <strong>면허 발급</strong>
+          <span>조리사, 이용사, 미용사 면허 발급과 재발급</span>
         </div>
         <img class="mascot-card-image" src="img/yangsan-friends/char2_1.png" alt="" aria-hidden="true">
       </div>
-      <div class="cat-card main-category mascot-card" onclick="selectMainCategory('education', this)">
+      <div class="cat-card main-category mascot-card" role="button" tabindex="0" onclick="selectMainCategory('education', this)">
         <i class="fa-solid fa-graduation-cap"></i>
         <div>
           <strong>업종별 위생교육 안내</strong>
-          <span>식품·건강기능식품 · 공중위생 교육기관 바로가기</span>
+          <span>내 업종의 위생교육기관으로 바로 이동</span>
         </div>
         <img class="mascot-card-image" src="img/yangsan-friends/char3_1.png" alt="" aria-hidden="true">
+      </div>
+      <!-- 보건증 온라인 발급: 연결 주소는 스크립트의 HEALTH_CERT_URL 값 -->
+      <div class="cat-card health-cert-card mascot-card" role="button" tabindex="0" onclick="openHealthCertificate()">
+        <i class="fa-solid fa-file-medical"></i>
+        <div>
+          <strong>보건증 온라인 발급</strong>
+          <span>보건소에서 검사받았다면 다시 오지 않고 스마트폰으로 받으세요</span>
+          <span class="external-tag"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> e보건소 건강진단결과서 발급 화면으로 이동</span>
+        </div>
+        <img class="mascot-card-image" src="img/yangsan-friends/char4_1.png" alt="" aria-hidden="true">
       </div>
     </div>
 
     <div id="educationSectorArea" style="display:none; margin-top:14px;">
       <div class="step-label">위생교육 대상 업종을 선택하세요</div>
-      <p class="step-help">업종에 따라 법정 교육기관이 다릅니다. 영업신고증의 업종과 세부 유형을 확인해 선택하세요.</p>
+      <p class="step-help">업종에 따라 법정 교육기관이 다릅니다. 영업신고증에 적힌 업종을 확인하고 선택하세요.</p>
       <div class="report-sector-grid">
-        <div class="cat-card" onclick="selectEducationSector('food', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectEducationSector('food', this)">
           <i class="fa-solid fa-utensils"></i>
-          <div><strong>식품·건강기능식품</strong><span>음식점 · 제조·가공 · 판매 · 급식</span></div>
+          <div><strong>식품·건강기능식품</strong><span>음식점, 제조·가공, 판매, 급식</span></div>
         </div>
-        <div class="cat-card" onclick="selectEducationSector('public', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectEducationSector('public', this)">
           <i class="fa-solid fa-pump-soap"></i>
-          <div><strong>공중위생</strong><span>숙박 · 목욕 · 이용·미용 · 세탁 · 건물위생</span></div>
+          <div><strong>공중위생</strong><span>숙박, 목욕, 이용·미용, 세탁, 건물위생</span></div>
         </div>
       </div>
     </div>
@@ -348,19 +400,18 @@
     </div>
 
     <div id="applicationTypeArea" style="display:none; margin-top: 14px;">
-      <div class="step-label">1단계 · 인허가 방식을 선택하세요</div>
-      <p class="step-help">예: 식당·카페·미용실을 준비 중이면 ‘신고대상’입니다.</p>
+      <div class="step-label">인허가 방식을 선택하세요</div>
+      <p class="step-help">식당, 카페, 미용실을 준비 중이라면 ‘신고 대상’을 고르세요.</p>
       <div class="category-grid">
-      <div class="cat-card" onclick="selectApplicationType('report', this)">
+      <div class="cat-card" role="button" tabindex="0" onclick="selectApplicationType('report', this)">
         <i class="fa-solid fa-file-circle-check"></i>
-        <div><strong>신고 대상</strong><span>음식점 · 카페 · 공중위생업소(미용실 등)</span></div>
+        <div><strong>신고 대상</strong><span>음식점, 카페, 미용실 등 공중위생업소</span></div>
       </div>
-      <div class="cat-card" onclick="selectApplicationType('permit', this)">
+      <div class="cat-card" role="button" tabindex="0" onclick="selectApplicationType('permit', this)">
         <i class="fa-solid fa-stamp"></i>
-        <div><strong>허가 대상
-        </strong><span>유흥·단란주점 등 허가 대상</span></div>
+        <div><strong>허가 대상</strong><span>유흥·단란주점 등</span></div>
       </div>
-      <div class="cat-card" onclick="selectApplicationType('registration', this)">
+      <div class="cat-card" role="button" tabindex="0" onclick="selectApplicationType('registration', this)">
         <i class="fa-solid fa-clipboard-check"></i>
         <div><strong>등록 대상</strong><span>식품제조·가공업 등</span></div>
       </div>
@@ -368,43 +419,43 @@
     </div>
 
     <div id="reportSectorArea" style="display:none; margin-top: 14px;">
-      <div class="step-label">2단계 · 어떤 분야의 영업인가요?</div>
+      <div class="step-label">어떤 분야의 영업인가요?</div>
       <p class="step-help">식품·건강기능식품 영업인지, 공중위생 영업인지 선택하세요.</p>
       <div class="report-sector-grid">
-        <div class="cat-card" onclick="selectReportSector('food', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportSector('food', this)">
           <i class="fa-solid fa-utensils"></i>
-          <div><strong>식품·건강기능식품</strong><span>음식점 · 제조 · 식품판매 · 급식</span></div>
+          <div><strong>식품·건강기능식품</strong><span>음식점, 제조, 식품판매, 급식</span></div>
         </div>
-        <div class="cat-card" onclick="selectReportSector('public', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportSector('public', this)">
           <i class="fa-solid fa-pump-soap"></i>
-          <div><strong>공중위생</strong><span>숙박 · 목욕 · 이용 · 미용 · 세탁 · 청소</span></div>
+          <div><strong>공중위생</strong><span>숙박, 목욕, 이용, 미용, 세탁, 청소</span></div>
         </div>
       </div>
     </div>
 
     <div id="reportFoodGroupArea" style="display:none; margin-top: 14px;">
-      <div class="step-label">3단계 · 하려는 식품 영업을 고르세요</div>
-      <p class="step-help">식품접객업은 음식이나 주류를 조리·판매하는 영업입니다. 아래에서 가까운 분야를 고르면 세부 업종별 뜻을 확인할 수 있어요.</p>
+      <div class="step-label">하려는 식품 영업을 고르세요</div>
+      <p class="step-help">가장 가까운 분야를 고르면 세부 업종별 뜻을 확인할 수 있어요.</p>
       <div class="report-food-groups">
-        <div class="cat-card" onclick="selectReportGroup('food_service', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('food_service', this)">
           <i class="fa-solid fa-bowl-food"></i>
-          <div><strong>식품접객업 (음식점·카페 등)</strong><span>휴게 · 일반 · 제과점 · 푸드트럭</span></div>
+          <div><strong>식품접객업 (음식점·카페 등)</strong><span>휴게, 일반, 제과점, 푸드트럭</span></div>
         </div>
-        <div class="cat-card" onclick="selectReportGroup('instant_food', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('instant_food', this)">
           <i class="fa-solid fa-store"></i>
-          <div><strong>즉석판매제조·가공</strong><span>반찬가게 · 떡집 등</span></div>
+          <div><strong>즉석판매제조·가공</strong><span>반찬가게, 떡집 등</span></div>
         </div>
-        <div class="cat-card" onclick="selectReportGroup('health_sale', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('health_sale', this)">
           <i class="fa-solid fa-capsules"></i>
-          <div><strong>건강기능식품 판매</strong><span>영양제 · 건강기능식품 판매</span></div>
+          <div><strong>건강기능식품 판매</strong><span>영양제, 건강기능식품 판매</span></div>
         </div>
-        <div class="cat-card" onclick="selectReportGroup('group_catering', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('group_catering', this)">
           <i class="fa-solid fa-users"></i>
-          <div><strong>집단급식소</strong><span>구내식당 · 학교·병원 급식 운영</span></div>
+          <div><strong>집단급식소</strong><span>구내식당, 학교·병원 급식 운영</span></div>
         </div>
-        <div class="cat-card" onclick="selectReportGroup('other_food', this)">
+        <div class="cat-card" role="button" tabindex="0" onclick="selectReportGroup('other_food', this)">
           <i class="fa-solid fa-boxes-stacked"></i>
-          <div><strong>식품 운반·소분·판매업 등</strong><span>운반 · 소분·재포장 · 얼음 · 자판기 · 유통판매</span></div>
+          <div><strong>식품 운반·소분·판매업 등</strong><span>운반, 소분·재포장, 얼음, 자판기, 유통판매</span></div>
         </div>
       </div>
     </div>
@@ -422,50 +473,51 @@
       <div class="result-header-card">
         <div>
           <h2 id="resBizName">업종 명칭</h2>
-          <span id="resLawTag" style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem;">적용 법률</span>
-          <p id="resBizDefinition" style="margin-top:8px; color:#DBEAFE; font-size:0.9rem; max-width:720px;">업종 정의</p>
+          <span id="resLawTag" style="background: rgba(255,255,255,0.16); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">적용 법률</span>
+          <p id="resBizDefinition" style="margin-top:10px; color:#DCE8F7; font-size:0.95rem; max-width:720px;">업종 정의</p>
         </div>
-        <div style="font-size: 1.8rem; opacity: 0.8;" id="resIcon"><i class="fa-solid fa-store"></i></div>
+        <div style="font-size: 2rem; opacity: 0.85; color: var(--sun);" id="resIcon"><i class="fa-solid fa-store"></i></div>
       </div>
       <div class="result-content">
-        <div class="info-tabs">
-            <button class="tab-btn active" onclick="switchTab(this, 'tab-docs')"><i class="fa-solid fa-file-lines"></i> 민원 업무 안내</button>
-          <button class="tab-btn" onclick="switchTab(this, 'tab-facility')"><i class="fa-solid fa-ruler-combined"></i> 시설기준/장소조건</button>
+        <div class="info-tabs" role="tablist">
+          <button class="tab-btn active" onclick="switchTab(this, 'tab-docs')"><i class="fa-solid fa-file-lines"></i> 민원 업무 안내</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab-facility')"><i class="fa-solid fa-ruler-combined"></i> 시설기준</button>
           <button class="tab-btn" onclick="switchTab(this, 'tab-edu')"><i class="fa-solid fa-graduation-cap"></i> 위생교육</button>
-          <button class="tab-btn" onclick="switchTab(this, 'tab-rules')"><i class="fa-solid fa-triangle-exclamation"></i> 업종별 준수사항</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab-rules')"><i class="fa-solid fa-triangle-exclamation"></i> 준수사항</button>
         </div>
 
         <!-- 민원업무별 신청·변경 안내 -->
         <div id="tab-docs" class="pane active">
-          <div class="visitor-guide">
-            <i class="fa-solid fa-circle-info"></i>
-            <div>
-              <strong>내가 하려는 업무를 먼저 골라주세요</strong>
-              <span>선택한 업무의 서류 목록을 확인하고, 해당되는 추가 서류까지 챙기면 방문 준비가 끝나요.</span>
-            </div>
-          </div>
           <details class="change-box shared-docs common-required-docs" open>
-            <summary><span class="first-check-label">먼저 확인</span><i class="fa-solid fa-address-card" aria-hidden="true"></i> 모든 민원 공통 필수서류</summary>
+            <summary><span class="first-check-label">먼저 확인</span>모든 민원 공통 필수서류</summary>
             <div class="shared-docs-content">
             <ul class="info-list">
-              <li><strong>개인 명의 신청:</strong> 신청인 신분증</li>
-              <li><strong>대리인 방문 신청:</strong> 모든 신고서에 신고인 자필서명, 자필서명한 신고인 신분증 사본, 위임장 및 대리인 신분증 필요. 신고인이 인감도장을 날인하는 경우 인감증명서 제출</li>
-              <li><strong>법인 명의 신청:</strong> 법인등기부등본(말소사항 포함), 법인인감증명서(사용인감 사용 시 사용인감계) 및 법인인감</li>
-              <li><strong>법인 대리 신청:</strong> 법인인감 날인 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대체할 수 없음</li>
+              <li><strong>본인이 신청할 때:</strong> 신청인 신분증</li>
+              <li><strong>대리인이 방문할 때:</strong> 모든 신고서에 신고인 자필서명, 자필서명한 신고인 신분증 사본, 위임장 및 대리인 신분증. 신고인이 인감도장을 찍는 경우 인감증명서 제출</li>
+              <li><strong>법인 명의로 신청할 때:</strong> 법인등기부등본(말소사항 포함), 법인인감증명서(사용인감 사용 시 사용인감계) 및 법인인감</li>
+              <li><strong>법인 대리인이 신청할 때:</strong> 법인인감을 찍은 위임장과 대리인 신분증. 법인인감이 필요한 경우 일반 도장으로 대신할 수 없음</li>
             </ul>
-            <div class="form-actions">
-              <a class="form-link-btn" href="https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=265249&bylSeq=16632391&efYd=20240906" target="_blank" rel="noopener noreferrer">
-                <i class="fa-solid fa-eye"></i> 민원처리법 시행규칙 별지 제3호서식 위임장 PDF 바로보기
-              </a>
-              <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=144030689&bylClsCd=110202" target="_blank" rel="noopener noreferrer">
-                <i class="fa-solid fa-download"></i> 민원처리법 시행규칙 별지 제3호서식 위임장 한글파일 다운로드
-              </a>
+            <div class="form-entry">
+              <p class="form-entry-label">위임장 (민원처리법 시행규칙 별지 제3호서식)</p>
+              <div class="form-actions">
+                <a class="form-link-btn" href="https://www.law.go.kr/LSW/lsBylInfoP.do?lsiSeq=265249&bylSeq=16632391&efYd=20240906" target="_blank" rel="noopener noreferrer">
+                  <i class="fa-solid fa-eye"></i> PDF 바로보기
+                </a>
+                <a class="form-link-btn" href="https://www.law.go.kr/LSW/flDownload.do?gubun=&flExt=hwpx&flSeq=144030689&bylClsCd=110202" target="_blank" rel="noopener noreferrer">
+                  <i class="fa-solid fa-download"></i> 한글파일 다운로드
+                </a>
+              </div>
             </div>
-            <p class="detail-caption">법인 대리 신청에서 법인인감 대신 사용인감을 사용하는 경우 사용인감계와 법인인감증명서를 준비하세요. 제출 방식이나 추가 확인자료는 방문 전 관할 기관에 확인하세요.</p>
+            <p class="detail-caption">법인 대리 신청에서 법인인감 대신 사용인감을 쓰는 경우 사용인감계와 법인인감증명서를 준비하세요. 제출 방식이나 추가 확인자료는 방문 전 관할 기관에 확인하세요.</p>
             </div>
           </details>
-          <p class="step-label"><i class="fa-solid fa-hand-pointer" style="color: var(--accent);"></i> 어떤 일로 방문하시나요?</p>
-          <p class="detail-caption">잘 모르겠다면 가장 가까운 항목을 눌러보세요. 준비 서류가 바로 표시됩니다.</p>
+          <div class="visitor-guide">
+            <i class="fa-solid fa-hand-pointer" aria-hidden="true"></i>
+            <div>
+              <strong>어떤 일로 방문하시나요?</strong>
+              <span>잘 모르겠다면 가장 가까운 항목을 눌러보세요. 준비할 서류가 바로 아래에 나옵니다.</span>
+            </div>
+          </div>
           <div id="resTaskSelector" class="task-selector" role="group" aria-label="민원 업무 선택"></div>
           <section id="task-application" class="task-panel active" aria-label="신규 신청">
           <h4 class="task-content-heading"><i class="fa-solid fa-clipboard-check" style="color: var(--secondary);"></i> 신규 영업 신청 구비서류</h4>
@@ -473,8 +525,8 @@
           <p id="resDocsSourceNote" class="detail-caption"></p>
           <div id="resFormLinks"></div>
           <div id="resGovServiceLinks"></div>
-          <div id="resFeeInfo" class="change-box" style="display:none;"></div>
-          <p class="detail-caption">온라인 신청 가능 여부와 최종 제출서류는 업종·관할 지자체별로 다를 수 있습니다. 신청 전 관할 시·군·구에 확인하세요.</p>
+          <div id="resFeeInfo" class="change-box" style="display:none; margin-top:12px;"></div>
+          <p class="detail-caption">온라인 신청 가능 여부와 최종 제출서류는 업종과 관할 지자체에 따라 다를 수 있습니다. 신청 전 관할 시·군·구에 확인하세요.</p>
           </section>
           <section id="task-change" class="task-panel" aria-label="변경">
             <h4 class="task-content-heading"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent);"></i> 변경 구비서류</h4>
@@ -495,19 +547,19 @@
         <div id="tab-facility" class="pane">
           <h4><i class="fa-solid fa-building" style="color: var(--accent);"></i> 시설기준 및 지정 장소 요건</h4>
           <div id="resFacilityList"></div>
-          <p class="detail-caption">시설기준은 업종별 법령 및 시행규칙 별표에 따릅니다. 건축물 용도, 소방·가스·환경 관련 요건도 계약 전에 관할 기관에서 확인하세요.</p>
+          <p class="detail-caption">시설기준은 업종별 법령과 시행규칙 별표에 따릅니다. 건축물 용도, 소방·가스·환경 관련 요건도 계약 전에 관할 기관에서 확인하세요.</p>
         </div>
 
         <!-- 위생교육 -->
         <div id="tab-edu" class="pane">
           <h4><i class="fa-solid fa-user-graduate" style="color: var(--accent);"></i> 위생교육 안내</h4>
-          <div id="resEduBox" style="background:#F8FAFC; padding:14px; border-radius:10px; border:1px solid var(--border);"></div>
+          <div id="resEduBox" style="background:var(--bg); padding:16px; border-radius:var(--radius-md);"></div>
         </div>
 
         <!-- 준수사항 -->
         <div id="tab-rules" class="pane">
           <h4><i class="fa-solid fa-shield-halved" style="color: var(--danger);"></i> 업종별 영업자 준수사항</h4>
-          <p class="detail-caption"><strong id="resRulesBizName"></strong>의 법령 원문입니다. 요약하거나 바꾸어 쓰지 않고 해당 별표 원문으로 연결합니다.</p>
+          <p class="detail-caption"><strong id="resRulesBizName"></strong>에 적용되는 법령 원문입니다. 요약하거나 바꾸어 쓰지 않고 해당 별표 원문으로 연결합니다.</p>
           <div id="resRulesList"></div>
           <p id="resRuleScope" class="detail-caption" style="display:none;">별표 17의 준수사항은 별표에서 정한 영업자 등에 적용됩니다. 업종별 적용 범위와 그 밖의 식품영업자 의무는 현행 법령 원문 및 관할 기관 안내를 함께 확인하세요.</p>
         </div>
@@ -516,7 +568,7 @@
     </div>
 
     <aside class="legal-note">
-      <strong>관련 법령 원문</strong>
+      <strong><i class="fa-solid fa-scale-balanced" style="color: var(--accent);" aria-hidden="true"></i> 관련 법령 원문</strong>
       <div class="legal-source-group">
         <strong>식품·식품접객업</strong>
         <div class="legal-links">
@@ -529,8 +581,8 @@
         <strong>건강기능식품</strong>
         <div class="legal-links">
           <a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률</a>
-          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행령" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률 시행령</a>
-          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행규칙" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률 시행규칙</a>
+          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행령" target="_blank" rel="noopener noreferrer">시행령</a>
+          <a href="https://www.law.go.kr/법령/건강기능식품에관한법률시행규칙" target="_blank" rel="noopener noreferrer">시행규칙</a>
         </div>
       </div>
       <div class="legal-source-group">
@@ -543,15 +595,28 @@
       </div>
     </aside>
 
-  </div>
+  </main>
 
-  <footer class="character-credit">
-    캐릭터 출처: 양산시 관광캐릭터 ‘양산프렌즈’ · 비영리 목적·변형 없이 사용
-    (<a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101030000" target="_blank" rel="noopener noreferrer">캐릭터 소개</a>
-    · <a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101060000" target="_blank" rel="noopener noreferrer">이용조건</a>)
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p class="footer-org">양산시 웅상보건소 보건위생팀</p>
+      <ul class="footer-points">
+        <li><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><span>안내 내용은 관련 법령과 국가법령정보센터 서식을 기준으로 작성했습니다. 법령 개정 등으로 달라질 수 있으니 최종 확인은 관할 기관에 해주세요.</span></li>
+        <!-- 문의 전화번호를 넣으려면 아래 줄의 주석을 풀고 번호를 입력하세요 -->
+        <!-- <li><i class="fa-solid fa-phone" aria-hidden="true"></i><span>문의 055-000-0000</span></li> -->
+      </ul>
+      <p class="character-credit">
+        캐릭터 출처: 양산시 관광캐릭터 ‘양산프렌즈’, 비영리 목적으로 변형 없이 사용
+        (<a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101030000" target="_blank" rel="noopener noreferrer">캐릭터 소개</a>,
+        <a href="https://www.yangsan.go.kr/tour/contents.do?mid=0101060000" target="_blank" rel="noopener noreferrer">이용조건</a>)
+      </p>
+    </div>
   </footer>
 
   <script>
+    // 보건증(건강진단결과서) 온라인 발급 안내 주소. 더 정확한 발급 페이지 주소가 있으면 여기만 바꾸면 됩니다.
+    const HEALTH_CERT_URL = 'https://www.e-health.go.kr/gh/caSrvcGud/selectScrtfIssGud.do?prfDocClCd=01&menuId=200022';
+
     const legalGuides = {
       food: {
         sources: [
@@ -1661,7 +1726,7 @@
       ['mainSelectionHeading', 'mainCategoryArea', 'educationSectorArea', 'educationProvidersArea', 'applicationTypeArea', 'reportSectorArea', 'reportFoodGroupArea', 'subBizArea']
         .forEach(id => { document.getElementById(id).style.display = 'none'; });
       (stepAreas[step] || []).forEach(id => {
-        document.getElementById(id).style.display = id === 'mainCategoryArea' || id === 'applicationTypeArea' ? 'grid' : 'block';
+        document.getElementById(id).style.display = id === 'mainCategoryArea' ? 'grid' : id === 'mainSelectionHeading' ? 'flex' : 'block';
       });
       document.getElementById('flowNavigation').style.display = step === 'main' ? 'none' : 'flex';
       document.getElementById('flowBackButton').style.display = wizardHistory.length ? 'inline-flex' : 'none';
@@ -1680,7 +1745,19 @@
       input.focus();
     }
 
+    function searchExample(word) {
+      const input = document.getElementById('searchInput');
+      input.value = word;
+      onSearchInput(word);
+      input.focus();
+    }
+
+    function openHealthCertificate() {
+      window.open(HEALTH_CERT_URL, '_blank', 'noopener,noreferrer');
+    }
+
     function scrollToMenuSelection() {
+      if (wizardStep !== 'main') restartFlow();
       const heading = document.getElementById('mainSelectionHeading');
       heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -1689,7 +1766,10 @@
       const previous = wizardHistory.pop();
       if (!previous) return;
       flowPath = previous.path;
+      document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('licenseResult').style.display = 'none';
       setWizardStep(previous.step);
+      document.getElementById('flowNavigation').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function restartFlow() {
@@ -1718,8 +1798,8 @@
       document.querySelectorAll('#applicationTypeArea .cat-card').forEach(card => card.classList.remove('active'));
 
       if (category === 'license') {
-        populateSubcategorySelect(licenseDb, '면허 종류 선택');
-        advanceWizard('subtype', '면허발급');
+        populateSubcategorySelect(licenseDb, '어떤 면허가 필요하신가요?');
+        advanceWizard('subtype', '면허 발급');
       } else if (category === 'education') {
         document.getElementById('educationProvidersList').innerHTML = '';
         advanceWizard('educationSector', '업종별 위생교육 안내');
@@ -1727,6 +1807,7 @@
         document.getElementById('subBizSelect').innerHTML = '';
         advanceWizard('applicationType', '영업 인허가 안내');
       }
+      document.getElementById('flowNavigation').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function openEducationProviders(sector) {
@@ -1734,6 +1815,7 @@
         .find(card => card.textContent.includes('업종별 위생교육 안내'));
       if (!educationCard) throw new Error('위생교육 안내 화면을 찾을 수 없습니다.');
 
+      document.getElementById('resultContainer').style.display = 'none';
       wizardHistory = [];
       flowPath = [];
       selectMainCategory('education', educationCard);
@@ -1751,12 +1833,12 @@
       const categories = hygieneEducationCategories[sector];
       document.getElementById('educationProvidersList').innerHTML = `
         <div class="step-label">${title} 업종별 위생교육기관</div>
-        <p class="step-help">영업신고증에 적힌 업종을 찾아 해당 교육기관의 과정·일정·이수방법을 확인하세요. 같은 업종에서 선택 가능한 교육기관이 여러 곳이면 모두 표시했습니다.</p>
+        <p class="step-help">영업신고증에 적힌 업종을 찾아 해당 교육기관의 과정, 일정, 이수방법을 확인하세요. 선택할 수 있는 교육기관이 여러 곳이면 모두 표시했습니다.</p>
         <div class="education-provider-list">
           ${categories.map(category => `
             <article class="education-provider-card">
               <h4>${category.business}</h4>
-              <p><strong>위생교육기관:</strong> ${category.providers.map(provider => `${provider.name}${provider.scope ? ` (${provider.scope})` : ''}`).join(' · ')}</p>
+              <p><strong>위생교육기관:</strong> ${category.providers.map(provider => `${provider.name}${provider.scope ? ` (${provider.scope})` : ''}`).join(', ')}</p>
               ${category.providers.some(provider => provider.notice) ? `<p class="detail-caption">${category.providers.filter(provider => provider.notice).map(provider => provider.notice).join(' ')}</p>` : ''}
               <div class="form-actions">
                 ${category.providers.map(provider => `
@@ -1772,7 +1854,7 @@
           <a href="${sector === 'food' ? 'https://www.law.go.kr/법령/식품위생법' : 'https://www.law.go.kr/법령/공중위생관리법'}" target="_blank" rel="noopener noreferrer">${sector === 'food' ? '식품위생법' : '공중위생관리법'} 원문</a>
           ${sector === 'food' ? '<a href="https://www.law.go.kr/법령/건강기능식품에관한법률" target="_blank" rel="noopener noreferrer">건강기능식품에 관한 법률 원문</a>' : ''}
         </div>
-        <p class="detail-caption">교육 대상·신규 및 기존 영업자별 이수시기·교육시간은 법령과 지정 고시에 따릅니다. 업종이 여러 개이거나 교육기관이 불명확하면 영업신고 관할 시·군·구에 확인하세요.</p>
+        <p class="detail-caption">교육 대상, 신규·기존 영업자별 이수시기, 교육시간은 법령과 지정 고시에 따릅니다. 업종이 여러 개이거나 교육기관이 불분명하면 영업신고 관할 시·군·구에 확인하세요.</p>
       `;
       advanceWizard('educationProviders', title);
       document.getElementById('educationProvidersArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1792,7 +1874,7 @@
           <button class="business-choice-card" type="button" onclick="renderSelection('${item.id}')">
             <span class="business-choice-name">${item.name}</span>
             <span class="business-choice-description">${item.description || businessDefinitions[item.id]}</span>
-            <span class="business-choice-action">이 업종 안내 보기 <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="business-choice-action">이 업종 안내 보기 <i class="fa-solid fa-chevron-right"></i></span>
           </button>
         `).join('');
         choices.style.display = 'grid';
@@ -1821,7 +1903,7 @@
         advanceWizard('reportSector', '신고');
       } else {
         const filtered = db.filter(item => item.applicationType === applicationType);
-        populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 하위 업종 선택`);
+        populateSubcategorySelect(filtered, `${applicationTypeLabels[applicationType]} 대상 업종을 고르세요`);
         advanceWizard('subtype', applicationTypeLabels[applicationType]);
       }
     }
@@ -1842,7 +1924,7 @@
 
       document.getElementById('reportFoodGroupArea').style.display = 'none';
       const publicItems = db.filter(item => item.applicationType === 'report' && item.lawKey === 'public');
-      populateSubcategorySelect(publicItems, '공중위생 신고 대상 업종 선택');
+      populateSubcategorySelect(publicItems, '공중위생 신고 대상 업종을 고르세요');
       advanceWizard('subtype', '공중위생');
     }
 
@@ -1850,11 +1932,11 @@
       document.querySelectorAll('.report-food-groups .cat-card').forEach(card => card.classList.remove('active'));
       el.classList.add('active');
       const items = reportGroupIds[group].map(id => db.find(item => item.id === id)).filter(Boolean);
-      const label = group === 'food_service' ? '식품접객업 세부 업종 선택'
-        : group === 'instant_food' ? '즉석판매제조·가공 세부 유형 선택'
-        : group === 'health_sale' ? '건강기능식품 판매업 종류 선택'
-        : group === 'group_catering' ? '집단급식소 관련 신고 종류 선택'
-        : '그 외 식품 신고 대상 업종 선택';
+      const label = group === 'food_service' ? '식품접객업 세부 업종을 고르세요'
+        : group === 'instant_food' ? '즉석판매제조·가공 세부 유형을 고르세요'
+        : group === 'health_sale' ? '건강기능식품 판매업 종류를 고르세요'
+        : group === 'group_catering' ? '집단급식소 관련 신고 종류를 고르세요'
+        : '그 외 식품 신고 대상 업종을 고르세요';
       populateSubcategorySelect(items, label);
       document.getElementById('resultContainer').style.display = 'none';
       document.getElementById('licenseResult').style.display = 'none';
@@ -1867,22 +1949,23 @@
       if (!query) { dropdown.style.display = 'none'; return; }
 
       const matches = [...db, ...licenseDb].filter(item =>
-        item.name.toLowerCase().includes(query) || 
+        item.name.toLowerCase().includes(query) ||
         item.keywords.some(k => k.toLowerCase().includes(query))
       );
 
       if (matches.length > 0) {
         dropdown.innerHTML = matches.map(m => `
-          <div class="search-item" onclick="selectFromSearch('${m.id}')">
+          <div class="search-item" role="button" tabindex="0" onclick="selectFromSearch('${m.id}')">
             <div>
-              <strong style="font-size:0.9rem; color:var(--primary);">${m.name}</strong>
-              <div style="font-size:0.75rem; color:var(--sub-text);">${m.type || applicationTypeLabels[m.applicationType]} · ${m.law}</div>
+              <strong style="font-size:0.98rem; color:var(--primary);">${m.name}</strong>
+              <div style="font-size:0.8rem; color:var(--muted);">${m.type || applicationTypeLabels[m.applicationType]} · ${m.law}</div>
             </div>
+            <i class="fa-solid fa-chevron-right" style="color:var(--accent);" aria-hidden="true"></i>
           </div>
         `).join('');
         dropdown.style.display = 'block';
       } else {
-        dropdown.innerHTML = `<div class="search-item" style="color:var(--sub-text); font-size:0.85rem;">검색된 업종/민원이 없습니다.</div>`;
+        dropdown.innerHTML = `<div class="search-item" style="color:var(--sub-text); font-size:0.92rem; cursor:default;">찾는 업종이 없어요. 다른 이름으로 검색하거나 아래 메뉴에서 골라보세요.</div>`;
         dropdown.style.display = 'block';
       }
     }
@@ -1935,12 +2018,12 @@
         <div class="result-header-card">
           <div>
             <h2>${item.name}</h2>
-            <span style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:6px;font-size:0.75rem;">${item.type}</span>
+            <span style="background:rgba(255,255,255,0.16);padding:4px 10px;border-radius:6px;font-size:0.8rem;">${item.type}</span>
           </div>
-          <div style="font-size:1.8rem;opacity:0.8;"><i class="fa-solid fa-id-card"></i></div>
+          <div style="font-size:2rem;opacity:0.85;color:var(--sun);"><i class="fa-solid fa-id-card"></i></div>
         </div>
         <div class="result-content">
-          <p class="detail-caption">아래는 일반적인 준비서류 안내입니다. 자격 경로·결격사유·건강진단 요건에 따라 추가 서류가 달라질 수 있으므로 신청 전 관할 시·군·구에 확인하세요.</p>
+          <p class="detail-caption" style="margin-top:0;">일반적인 준비서류 안내입니다. 자격 경로, 결격사유, 건강진단 요건에 따라 추가 서류가 달라질 수 있으니 신청 전 관할 시·군·구에 확인하세요.</p>
           <div class="change-box">
             <h5 style="color:var(--accent);"><i class="fa-solid fa-file-circle-plus"></i> 신규 발급 신청서류</h5>
             <ul>${item.issueDocs.map(document => `<li>${document}</li>`).join('')}</ul>
@@ -2027,6 +2110,10 @@
       if (!businessDefinition) throw new Error(`업종 정의가 등록되지 않았습니다: ${item.id}`);
       document.getElementById('resBizDefinition').textContent = businessDefinition;
 
+      // 새 업종을 열면 항상 첫 탭(민원 업무 안내)부터 보이도록
+      const firstTab = document.querySelector('.info-tabs .tab-btn');
+      if (firstTab) switchTab(firstTab, 'tab-docs');
+
       const educationBox = document.getElementById('resEduBox');
       if (item.lawKey === 'food') {
         educationBox.innerHTML = `
@@ -2050,7 +2137,7 @@
       const renderAdditionalDocumentsItem = (documents, emptyMessage, detailsId) => `
         <li>
           <details id="${detailsId}" class="shared-docs">
-            <summary><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당 시 추가 제출서류</summary>
+            <summary><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 해당되는 경우 추가 제출서류</summary>
             <div class="shared-docs-content">
               ${documents.length ? `<ul class="info-list">${documents.map(document => `<li>${document}</li>`).join('')}</ul>` : `<p>${emptyMessage}</p>`}
             </div>
@@ -2074,7 +2161,7 @@
       const applicationRuleSource = legalGuides[item.lawKey]?.sources.find(([name]) => name.includes('시행규칙'));
       document.getElementById('resDocsSourceNote').innerHTML = `
           업종별 시행규칙 서식의 제출서류와 위생교육·건강진단 관련 서류를 함께 안내합니다. 위생교육이수증과 건강진단결과서는 해당 업종·대상자 기준에 따라 준비하고, 조건이 붙은 추가 서류는 해당하는 경우에만 제출하세요.
-          ${applicationRuleSource ? `<a href="${applicationRuleSource[1]}" target="_blank" rel="noopener noreferrer">${applicationRuleSource[0]} 원문</a>` : ''}
+          ${applicationRuleSource ? `<a href="${applicationRuleSource[1]}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700;">${applicationRuleSource[0]} 원문</a>` : ''}
       `;
       document.getElementById('resRulesBizName').textContent = item.name;
       if (item.lawKey === 'food') {
@@ -2243,12 +2330,12 @@
         if (initialFee || specialFee) {
           feeInfo.style.display = 'block';
           feeInfo.innerHTML = `
-            <h4><i class="fa-solid fa-coins"></i> 신규 신청 수수료 참고</h4>
+            <h4><i class="fa-solid fa-coins" style="color:var(--sun);"></i> 신규 신청 수수료 참고</h4>
             <ul>
               ${initialFee}
               ${specialFee}
             </ul>
-            <p class="detail-caption">금액은 2026년 9월 1일 시행 식품위생법 시행규칙 별표 26 기준입니다. 실제 신청 유형, 전자민원 이용 여부 및 면제 사유에 따라 달라질 수 있으므로 접수 전 정부24·관할 기관의 최종 금액을 확인하세요.</p>
+            <p class="detail-caption">금액은 2026년 9월 1일 시행 식품위생법 시행규칙 별표 26 기준입니다. 실제 신청 유형, 전자민원 이용 여부, 면제 사유에 따라 달라질 수 있으니 접수 전 정부24나 관할 기관에서 최종 금액을 확인하세요.</p>
           `;
         } else {
           feeInfo.style.display = 'none';
@@ -2381,6 +2468,25 @@
       document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
       document.getElementById(paneId).classList.add('active');
     }
+
+    // 키보드 사용자도 카드형 메뉴를 Enter·스페이스로 선택할 수 있도록
+    document.addEventListener('keydown', event => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      if (target.getAttribute('role') !== 'button' || target.tagName === 'BUTTON') return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        target.click();
+      }
+    });
+
+    // 검색창 바깥을 누르면 검색 결과 목록 닫기
+    document.addEventListener('click', event => {
+      const searchCard = document.querySelector('.search-card');
+      if (searchCard && !searchCard.contains(event.target)) {
+        document.getElementById('searchDropdown').style.display = 'none';
+      }
+    });
 
     setWizardStep('main');
   </script>
