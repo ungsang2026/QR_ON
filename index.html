@@ -1413,12 +1413,23 @@
 
     // ───────────── 화면 구성 (여기부터 새 구조) ─────────────
     const TASKS = {
-      new: { label: '가게를 새로 열어요', short: '새로 열기', legal: '영업 신고·허가·등록', icon: 'fa-store' },
-      change: { label: '가게 정보를 바꿔요', short: '정보 변경', legal: '상호·주소·대표자 등 변경', icon: 'fa-pen-to-square' },
-      succession: { label: '가게를 넘겨받아요', short: '넘겨받기', legal: '지위승계', icon: 'fa-right-left' },
-      closure: { label: '가게 문을 닫아요', short: '폐업', legal: '폐업 신고', icon: 'fa-door-closed' },
-      reissue: { label: '영업신고증을 다시 받아요', short: '신고증 재발급', legal: '영업신고증·허가증 재발급', icon: 'fa-rotate' }
+      new: { label: '신규 영업신고', short: '신규 영업신고', legal: '가게를 새로 열 때 (허가·등록 포함)', icon: 'fa-store' },
+      change: { label: '변경신고', short: '변경신고', legal: '상호·소재지·면적·대표자 등이 바뀔 때', icon: 'fa-pen-to-square' },
+      succession: { label: '지위승계 (양도·양수)', short: '지위승계', legal: '영업을 넘겨받을 때', icon: 'fa-right-left' },
+      closure: { label: '폐업신고', short: '폐업신고', legal: '영업을 그만둘 때', icon: 'fa-door-closed' },
+      reissue: { label: '신고증 재발급', short: '신고증 재발급', legal: '영업신고증·허가증을 잃어버리거나 훼손됐을 때', icon: 'fa-rotate' }
     };
+    // 업종의 인허가 종류에 맞춰 "신규 영업신고/허가/등록"으로 바꿔 부르기
+    function taskName(task, item, field) {
+      if (task === 'new' && item) {
+        const word = item.applicationType === 'permit' ? '허가' : item.applicationType === 'registration' ? '등록' : '신고';
+        return item.id === 'food_group_catering' ? '설치·운영 신고' : `신규 영업${word}`;
+      }
+      if (task === 'reissue' && item && item.applicationType !== 'report') {
+        return item.applicationType === 'permit' ? '허가증 재발급' : '등록증 재발급';
+      }
+      return TASKS[task][field || 'label'];
+    }
     const MAIN_TASKS = ['new', 'change', 'succession', 'closure'];
 
     // 자주 찾는 업종(일상 이름)
@@ -1721,7 +1732,7 @@
       if (task === 'change' && item.id === 'food_truck') online = `<a class="btn solid" href="${findBiz('food_truck_add').govUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> 영업장소 추가는 정부24에서</a>`;
 
       const chips = Object.keys(TASKS).filter(key => isAvailable(key, item)).map(key =>
-        `<a href="#${key}/${item.id}" ${key === task ? 'aria-current="page"' : ''}>${TASKS[key].short}</a>`).join('');
+        `<a href="#${key}/${item.id}" ${key === task ? 'aria-current="page"' : ''}>${taskName(key, item, 'short')}</a>`).join('');
       const eduSector = item.lawKey === 'public' ? 'public' : 'food';
       const eduText = item.lawKey === 'food'
         ? '식품 영업자는 위생교육을 받아야 해요. 새로 여는 분은 원칙적으로 영업 시작 전에, 기존 영업자는 매년 받아야 합니다.'
@@ -1730,15 +1741,15 @@
 
       const html = `${topbar()}
         <div class="result-head"><div class="wrap">
-          <span class="crumb">${t.label}</span>
+          <span class="crumb">${taskName(task, item)}</span>
           <h1>${popularLabel(item.id) ? `${popularLabel(item.id)} <span style="font-weight:600;font-size:0.8em;color:#DCE8F7;">(${item.name})</span>` : item.name}</h1>
           <p>${businessDefinitions[item.id] || ''}</p>
           <nav class="task-chips" aria-label="다른 업무">${chips}</nav>
         </div></div>
         <main class="wrap">
           <div class="pull-up" style="margin-top:-36px;"><section class="card" aria-labelledby="checkTitle">
-            <h2 id="checkTitle" class="checklist-title"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 이것만 챙겨 오세요</h2>
-            <p class="checklist-sub">챙긴 서류는 눌러서 표시해 보세요.</p>
+            <h2 id="checkTitle" class="checklist-title"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 기본 구비서류</h2>
+            <p class="checklist-sub">기본 서류예요. 업종이나 상황에 따라 추가 서류가 필요할 수 있으니 접수 전 관할 기관에 확인하세요. 챙긴 서류는 눌러서 표시할 수 있어요.</p>
             ${checklistHTML(list)}
             ${typeSpecific.length ? `<details class="fold"><summary>업종 유형별 서류</summary><div class="fold-body"><ul>${typeSpecific.map(d => `<li>${d}</li>`).join('')}</ul></div></details>` : ''}
             ${extra.length ? `<details class="fold"><summary>해당되는 경우에만 추가로 내는 서류</summary><div class="fold-body"><ul>${extra.map(d => `<li>${d}</li>`).join('')}</ul></div></details>` : ''}
@@ -1866,7 +1877,7 @@
         if (item.id === 'food_truck_add') { location.hash = 'change'; return; }
         app.innerHTML = viewResult(head, item);
         afterRender = () => fillResultFolds(head, item);
-        document.title = `${popularLabel(item.id) || item.name} ${TASKS[head].short} | QR_ON!`;
+        document.title = `${popularLabel(item.id) || item.name} ${taskName(head, item)} | QR_ON!`;
       } else if (TASKS[head]) {
         app.innerHTML = viewPicker(head);
         document.title = `${TASKS[head].label} | QR_ON!`;
