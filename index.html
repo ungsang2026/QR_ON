@@ -1511,7 +1511,12 @@
         reissue: null
       };
     }
-    const TRANSFER_FORM = { label: '영업권 양도·양수서 (사고팔아서 넘겨받는 경우)', url: 'forms/영업권양도양수서.hwp', download: true };
+    const TRANSFER_FORM = {
+      label: '영업권 양도·양수서 (사고팔아서 넘겨받는 경우)',
+      url: 'forms/영업권양도양수서.hwp',
+      pdfUrl: 'forms/영업권양도양수서.pdf',
+      download: true
+    };
 
     // ── 구비서류 ──
     const GC_DOCS = {
@@ -1552,8 +1557,11 @@
       const attrs = form.download ? 'download' : 'target="_blank"';
       const icon = form.download ? 'fa-download' : 'fa-file-lines';
       const text = form.download ? '한글파일 내려받기' : '서식 보기·내려받기';
+      const pdfButton = form.pdfUrl
+        ? `<a class="btn" href="${form.pdfUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-pdf"></i> PDF 바로 확인</a>`
+        : '';
       return `<div class="fold-body" style="padding:12px 0 0;"><strong style="color:var(--primary);font-size:0.92rem;">${form.label}</strong>
-        <div class="btn-row" style="margin-top:6px;"><a class="btn" href="${form.url}" ${attrs} rel="noopener noreferrer"><i class="fa-solid ${icon}"></i> ${text}</a></div></div>`;
+        <div class="btn-row" style="margin-top:6px;"><a class="btn" href="${form.url}" ${attrs} rel="noopener noreferrer"><i class="fa-solid ${icon}"></i> ${text}</a>${pdfButton}</div></div>`;
     }
     function checklistHTML(items) {
       return `<ul class="checklist">${items.map(text => `<li><label><input type="checkbox"><span>${text}</span></label></li>`).join('')}</ul>`;
